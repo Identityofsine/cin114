@@ -1,0 +1,28 @@
+:root {
+  --background: #0E0E0E;
+  --primary: #ffffff;
+
+  font-size: 36px; //@ 1920px 
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
