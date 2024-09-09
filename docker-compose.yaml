@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  nextjs:
+    container_name: cin114 
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/usr/src/app
+    environment:
+      - GO_ENV=development
+    command: npm run dev
+  nginx:
+    container_name: cin114-nginx
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./data/nginx:/etc/nginx
+      - ./nginx/sites-available/default:/etc/nginx/sites-available/default
+    depends_on:
+      - nextjs
+
