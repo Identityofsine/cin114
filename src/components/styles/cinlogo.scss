@@ -1,0 +1,41 @@
+.cin-logo {
+
+  .cin {
+    display: flex;
+    gap: .95rem;
+    position: relative;
+
+    img {
+      height: 16.0556rem;
+      width: 5.3889rem;
+    }
+
+    &__image {
+      display: flex;
+      align-items: stretch;
+      border: 4px solid white;
+      width: 43.3333rem;
+
+      &__box {
+        border-right: 6.5px solid white;
+      }
+
+      &__box--1 {
+        width: 12.3611rem;
+      }
+
+      &__box--2 {
+        width: 14.6667rem;
+      }
+
+      &__box--3 {
+        width: 16.3056rem;
+        border: none;
+      }
+    }
+  }
+
+  .cin-text {
+    margin-top: 1rem;
+  }
+}

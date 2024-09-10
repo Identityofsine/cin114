@@ -1,6 +1,12 @@
+import CinLogo from '@/components/cin/CinLogo';
+import '../styles/home.scss'
 
 export default function Home() {
 	return (
-		<div></div>
+		<section className="home">
+			<div className="home">
+				<CinLogo />
+			</div>
+		</section>
 	);
 }
