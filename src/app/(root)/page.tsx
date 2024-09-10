@@ -1,4 +1,4 @@
-import CinLogo from '@/components/cin/CinLogo';
+import CinLogo from '@/components/CinLogo';
 import '../styles/home.scss'
 
 export default function Home() {

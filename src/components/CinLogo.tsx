@@ -1,4 +1,4 @@
-import '../styles/cinlogo.scss'
+import './styles/cinlogo.scss'
 
 export default function CinLogo() {
 	return (

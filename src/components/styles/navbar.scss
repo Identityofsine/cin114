@@ -1,0 +1,18 @@
+.nav {
+  position: absolute;
+  left: 1.6667rem;
+  top: 1.3889rem;
+  opacity: .33;
+  transition: opacity .3s ease-in-out;
+  cursor: pointer;
+  user-select: none;
+
+  img {
+    width: 0.8889rem;
+    height: 0.6389rem;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}
