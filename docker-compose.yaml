@@ -8,6 +8,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    hostname: nextjs 
     volumes:
       - ./:/usr/src/app
     environment:
@@ -15,12 +16,14 @@ services:
     command: npm run dev
   nginx:
     container_name: cin114-nginx
-    image: nginx:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
     ports:
       - "8080:80"
     volumes:
-      - ./data/nginx:/etc/nginx
-      - ./nginx/sites-available/default:/etc/nginx/sites-available/default
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/sites-available/default:/etc/nginx/sites-available/
     depends_on:
       - nextjs
 
