@@ -1,7 +1,13 @@
 section.home {
   .home {
-    width: fit-content;
-    margin: 0 auto;
-    margin-top: 10rem;
+    &__cin {
+      width: fit-content;
+      margin: 0 auto;
+      margin-top: 10rem;
+    }
+
+    &__content {
+      margin-top: 13.6111rem;
+    }
   }
 }

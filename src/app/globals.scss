@@ -1,3 +1,4 @@
+@import './styles.scss';
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&display=swap');
 
 :root {
@@ -16,6 +17,8 @@ body {
 body {
   color: var(--primary);
   background: var(--background);
+  max-width: 1788.0000px;
+  margin: 0 auto;
 }
 
 * {
@@ -33,7 +36,12 @@ h1 {
 
 h2 {
   font-size: 3.7778rem;
-  font-weight: 600;
+  font-weight: 500;
+}
+
+h3 {
+  font-size: 1.7778rem;
+  font-weight: 500;
 }
 
 p {
