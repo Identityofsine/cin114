@@ -50,6 +50,7 @@ export default function Home() {
 				<VideoFeature videos={repeat(4)} style={'mix'} title={'Videography'} />
 				<VideoFeature videos={repeat(3)} style={'vertical'} title={'Music Videos'} />
 				<AboutCollage />
+				<div className="divider" />
 			</div>
 		</section>
 	);
