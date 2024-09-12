@@ -1,3 +1,72 @@
 .contactus {
-	width: 100
+	margin-top: 1.9444rem;
+	z-index: 100;
+	height: 30.0000rem;
+	position: relative;
+
+	&__bg {
+		position: absolute;
+		width: var(--current-width);
+		height: 100%;
+		top: 0;
+		left: -1.6667rem;
+		background: url('/home/bottomstill.png');
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		z-index: -1;
+
+		&::before {
+			content: '';
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			background: linear-gradient(180deg, rgba(14, 14, 14, 0.0) 75%, rgba(14, 14, 14, 1) 99%);
+			z-index: 0;
+		}
+	}
+
+	&__bottom {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		padding-top: 24.4722rem;
+	}
+
+	&__text {
+		width: 14.7500rem;
+		font-size: .44444rem;
+		align-self: flex-end;
+	}
+
+	h2 {
+		font-size: 0.8889rem;
+		font-weight: 600;
+		text-transform: uppercase;
+	}
+
+	button {
+		//remove all default styling
+		all: unset;
+		text-transform: uppercase;
+		font-size: 0.8889rem;
+		font-weight: 500;
+		width: 100%;
+		padding: 0.7778rem 1rem;
+		border: .021rem solid var(--primary);
+		margin-top: 1.3056rem;
+
+		.container {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+
+			img {
+				width: 0.6944rem;
+				height: 0.6944rem;
+			}
+		}
+	}
 }

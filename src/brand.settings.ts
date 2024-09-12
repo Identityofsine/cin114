@@ -3,5 +3,8 @@ export const BrandSettings = {
 		literal: 'cin114',
 		displayShort: 'CIN114',
 		display: 'Cinema-114'
+	},
+	contact: {
+		email: 'admin@cin114.net'
 	}
 }

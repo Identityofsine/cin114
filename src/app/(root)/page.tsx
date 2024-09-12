@@ -2,9 +2,17 @@ import CinLogo from '@/components/CinLogo';
 import '../styles/home.scss'
 import { VideoFeature } from '@/components/home/VideoFeature';
 import AboutCollage from '@/components/home/AboutCollage';
+import ContactUs from '@/components/home/ContactUs';
 
-type VideoMetadata = {
+type Credit = {
+	name: string;
+	role: string;
+}
+
+export type VideoMetadata = {
 	title: string;
+	description?: string;
+	credits?: Credit[];
 	url: string;
 	date: string;
 	img?: string;
@@ -51,6 +59,8 @@ export default function Home() {
 				<VideoFeature videos={repeat(3)} style={'vertical'} title={'Music Videos'} />
 				<AboutCollage />
 				<div className="divider" />
+				<ContactUs />
+
 			</div>
 		</section>
 	);
