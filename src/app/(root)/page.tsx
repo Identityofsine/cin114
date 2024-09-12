@@ -1,6 +1,7 @@
 import CinLogo from '@/components/CinLogo';
 import '../styles/home.scss'
 import { VideoFeature } from '@/components/home/VideoFeature';
+import AboutCollage from '@/components/home/AboutCollage';
 
 type VideoMetadata = {
 	title: string;
@@ -48,6 +49,7 @@ export default function Home() {
 				<VideoFeature videos={repeat(5)} style={'horiziontal'} title={'Cinema'} />
 				<VideoFeature videos={repeat(4)} style={'mix'} title={'Videography'} />
 				<VideoFeature videos={repeat(3)} style={'vertical'} title={'Music Videos'} />
+				<AboutCollage />
 			</div>
 		</section>
 	);

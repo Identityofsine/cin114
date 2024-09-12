@@ -1,0 +1,30 @@
+.about-collage {
+	margin-bottom: 5.7500rem;
+
+	h2 {
+		text-transform: uppercase;
+		margin-bottom: 2.1389rem;
+	}
+
+	p {
+		font-weight: 300;
+		line-height: 1.5;
+	}
+
+	&__content {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	&__collage {
+		width: 30.7500rem;
+		height: 24.3611rem;
+		border: 1px solid #ffffff;
+		box-sizing: border-box;
+	}
+
+	&__text {
+		width: 17.4722rem;
+		gap: 1.6rem;
+	}
+}
