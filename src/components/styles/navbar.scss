@@ -9,6 +9,7 @@
   transition: opacity .3s ease-in-out;
   cursor: pointer;
   user-select: none;
+  z-index: 9999;
 
   span {
     font-weight: 300;

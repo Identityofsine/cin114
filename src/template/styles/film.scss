@@ -1,0 +1,100 @@
+.film {
+  padding-top: 5rem;
+  height: 30.0000rem;
+  width: 100%;
+  position: relative;
+  z-index: 0;
+
+  &__bg {
+    position: absolute;
+    width: 100vw;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  &__static {
+    width: fit-content;
+    margin: 0 auto;
+    margin-top: 18rem;
+
+    &__meta {
+      display: flex;
+      flex-direction: column;
+      padding: 0 1.1111rem;
+
+      &__title {
+        font-size: 0.6667rem;
+        font-weight: 600;
+        font-style: italic;
+      }
+
+      &__description {
+        margin-top: 0.1389rem;
+        font-size: 0.5278rem;
+        font-weight: 300;
+        width: 18.9722rem;
+        line-height: 1.5;
+      }
+    }
+  }
+
+  &__credits {
+    display: flex;
+    align-items: center;
+    width: 51.3056rem;
+    height: 2.7778rem;
+    border-top: 0.0278rem solid var(--primary);
+    box-sizing: border-box;
+    padding: 0 1.1111rem;
+    position: relative;
+    margin-top: 0.6333rem;
+    backdrop-filter: blur(0.5833rem);
+
+    &__container {
+      display: flex;
+      gap: 6.2500rem;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: block;
+      width: calc(100%);
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(0deg, rgba(15, 15, 15, 1) 0%, rgba(155, 155, 155, 1) 100%);
+      opacity: .1;
+    }
+
+    &__credit {
+      flex: 0 0 auto;
+
+      &__title {
+        p {
+          font-size: 0.6667rem;
+          font-weight: 700;
+          line-height: 1;
+        }
+      }
+
+      &__name {
+        p {
+          margin-top: .1rem;
+          font-size: 0.5278rem;
+          font-weight: 400;
+          line-height: 1;
+        }
+      }
+    }
+  }
+}

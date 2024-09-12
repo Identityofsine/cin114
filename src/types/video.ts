@@ -6,6 +6,10 @@ type Credit = {
 export type VideoMetadata = {
 	title: string;
 	description?: string;
+	boxart: {
+		title: string;
+		caption: string;
+	}
 	credits?: Credit[];
 	url: string;
 	date: string;
