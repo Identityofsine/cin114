@@ -66,7 +66,7 @@ type VideoShowcaseProps = {
 
 function VideoShowcase({ video, style, className = "", altgrow = false }: VideoShowcaseProps) {
 
-	if (video.length === 0) throw new Error('No videos provided');
+	if (video.length === 0) return (<></>);
 
 	if (video.length > 2) {
 		console.warn('Only the first 2 videos will be displayed');
