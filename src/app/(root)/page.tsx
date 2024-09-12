@@ -5,6 +5,7 @@ import AboutCollage from '@/components/home/AboutCollage';
 import ContactUs from '@/components/home/ContactUs';
 import { VideoMetadata } from '@/types/video';
 import { BrandSettings } from '@/brand.settings';
+import { Films } from '@/film.settings';
 
 
 export function metadata() {
@@ -13,30 +14,13 @@ export function metadata() {
 	};
 }
 
-const DUMMY_VIDEOS: VideoMetadata[][] = [[
-	{
-		title: 'Running From',
-		url: 'https://www.youtube.com/watch?v=0fKg7e37bQE',
-		date: '12/06/2023',
-		img: '/film/runningfrom/runningfrom.jpg'
-	}
-],
-[
-	{
-		title: 'Running From',
-		url: 'https://www.youtube.com/watch?v=0fKg7e37bQE',
-		date: '12/06/2023',
-		img: '/film/runningfrom/runningfrom2.jpg'
-	},
-]
-]
-
 function repeat(n: number) {
 	const arr = [];
 	let z = 0;
+	const DUMMY_VIDEOS = Object.values(Films) as VideoMetadata[];
 	for (let i = 0; i < n; i++) {
 		if (z === DUMMY_VIDEOS.length) z = 0;
-		arr.push(DUMMY_VIDEOS[z][0]);
+		arr.push(DUMMY_VIDEOS[z]);
 		z++;
 	}
 	return arr;

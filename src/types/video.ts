@@ -9,6 +9,11 @@ export type VideoMetadata = {
 	boxart: {
 		title: string;
 		caption: string;
+		img: string;
+	};
+	links?: {
+		youtube?: string;
+		vimeo?: string;
 	}
 	credits?: Credit[];
 	url: string;

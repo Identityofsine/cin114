@@ -10,7 +10,7 @@ function FilmTemplate({ children, metadata }: FilmTemplateProps) {
 	return (
 		<div className="film">
 			{children}
-			<div className="film__bg" style={{ backgroundImage: `url("/film/john-ford/boxart.png")` }} />
+			<div className="film__bg" style={{ backgroundImage: `url("${metadata.boxart.img}")` }} />
 			<div className="film__static">
 				<div className="film__static__meta">
 					<h2 className="film__static__meta__title">

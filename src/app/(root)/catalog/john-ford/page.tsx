@@ -1,4 +1,5 @@
 import '@/app/styles/johnford.scss';
+import { Films } from '@/film.settings';
 import FilmTemplate from '@/template/Film';
 import { VideoMetadata } from '@/types/video';
 
@@ -9,49 +10,23 @@ export function metadata() {
 	};
 }
 
-const johnfordmovie: VideoMetadata = {
-	title: 'Interviewing John Ford',
-	description: 'A collection of films by John Ford',
-	boxart: {
-		title: '',
-		caption: 'Ask the right questions...',
-	},
-	credits: [
-		{
-			role: 'Director',
-			name: 'Kai Luckey',
-		},
-		{
-			role: 'A.Director',
-			name: 'Noah Fields'
-		},
-		{
-			role: 'Writers',
-			name: 'Kai Luckey'
-		},
-		{
-			role: 'Cinemotographer',
-			name: 'Kai Luckey'
-		},
-		{
-			role: 'Producer',
-			name: 'Erin Hennig, Kai Luckey, Noah Fields'
-		},
-		{
-			role: 'Producer',
-			name: 'Erin Hennig, Kai Luckey, Noah Fields'
-		}
-	],
-	url: '/film/john-ford',
-	img: '/film/john-ford/boxart.png',
-	date: '2024',
-
-}
-
 export default function JohnFord() {
 
 	return (
-		<FilmTemplate metadata={johnfordmovie}>
+		<FilmTemplate metadata={Films.johnford}>
+			<div className="johnford">
+				<img className="logo" src="/film/john-ford/logo.svg" alt="John Ford" />
+				<div className="links flex">
+					{Films.johnford.links &&
+						(
+							(Films.johnford.links.youtube &&
+								<img src="/ui/youtube.svg" alt="YouTube" />)
+							||
+							(Films.johnford.links.vimeo &&
+								<img src="/ui/vimeo.svg" alt="Vimeo" />))
+					}
+				</div>
+			</div>
 		</FilmTemplate>
 	)
 }

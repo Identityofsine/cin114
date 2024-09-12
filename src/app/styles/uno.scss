@@ -1,0 +1,21 @@
+.film {
+  .uno {
+    position: absolute;
+    top: 1.525rem;
+    left: 25.500rem;
+    display: flex;
+
+    .logo {}
+
+    .links {
+      margin-top: 2.5rem;
+      gap: .3rem;
+
+      img {
+        height: 0.8889rem;
+        width: auto;
+      }
+    }
+  }
+
+}
