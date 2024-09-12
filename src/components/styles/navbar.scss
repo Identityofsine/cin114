@@ -1,4 +1,7 @@
 .nav {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
   position: absolute;
   left: 1.6667rem;
   top: 1.3889rem;
@@ -6,6 +9,11 @@
   transition: opacity .3s ease-in-out;
   cursor: pointer;
   user-select: none;
+
+  span {
+    font-weight: 300;
+    font-size: 0.6667rem;
+  }
 
   img {
     width: 0.8889rem;

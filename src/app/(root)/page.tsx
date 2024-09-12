@@ -3,19 +3,14 @@ import '../styles/home.scss'
 import { VideoFeature } from '@/components/home/VideoFeature';
 import AboutCollage from '@/components/home/AboutCollage';
 import ContactUs from '@/components/home/ContactUs';
+import { VideoMetadata } from '@/types/video';
+import { BrandSettings } from '@/brand.settings';
 
-type Credit = {
-	name: string;
-	role: string;
-}
 
-export type VideoMetadata = {
-	title: string;
-	description?: string;
-	credits?: Credit[];
-	url: string;
-	date: string;
-	img?: string;
+export function metadata() {
+	return {
+		title: 'Home - ' + BrandSettings.brandName.displayShort,
+	};
 }
 
 const DUMMY_VIDEOS: VideoMetadata[][] = [[
