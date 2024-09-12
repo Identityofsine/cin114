@@ -1,7 +1,7 @@
 .contactus {
 	margin-top: 1.9444rem;
 	z-index: 100;
-	height: 30.0000rem;
+	min-height: 30.0000rem;
 	position: relative;
 
 	&__bg {
@@ -41,6 +41,30 @@
 		align-self: flex-end;
 	}
 
+	&__contact_text {
+		position: absolute;
+		display: flex;
+		flex-direction: column;
+		top: 17.6944rem;
+		left: 23.0556rem;
+		gap: .9rem;
+
+		h1 {
+			font-size: 1.3889rem;
+			text-transform: uppercase;
+
+		}
+
+		&_img {
+			display: flex;
+			gap: 0.5556rem;
+
+			img {
+				height: 1rem;
+			}
+		}
+	}
+
 	h2 {
 		font-size: 0.8889rem;
 		font-weight: 600;
@@ -56,7 +80,9 @@
 		width: 100%;
 		padding: 0.7778rem 1rem;
 		border: .021rem solid var(--primary);
-		margin-top: 1.3056rem;
+		margin-top: .9056rem;
+		box-sizing: border-box;
+		cursor: pointer;
 
 		.container {
 			display: flex;
