@@ -8,7 +8,13 @@ function AboutCollage() {
 			<h2>{BrandSettings.brandName.display}</h2>
 			<div className="about-collage__content flex">
 				<div className="about-collage__collage">
-
+					<img src="/home/collage/cimg-01.png" className="c1" alt="Collage" />
+					<img src="/home/collage/cimg-02.png" className="c2" alt="Collage" />
+					<img src="/home/collage/cimg-03.png" className="c3" alt="Collage" />
+					<img src="/home/collage/cimg-04.png" className="c4" alt="Collage" />
+					<img src="/home/collage/cimg-05.png" className="c5" alt="Collage" />
+					<img src="/home/collage/cimg-06.png" className="c6" alt="Collage" />
+					<img src="/home/collage/cimg-07.png" className="c7" alt="Collage" />
 				</div>
 				<div className="about-collage__text flex column">
 					<p>
