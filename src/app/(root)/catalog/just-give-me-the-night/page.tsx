@@ -1,23 +1,22 @@
-import '@/app/styles/uno.scss';
+import '@/app/styles/jgmtd.scss';
 import { Films } from '@/film.settings';
 import FilmTemplate from '@/template/Film';
-import { VideoMetadata } from '@/types/video';
+
 
 export function metadata() {
 	return {
-		title: 'UNO (2024)',
-		description: Films.uno.description,
+		title: 'Just Give Me Tonight (2024)',
+		description: Films[film].description,
 	};
 }
 
-const film = 'uno'
+const film = 'justgivemetonight'
 
-export default function UNO() {
-
+export default function Page() {
 	return (
 		<FilmTemplate metadata={Films[film]}>
-			<div className="uno">
-				<img className="logo" src="/film/uno/logo.svg" alt="UNO" />
+			<div className="jgmtd">
+				<img className="logo" src="/film/just-give-me-tonight/logo.svg" alt="Just Give Me Tonight" />
 				<div className="links flex">
 					{Films[film].links &&
 						(
@@ -25,7 +24,7 @@ export default function UNO() {
 								<img src="/ui/youtube.svg" alt="YouTube" />)
 							||
 							(Films[film].links.vimeo &&
-								<img src="/ui/vimeo.svg" alt="Vimeo" />))
+								<img src="/ui/vimeo.svg" />))
 					}
 				</div>
 			</div>

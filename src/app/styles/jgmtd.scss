@@ -1,8 +1,8 @@
 .film {
-	.johnford {
+	.jgmtd {
 		position: absolute;
-		top: 10.0000rem;
-		left: 25.500rem;
+		top: 10.5278rem;
+		right: 1.3889rem;
 		display: flex;
 
 		.logo {
@@ -13,8 +13,12 @@
 		}
 
 		.links {
-			margin-top: 2.5rem;
+			position: absolute;
+			bottom: .415rem;
+			left: 6.25rem;
 			gap: .3rem;
+			margin-left: .5rem;
+
 
 			img {
 				height: 0.8889rem;

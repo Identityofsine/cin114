@@ -1,21 +1,26 @@
 .film {
-  .uno {
-    position: absolute;
-    top: 1.525rem;
-    left: 25.500rem;
-    display: flex;
+	.uno {
+		position: absolute;
+		top: 1.525rem;
+		left: 25.500rem;
+		display: flex;
 
-    .logo {}
+		.logo {
+			img {
+				width: 15.9722rem;
+				height: 9.0556rem;
+			}
+		}
 
-    .links {
-      margin-top: 2.5rem;
-      gap: .3rem;
+		.links {
+			gap: .3rem;
+			transform: translateX(-1.25rem);
 
-      img {
-        height: 0.8889rem;
-        width: auto;
-      }
-    }
-  }
+			img {
+				height: 0.8889rem;
+				width: auto;
+			}
+		}
+	}
 
 }
