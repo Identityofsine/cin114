@@ -1,4 +1,5 @@
 'use client'
+import './styles/slideshow.scss';
 
 import React from "react";
 
@@ -12,22 +13,23 @@ type SlideshowProps = {
 	duration: number;
 }
 
-type SlideAnimation = 'leaving' | 'entering';
+type SlideAnimation = 'leaving' | 'entering' | '';
 
 function Slideshow({ slides, duration }: SlideshowProps) {
 
 	const [animationState, setAnimationState] = React.useState<SlideAnimation>('entering');
 	const [curSlide, setCurSlide] = React.useState(0);
+	const speed = React.useRef(duration / 10000);
 
 	React.useEffect(() => {
 		const interval = setInterval(() => {
-			setCurSlide((prev) => (prev + 1) % slides.length);
+			startTransition();
 		}, duration);
 		return () => clearInterval(interval);
 	}, [slides.length, duration]);
 
 	React.useEffect(() => {
-		setAnimationState('entering');
+		setAnimationState('');
 	}, [curSlide]);
 
 	function startTransition() {
@@ -43,7 +45,7 @@ function Slideshow({ slides, duration }: SlideshowProps) {
 	}
 
 	return (
-		<div className="slideshow">
+		<div className="slideshow" style={{ '--anim-speed': `${speed.current}s` } as React.CSSProperties}>
 			<div className="slideshow__slide">
 				<img src={slides[curSlide].img} alt="Slide" className={`slide slide-${animationState}`} onAnimationEnd={nextSlide} />
 				<img src={slides[getNext()].img} alt="Slide" className={`slide slide-fadein slide-${animationState === 'leaving' ? 'entering' : ''}`} />

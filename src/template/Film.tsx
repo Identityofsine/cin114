@@ -1,5 +1,6 @@
 import { VideoMetadata } from "@/types/video";
 import './styles/film.scss';
+import { FilmBackground } from "./FilmClient";
 
 type FilmTemplateProps = {
 	children?: React.ReactNode | React.ReactNode[];
@@ -10,7 +11,7 @@ function FilmTemplate({ children, metadata }: FilmTemplateProps) {
 	return (
 		<div className="film">
 			{children}
-			<div className="film__bg" style={{ backgroundImage: `url("${metadata.boxart.img}")` }} />
+			<FilmBackground metadata={metadata} />
 			<div className="film__static">
 				<div className="film__static__meta">
 					<h2 className="film__static__meta__title">

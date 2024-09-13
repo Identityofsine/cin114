@@ -10,6 +10,7 @@ export type VideoMetadata = {
 		title: string;
 		caption: string;
 		img: string;
+		video?: string;
 	};
 	links?: {
 		youtube?: string;

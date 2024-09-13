@@ -90,6 +90,7 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 			title: "It's a simple task...",
 			caption: 'A man ventures into the night to buy food for for his cat, but complications soon arise.',
 			img: '/film/just-give-me-tonight/boxart.png',
+			video: '/film/just-give-me-tonight/video.mp4',
 		},
 		links: {
 			vimeo: 'https://vimeo.com/123456789',
