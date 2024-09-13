@@ -1,6 +1,6 @@
 import { VideoMetadata } from "./types/video";
 
-type FilmIndex = 'johnford' | 'uno' | 'justgivemetonight' | 'uno' | 'theimaginaryrulesofengagement'
+export type FilmIndex = 'johnford' | 'uno' | 'justgivemetonight' | 'uno' | 'theimaginaryrulesofengagement'
 
 export const Films: Record<FilmIndex, VideoMetadata> = {
 	'johnford': {
@@ -84,7 +84,7 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 		url: '/catalog/uno',
 	},
 	'justgivemetonight': {
-		title: 'Just Give Me Tonight',
+		title: 'Just Give Me The Night',
 		description: '',
 		boxart: {
 			title: "It's a simple task...",
@@ -119,9 +119,46 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 		],
 		date: '2024',
 		img: '/film/just-give-me-tonight/image1.png',
-		url: '/catalog/just-give-me-tonight',
+		url: '/catalog/just-give-me-the-night',
+	},
+	'theimaginaryrulesofengagement': {
+		title: 'The Imaginary Rules of Engagement',
+		description: '',
+		boxart: {
+			title: '',
+			caption: "Two kids are outside playing with toys while using their imaginations. What's the worst that can happen?",
+			img: '/film/the-rules-of-engagement/boxart.png',
+		},
+		img: '/film/the-rules-of-engagement/image1.png',
+		links: {
+			vimeo: 'https://vimeo.com/123456789',
+			youtube: 'https://www.youtube.com/watch?v=J6hMl5Y1BkE',
+		},
+		credits: [
+			{
+				role: 'Director',
+				name: 'Kai Luckey',
+			},
+			{
+				role: 'A.Director',
+				name: 'Noah Fields'
+			},
+			{
+				role: 'Writers',
+				name: 'Kai Luckey'
+			},
+			{
+				role: 'Cinemotographer',
+				name: 'Kai Luckey'
+			},
+			{
+				role: 'Producer',
+				name: 'Erin Hennig, Kai Luckey, Noah Fields'
+			},
+		],
+		date: '2024',
+		url: '/catalog/imaginary-rules-of-engagement',
 	}
-
 
 
 }

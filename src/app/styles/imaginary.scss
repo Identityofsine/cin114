@@ -1,0 +1,29 @@
+.film {
+	.tire {
+		position: absolute;
+		left: 2.0rem;
+		top: 3.8889rem;
+		display: flex;
+
+		.logo {
+			img {
+				width: 13.8056rem;
+				height: 4.7222rem;
+			}
+		}
+
+		.links {
+			position: absolute;
+			bottom: -1.25rem;
+			right: 0;
+			gap: .3rem;
+
+
+			img {
+				height: 0.8889rem;
+				width: auto;
+			}
+		}
+	}
+
+}

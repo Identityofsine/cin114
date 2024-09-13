@@ -5,7 +5,7 @@ import FilmTemplate from '@/template/Film';
 
 export function metadata() {
 	return {
-		title: 'Just Give Me Tonight (2024)',
+		title: 'Just Give Me The Night (2024)',
 		description: Films[film].description,
 	};
 }

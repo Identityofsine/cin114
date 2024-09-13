@@ -67,19 +67,17 @@ type VideoShowcaseProps = {
 function VideoShowcase({ video, style, className = "", altgrow = false }: VideoShowcaseProps) {
 
 	if (video.length === 0) return (<></>);
-
-	if (video.length > 2) {
-		console.warn('Only the first 2 videos will be displayed');
-	} else if (video.length <= 2) {
+	else if (video.length <= 2) {
 		return (
 			<div className={`videos-showcase videos-showcase-${style} ${className}`}>
 				{video.map((video, index) => (
-					<div key={video?.date + index} className={`video-showcase video-${style} video-${index + 1} ${index > 0 && altgrow && 'altgrow'}`} style={{ backgroundImage: `url('${video.img}')` }}>
+					index > 1 && <></> ||
+					(<a key={video?.date + index} href={video.url} className={`video-showcase video-${style} video-${index + 1} ${index > 0 && altgrow && 'altgrow'}`} style={{ backgroundImage: `url('${video.img}')` }}>
 						<div className="flex column video-showcase__title">
 							<h3>{video.title}</h3>
 							<span>{video.date}</span>
 						</div>
-					</div>
+					</a>)
 				))}
 			</div>
 		);
