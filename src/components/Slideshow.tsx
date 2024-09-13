@@ -1,7 +1,7 @@
 'use client'
 import './styles/slideshow.scss';
 
-import React from "react";
+import React, { useContext } from "react";
 
 type Slide = {
 	img: string;
@@ -30,6 +30,10 @@ function Slideshow({ slides, duration }: SlideshowProps) {
 
 	React.useEffect(() => {
 		setAnimationState('');
+
+		return () => {
+			setAnimationState('entering');
+		}
 	}, [curSlide]);
 
 	function startTransition() {
@@ -40,9 +44,9 @@ function Slideshow({ slides, duration }: SlideshowProps) {
 		setCurSlide((prev) => (prev + 1) % slides.length);
 	}
 
-	function getNext() {
+	const getNext = React.useCallback(() => {
 		return (curSlide + 1) % slides.length;
-	}
+	}, [curSlide, slides.length]);
 
 	return (
 		<div className="slideshow" style={{ '--anim-speed': `${speed.current}s` } as React.CSSProperties}>

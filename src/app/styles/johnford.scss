@@ -1,24 +1,26 @@
 .film {
-	.johnford {
-		position: absolute;
-		top: 10.0000rem;
-		right: 15.500rem;
-		display: flex;
+  position: relative;
 
-		.logo {
-			width: 13.8056rem;
-			height: 4.7222rem;
-		}
+  .johnford {
+    position: absolute;
+    top: 10.0000rem;
+    right: 12.500rem;
+    display: flex;
 
-		.links {
-			margin-top: 2.5rem;
-			gap: .3rem;
+    .logo {
+      width: 13.8056rem;
+      height: 4.7222rem;
+    }
 
-			img {
-				height: 0.8889rem;
-				width: auto;
-			}
-		}
-	}
+    .links {
+      margin-top: 2.5rem;
+      gap: .3rem;
+
+      img {
+        height: 0.8889rem;
+        width: auto;
+      }
+    }
+  }
 
 }

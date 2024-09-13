@@ -10,10 +10,10 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 			title: '',
 			caption: 'Ask the right questions...',
 			img: '/film/john-ford/boxart.png',
+			video: '/film/john-ford/video.mp4',
 		},
 		links: {
-			vimeo: 'https://vimeo.com/123456789',
-			youtube: 'https://www.youtube.com/watch?v=J6hMl5Y1BkE',
+			youtube: 'https://www.youtube.com/watch?v=gZaosS7-l5w&ab_channel=CIN114',
 		},
 		credits: [
 			{
@@ -52,6 +52,7 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 			title: 'DRAW...',
 			caption: 'Three friends get togehter to play a game of UNO until things turn sour.',
 			img: '/film/uno/boxart.png',
+			video: '/film/uno/video.mp4',
 		},
 		links: {
 			vimeo: 'https://vimeo.com/123456789',
@@ -129,6 +130,7 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 			title: '',
 			caption: "Two kids are outside playing with toys while using their imaginations. What's the worst that can happen?",
 			img: '/film/the-rules-of-engagement/boxart.png',
+			video: '/film/the-rules-of-engagement/video.mp4',
 		},
 		img: '/film/the-rules-of-engagement/image1.png',
 		links: {

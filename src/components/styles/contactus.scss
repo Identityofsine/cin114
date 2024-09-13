@@ -1,99 +1,158 @@
+@import '../../app/scss_lib/breakpoints.scss';
+
 .contactus {
-	margin-top: 1.9444rem;
-	z-index: 100;
-	min-height: 30.0000rem;
-	padding-bottom: 1.6667rem;
-	position: relative;
+  margin-top: 1.9444rem;
+  z-index: 100;
+  min-height: 30.0000rem;
+  padding-bottom: 1.6667rem;
+  position: relative;
 
-	&__bg {
-		position: absolute;
-		width: var(--current-width);
-		height: 100%;
-		top: 0;
-		left: -1.6667rem;
-		background: url('/home/bottomstill.png');
-		background-size: cover;
-		background-position: center;
-		background-repeat: no-repeat;
-		z-index: -1;
+  &__bg {
+    position: absolute;
+    width: var(--current-width);
+    height: 100%;
+    top: 0;
+    left: -1.6667rem;
+    background: url('/home/bottomstill.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1;
 
-		&::before {
-			content: '';
-			position: absolute;
-			width: 100%;
-			height: 100%;
-			top: 0;
-			left: 0;
-			background: linear-gradient(180deg, rgba(14, 14, 14, 0.0) 75%, rgba(14, 14, 14, 1) 99%);
-			z-index: 0;
-		}
-	}
+    &::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: linear-gradient(180deg, rgba(14, 14, 14, 0.0) 75%, rgba(14, 14, 14, 1) 99%);
+      z-index: 0;
+    }
+  }
 
-	&__bottom {
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		padding-top: 24.4722rem;
-	}
+  &__bottom {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 24.4722rem;
+  }
 
-	&__text {
-		width: 14.7500rem;
-		font-size: .44444rem;
-		align-self: flex-end;
-	}
+  &__text {
+    width: 14.7500rem;
+    font-size: .44444rem;
+    align-self: flex-end;
+  }
 
-	&__contact_text {
-		position: absolute;
-		display: flex;
-		flex-direction: column;
-		top: 17.6944rem;
-		left: 23.0556rem;
-		gap: .9rem;
+  &__contact_text {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 17.6944rem;
+    left: 23.0556rem;
+    gap: .9rem;
 
-		h1 {
-			font-size: 1.3889rem;
-			text-transform: uppercase;
+    h1 {
+      font-size: 1.3889rem;
+      text-transform: uppercase;
 
-		}
+    }
 
-		&_img {
-			display: flex;
-			gap: 0.5556rem;
+    &_img {
+      display: flex;
+      gap: 0.5556rem;
 
-			img {
-				height: 1rem;
-			}
-		}
-	}
+      img {
+        height: 1rem;
+      }
+    }
+  }
 
-	h2 {
-		font-size: 0.8889rem;
-		font-weight: 600;
-		text-transform: uppercase;
-	}
+  h2 {
+    font-size: 0.8889rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
 
-	button {
-		//remove all default styling
-		all: unset;
-		text-transform: uppercase;
-		font-size: 0.8889rem;
-		font-weight: 500;
-		width: 100%;
-		padding: 0.7778rem 1rem;
-		border: .021rem solid var(--primary);
-		margin-top: .9056rem;
-		box-sizing: border-box;
-		cursor: pointer;
+  button {
+    //remove all default styling
+    all: unset;
+    text-transform: uppercase;
+    font-size: 0.8889rem;
+    font-weight: 500;
+    width: 100%;
+    padding: 0.7778rem 1rem;
+    border: .021rem solid var(--primary);
+    margin-top: .9056rem;
+    box-sizing: border-box;
+    cursor: pointer;
 
-		.container {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-			img {
-				width: 0.6944rem;
-				height: 0.6944rem;
-			}
-		}
-	}
+      img {
+        width: 0.6944rem;
+        height: 0.6944rem;
+      }
+    }
+  }
+
+  @include onMobile() {
+
+    min-height: 51.0000rem;
+
+    &__bg {
+      left: -.645rem;
+      height: 50.3087rem;
+      width: 100vw;
+      background-image: url('/home/bottomstill-mobile.png');
+      background-position: 80% 0;
+      z-index: -5;
+    }
+
+    &__contact_text {
+      top: 21rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 18.0000rem;
+
+      h1 {
+        position: relative;
+        font-size: 2.7027rem;
+
+        &::before {
+          content: '';
+          position: absolute;
+          display: block;
+          width: 100%;
+          height: 3.2703rem;
+          background: #000000;
+          z-index: -1;
+          left: 0;
+          bottom: -.8rem;
+        }
+      }
+
+      &_img {
+        gap: 1.2703rem;
+      }
+
+      img {
+        height: 2.1rem;
+      }
+    }
+
+    &__text {
+      width: 100%;
+      font-size: 0.7568rem;
+      margin-top: 2.7027rem;
+    }
+
+    &__bottom {
+      padding-top: 33.4722rem;
+    }
+  }
+
 }

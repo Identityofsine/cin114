@@ -14,6 +14,7 @@ export function FilmBackground({ metadata }: FilmClientProps) {
 	const ref = React.useRef<HTMLVideoElement>(null);
 
 	React.useEffect(() => {
+		if (loaded) return;
 		const timeout = setTimeout(() => {
 			if (ref.current && metadata.boxart?.video) {
 				const xhr = new XMLHttpRequest();
@@ -26,8 +27,20 @@ export function FilmBackground({ metadata }: FilmClientProps) {
 				}
 				xhr.onload = () => {
 					setTimeout(() => {
+						setProgress(0);
 						const video = URL.createObjectURL(xhr.response);
 						ref.current!.src = video;
+						ref.current!.playbackRate = .8;
+						var progressUpdate: any = undefined;
+						ref.current!.onplaying = () => {
+							if (progressUpdate) {
+								return;
+							}
+							progressUpdate = setInterval(() => {
+								const progress = (ref.current!.currentTime / ref.current!.duration) * 100;
+								setProgress(progress);
+							}, 100);
+						}
 						setLoaded(true);
 					}, 650);
 				}
@@ -38,12 +51,12 @@ export function FilmBackground({ metadata }: FilmClientProps) {
 		return () => {
 			clearTimeout(timeout);
 		}
-	}, [ref.current])
+	}, [ref.current, loaded])
 
 
 	return (
 		<>
-			{metadata.boxart?.video && !loaded &&
+			{metadata.boxart?.video &&
 				(
 					<div className={`film_loadbar ${progress === 0 && 'waiting'}`}>
 						<div className="film_loadbar__progress" style={{ width: `${progress}%` }}>
@@ -52,8 +65,8 @@ export function FilmBackground({ metadata }: FilmClientProps) {
 				)
 			}
 			<div className="film__bg" style={{ backgroundImage: `url("${metadata.boxart.img}")` }} />
-			<div className="film__bg_video">
-				<video autoPlay muted loop ref={ref} >
+			<div className={`film__bg_video ${!loaded && 'unloaded' || ''}`}>
+				<video autoPlay muted loop ref={ref}>
 				</video>
 			</div>
 		</>

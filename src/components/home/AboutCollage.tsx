@@ -4,7 +4,7 @@ import '../styles/aboutcollage.scss';
 function AboutCollage() {
 
 	return (
-		<div className="about-collage">
+		<div className="about-collage" id="about">
 			<h2>{BrandSettings.brandName.display}</h2>
 			<div className="about-collage__content flex">
 				<div className="about-collage__collage">
