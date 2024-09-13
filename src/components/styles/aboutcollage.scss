@@ -1,78 +1,79 @@
 .about-collage {
-  margin-bottom: 5.7500rem;
+	margin-bottom: 5.7500rem;
 
-  h2 {
-    text-transform: uppercase;
-    margin-bottom: 2.1389rem;
-  }
+	h2 {
+		text-transform: uppercase;
+		margin-bottom: 2.1389rem;
+	}
 
-  p {
-    font-weight: 300;
-    line-height: 1.5;
-  }
+	p {
+		font-weight: 300;
+		line-height: 1.5;
+	}
 
-  &__content {
-    display: flex;
-    justify-content: space-between;
-  }
+	&__content {
+		display: flex;
+		justify-content: center;
+		gap: 1.5rem;
+	}
 
-  &__collage {
-    width: 30.7500rem;
-    height: 24.3611rem;
-    border: 1px solid #ffffff;
-    box-sizing: border-box;
-    position: relative;
+	&__collage {
+		width: 30.7500rem;
+		height: 24.3611rem;
+		border: 1px solid #ffffff;
+		box-sizing: border-box;
+		position: relative;
 
-    img {
-      position: absolute;
-    }
+		img {
+			position: absolute;
+		}
 
-    .c1 {
-      top: 0.5833rem;
-      right: 15.8889rem;
-      z-index: 7;
-    }
+		.c1 {
+			top: 0.5833rem;
+			left: -.25rem;
+			z-index: 7;
+		}
 
-    .c2 {
-      top: 6.9444rem;
-      left: 9.8056rem;
-      z-index: 6;
-      mix-blend-mode: lighten;
-    }
+		.c2 {
+			top: 6.9444rem;
+			left: 9.8056rem;
+			z-index: 6;
+			mix-blend-mode: lighten;
+		}
 
-    .c3 {
-      right: 0.3056rem;
-      top: 1.1944rem;
-      z-index: 5;
-    }
+		.c3 {
+			right: 0.3056rem;
+			top: 1.1944rem;
+			z-index: 5;
+		}
 
-    .c4 {
-      left: -0.8611rem;
-      bottom: 4.5833rem;
-      z-index: 4;
-    }
+		.c4 {
+			left: -0.8611rem;
+			bottom: 4.5833rem;
+			z-index: 4;
+		}
 
-    .c5 {
-      right: -0.3056rem;
-      bottom: 6.6389rem;
-      z-index: 3;
-    }
+		.c5 {
+			right: -0.3056rem;
+			bottom: 6.6389rem;
+			z-index: 3;
+		}
 
-    .c6 {
-      bottom: -1.4722rem;
-      left: 0.6389rem;
-      z-index: 2;
-    }
+		.c6 {
+			bottom: -1.4722rem;
+			left: 0.6389rem;
+			z-index: 2;
+		}
 
-    .c7 {
-      bottom: 0.9444rem;
-      right: -0.5556rem;
-      z-index: 1;
-    }
-  }
+		.c7 {
+			bottom: 0.9444rem;
+			right: -0.5556rem;
+			z-index: 1;
+		}
+	}
 
-  &__text {
-    width: 17.4722rem;
-    gap: 1.6rem;
-  }
+	&__text {
+		width: 17.4722rem;
+		gap: 1.6rem;
+	}
 }
