@@ -1,27 +1,53 @@
+@import '../scss_lib/breakpoints.scss';
+
 .film {
-	.tire {
-		position: absolute;
-		left: 2.0rem;
-		top: 3.8889rem;
-		display: flex;
+  .tire {
+    position: absolute;
+    left: 2.0rem;
+    top: 3.8889rem;
+    display: flex;
 
-		.logo {
-			width: 25.0000rem;
-			height: 12.0278rem;
-		}
+    @include onMobile() {
+      position: absolute;
+      top: 4.5rem;
+      right: .7rem;
+      height: 10.1051rem;
 
-		.links {
-			position: absolute;
-			bottom: -1.25rem;
-			right: 0;
-			gap: .3rem;
+      .logo {
+        height: 10.1051rem !important;
+        width: 20.9730rem !important;
+      }
+
+      .links {
+        position: absolute;
+        bottom: -2.5rem !important;
+        right: 0;
+        gap: .3rem;
+
+        img {
+          height: 1.9459rem !important;
+          width: auto;
+        }
+      }
+    }
+
+    .logo {
+      width: 25.0000rem;
+      height: 12.0278rem;
+    }
+
+    .links {
+      position: absolute;
+      bottom: -1.25rem;
+      right: 0;
+      gap: .3rem;
 
 
-			img {
-				height: 0.8889rem;
-				width: auto;
-			}
-		}
-	}
+      img {
+        height: 0.8889rem;
+        width: auto;
+      }
+    }
+  }
 
 }

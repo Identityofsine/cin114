@@ -7,62 +7,58 @@
   --background: #0E0E0E;
   --primary: #ffffff;
   --current-width: 1920px;
-  --max-width: calc(100vw - 3.6667rem);
   font-size: 36px; //@ 1920px 
 
-  @include media("<=LGdesktop") {
+  @include media(">LGdesktop") {
     --current-width: 1920px;
+    --max-width: calc(1920px - 3.6667rem);
+    font-size: 36px;
+  }
+
+  @include media("<=LGdesktop") {
+    --current-width: 100vw;
+    --max-width: calc(100vw - 3.6667rem);
     font-size: 36px;
   }
 
   @include media("<=LGMDdesktop") {
-    --current-width: 1680px;
     font-size: 32px;
   }
 
   @include media("<=MDdesktop") {
-    --current-width: 1600px;
     font-size: 30px;
   }
 
   @include media("<=desktop") {
-    --current-width: 1440px;
     font-size: 27px;
   }
 
   @include media("<=LGlaptop") {
-    --current-width: 1280px;
     font-size: 24px;
   }
 
   @include media("<=laptop") {
-    --current-width: 1024px;
     font-size: 19px;
   }
 
   @include media("<=LGtablet") {
-    --current-width: 912px;
     font-size: 37px;
     --max-width: calc(100vw - 1.3243rem);
   }
 
   @include media("<=tablet") {
-    --current-width: 768px;
     font-size: 31px;
   }
 
   @include media("<=LGphone") {
-    --current-width: 500px;
     font-size: 18px;
   }
 
   @include media("<=MDphone") {
-    --current-width: 428px;
     font-size: 15px;
   }
 
   @include media("<=phone") {
-    --current-width: 360px;
     font-size: 12px;
   }
 

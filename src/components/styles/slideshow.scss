@@ -39,6 +39,10 @@
         }
       }
 
+      &-main {
+        cursor: pointer;
+      }
+
       &-leaving {
         animation: fadeout var(--anim-speed);
         animation-fill-mode: forwards;

@@ -1,23 +1,23 @@
-import Slideshow from './Slideshow'
+import Slideshow, { Slide } from './Slideshow'
 import './styles/cinlogo.scss'
 
-const slides_1 = [
-	{ img: '/home/logo/box1-1.png', href: '#' },
-	{ img: '/home/logo/box1-2.png', href: '#' },
-	{ img: '/home/logo/box1-3.png', href: '#' },
-	{ img: '/home/logo/box1-4.png', href: '#' },
-	{ img: '/home/logo/box1-5.png', href: '#' },
+const slides_1: Slide[] = [
+	{ img: '/home/logo/box1-1.png', href: '/catalog/john-ford', },
+	{ img: '/home/logo/box1-2.png', href: '/catalog/john-ford' },
+	{ img: '/home/logo/box1-3.png', href: '/catalog/john-ford' },
+	{ img: '/home/logo/box1-4.png', href: '/catalog/imaginary-rules-of-engagement' },
+	{ img: '/home/logo/box1-5.png', href: '/catalog/just-give-me-the-night' },
 ]
-const slides_2 = [
-	{ img: '/home/logo/box2-1.png', href: '#' },
-	{ img: '/home/logo/box2-2.png', href: '#' },
-	{ img: '/home/logo/box2-3.png', href: '#' },
-	{ img: '/home/logo/box2-4.jpg', href: '#' },
+const slides_2: Slide[] = [
+	{ img: '/home/logo/box2-1.png', href: '/catalog/john-ford' },
+	{ img: '/home/logo/box2-2.png', href: '/catalog/john-ford' },
+	{ img: '/home/logo/box2-3.png', href: '/catalog/john-ford' },
+	{ img: '/home/logo/box2-4.jpg', href: '/catalog/imaginary-rules-of-engagement' },
 ]
-const slides_3 = [
-	{ img: '/home/logo/box3-1.png', href: '#' },
-	{ img: '/home/logo/box3-2.png', href: '#' },
-	{ img: '/home/logo/box3-3.png', href: '#' },
+const slides_3: Slide[] = [
+	{ img: '/home/logo/box3-1.png', href: '/catalog/imaginary-rules-of-engagement' },
+	{ img: '/home/logo/box3-2.png', href: '/catalog/just-give-me-the-night' },
+	{ img: '/home/logo/box3-3.png', href: '/catalog/just-give-me-the-night' },
 ]
 
 

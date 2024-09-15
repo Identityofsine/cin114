@@ -8,7 +8,7 @@ function ContactUs() {
 			<div className="contactus__bg"></div>
 			<div className="contactus__content">
 				<div className="contactus__contact_text">
-					<h1>Contact Us</h1>
+					<h1>Contact Us</h1> {/* CHANGE TO email AFTER a few seconds*/}
 					<div className="contactus__contact_text_img">
 						<a href="#"><img src="/ui/youtube.svg" alt="YouTube" /></a>
 						<a href="#"><img src="/ui/instagram.svg" alt="instagram" /></a>

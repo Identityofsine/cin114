@@ -1,3 +1,5 @@
+@import '../../app/scss_lib/breakpoints.scss';
+
 #navmenu {
   position: fixed;
   width: 0%;
@@ -11,6 +13,7 @@
   border-bottom-right-radius: 100%;
   overflow: hidden;
 
+
   .navmenu {
     &__container {
       margin-top: 3.3333rem;
@@ -23,6 +26,10 @@
       display: flex;
       flex-direction: column;
       gap: 1.1111rem;
+
+      @include onMobile() {
+        margin-top: 4rem;
+      }
 
       a {
         font-weight: 600;
@@ -78,6 +85,19 @@
   cursor: pointer;
   user-select: none;
   z-index: 9999;
+
+  @include onMobile() {
+    top: 1.45rem !important;
+
+    img {
+      width: 1.6667rem !important;
+      height: 1.1944rem !important;
+    }
+
+    span {
+      font-size: 1.0135rem !important;
+    }
+  }
 
   span {
     font-weight: 300;

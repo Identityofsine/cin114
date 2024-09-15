@@ -1,11 +1,12 @@
 'use client'
 import './styles/slideshow.scss';
 
-import React, { useContext } from "react";
+import React, { CSSProperties, useContext } from "react";
 
-type Slide = {
+export type Slide = {
 	img: string;
 	href: string;
+	style?: CSSProperties;
 }
 
 type SlideshowProps = {
@@ -30,7 +31,6 @@ function Slideshow({ slides, duration }: SlideshowProps) {
 
 	React.useEffect(() => {
 		setAnimationState('');
-
 		return () => {
 			setAnimationState('entering');
 		}
@@ -48,11 +48,15 @@ function Slideshow({ slides, duration }: SlideshowProps) {
 		return (curSlide + 1) % slides.length;
 	}, [curSlide, slides.length]);
 
+	const navigate = React.useCallback(() => {
+		window.location.href = slides[curSlide].href;
+	}, [curSlide]);
+
 	return (
 		<div className="slideshow" style={{ '--anim-speed': `${speed.current}s` } as React.CSSProperties}>
 			<div className="slideshow__slide">
-				<img src={slides[curSlide].img} alt="Slide" className={`slide slide-${animationState}`} onAnimationEnd={nextSlide} />
-				<img src={slides[getNext()].img} alt="Slide" className={`slide slide-fadein slide-${animationState === 'leaving' ? 'entering' : ''}`} />
+				<img src={slides[curSlide].img} alt="Slide" onClick={navigate} className={`slide slide-main slide-${animationState}`} onAnimationEnd={nextSlide} style={slides[curSlide].style} />
+				<img src={slides[getNext()].img} alt="Slide" className={`slide slide-fadein slide-${animationState === 'leaving' ? 'entering' : ''}`} style={slides[getNext()].style} />
 			</div>
 		</div>
 	)

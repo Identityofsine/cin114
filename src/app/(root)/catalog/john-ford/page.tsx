@@ -20,7 +20,7 @@ export default function JohnFord() {
 					{Films.johnford.links &&
 						(
 							(Films.johnford.links.youtube &&
-								<img src="/ui/youtube.svg" alt="YouTube" />)
+								<a href={Films.johnford.links.youtube} ><img src="/ui/youtube.svg" alt="YouTube" /></a>)
 							||
 							(Films.johnford.links.vimeo &&
 								<img src="/ui/vimeo.svg" alt="Vimeo" />)

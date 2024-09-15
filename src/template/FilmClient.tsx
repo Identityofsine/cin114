@@ -30,7 +30,7 @@ export function FilmBackground({ metadata }: FilmClientProps) {
 						setProgress(0);
 						const video = URL.createObjectURL(xhr.response);
 						ref.current!.src = video;
-						ref.current!.playbackRate = .8;
+						ref.current!.playbackRate = .95;
 						var progressUpdate: any = undefined;
 						ref.current!.onplaying = () => {
 							if (progressUpdate) {
@@ -46,7 +46,7 @@ export function FilmBackground({ metadata }: FilmClientProps) {
 				}
 				xhr.send();
 			}
-		}, 2500)
+		}, 6000)
 
 		return () => {
 			clearTimeout(timeout);
@@ -54,11 +54,15 @@ export function FilmBackground({ metadata }: FilmClientProps) {
 	}, [ref.current, loaded])
 
 
+	function start() {
+
+	};
+
 	return (
 		<>
 			{metadata.boxart?.video &&
 				(
-					<div className={`film_loadbar ${progress === 0 && 'waiting'}`}>
+					<div className={`film_loadbar ${progress === 0 && 'waiting'}`} onAnimationEnd={() => { start(); }}>
 						<div className="film_loadbar__progress" style={{ width: `${progress}%` }}>
 						</div>
 					</div>
