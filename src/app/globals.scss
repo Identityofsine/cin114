@@ -7,17 +7,18 @@
   --background: #0E0E0E;
   --primary: #ffffff;
   --current-width: 1920px;
+  --margin: 3.6667rem;
   font-size: 36px; //@ 1920px 
 
   @include media(">LGdesktop") {
     --current-width: 1920px;
-    --max-width: calc(1920px - 3.6667rem);
+    --max-width: calc(1920px - var(--margin));
     font-size: 36px;
   }
 
   @include media("<=LGdesktop") {
     --current-width: 100vw;
-    --max-width: calc(100vw - 3.6667rem);
+    --max-width: calc(100vw - var(--margin));
     font-size: 36px;
   }
 
