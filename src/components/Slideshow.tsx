@@ -1,7 +1,7 @@
 'use client'
 import './styles/slideshow.scss';
 
-import React, { CSSProperties, useContext } from "react";
+import React, { CSSProperties } from "react";
 
 export type Slide = {
 	img: string;

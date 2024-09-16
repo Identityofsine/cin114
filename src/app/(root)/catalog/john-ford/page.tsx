@@ -1,7 +1,6 @@
 import '@/app/styles/johnford.scss';
 import { Films } from '@/film.settings';
 import FilmTemplate from '@/template/Film';
-import { VideoMetadata } from '@/types/video';
 
 export function metadata() {
 	return {

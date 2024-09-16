@@ -7,7 +7,7 @@ export function TextChange() {
 	const [text, setText] = useState<string>('Contact Us')
 	const ref = React.useRef<HTMLDivElement>(null);
 	const oref = React.useRef<IntersectionObserver>();
-	const iref = React.useRef<Promise<any>>();
+	const iref = React.useRef<Promise<{ cancel: Function }>>();
 
 	useEffect(() => {
 		if (oref.current) {
@@ -25,7 +25,7 @@ export function TextChange() {
 							let cancel_ = false;
 							for (let i = 0; i < text.length; i++) {
 								if (cancel_) {
-									return;
+									return { cancel: () => { } };
 								}
 								await new Promise(r => setTimeout(r, 133));
 								setText(text.substring(0, i + 1));

@@ -26,7 +26,7 @@ export function FilmBackground({ metadata }: FilmClientProps) {
 					const video = URL.createObjectURL(xhr.response);
 					ref.current!.src = video;
 					ref.current!.playbackRate = .95;
-					var progressUpdate: any = undefined;
+					let progressUpdate: NodeJS.Timeout | undefined = undefined;
 					ref.current!.onplaying = () => {
 						if (progressUpdate) {
 							return;

@@ -10,10 +10,9 @@ COPY . .
 
 RUN npm install
 
-EXPOSE 80
-EXPOSE 443
+RUN npm run build 
 
-CMD ["npm", "run", "dev"]
+RUN [npm, "run", "start"]
 
 
 
