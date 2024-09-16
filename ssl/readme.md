@@ -44,8 +44,8 @@ sudo certbot certonly --standalone -d www.cin114.net -d cin114.net -d cin114film
 
 ### 6. Copy the generated SSL certificate to the ssl folder.
 ```bash
-sudo cp /etc/letsencrypt/live/www.cin114.net/fullchain.pem $PROJECT_ROOT/ssl/cin114.net.crt
-sudo cp /etc/letsencrypt/live/www.cin114.net/privkey.pem $PROJECT_ROOT/ssl/cin114.net.key
+sudo cp /etc/letsencrypt/live/www.cin114.net/fullchain.pem $PROJECT_ROOT/ssl/fullchain.pem
+sudo cp /etc/letsencrypt/live/www.cin114.net/privkey.pem $PROJECT_ROOT/ssl/privkey.pem
 ```
 
 ## Errors
