@@ -11,8 +11,8 @@ services:
     hostname: nextjs 
     volumes:
       - ./:/usr/src/app
-      - ./node_modules #ignore 
-      - ./next #ingore 
+      - /usr/src/app/node_modules #ignore 
+      - /usr/src/app/next #ingore 
     #never shut down the container, always restart
     restart: unless-stopped 
     command: node --max-http-header-size pv 
