@@ -7,7 +7,7 @@ export function TextChange() {
 	const [text, setText] = useState<string>('Contact Us')
 	const ref = React.useRef<HTMLDivElement>(null);
 	const oref = React.useRef<IntersectionObserver>();
-	const iref = React.useRef<Promise<{ cancel: Function }>>();
+	const iref = React.useRef<Promise<{ cancel: () => void }>>();
 
 	useEffect(() => {
 		if (oref.current) {
