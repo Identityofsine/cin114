@@ -11,9 +11,11 @@ services:
     hostname: nextjs 
     volumes:
       - ./:/usr/src/app
+      - ./node_modules #ignore 
+      - ./next #ingore 
     #never shut down the container, always restart
     restart: unless-stopped 
-    command: npm start 
+    command: node --max-http-header-size pv 
   nginx:
     container_name: cin114-nginx
     restart: unless-stopped 
