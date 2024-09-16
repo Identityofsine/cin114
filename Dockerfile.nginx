@@ -5,5 +5,3 @@ COPY ./nginx/sites-available/web.conf /etc/nginx/sites-available/default
 
 COPY ./ssl /etc/nginx/ssl/
 
-
-
