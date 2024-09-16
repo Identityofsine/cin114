@@ -15,7 +15,7 @@ services:
       - /usr/src/app/next #ingore 
     #never shut down the container, always restart
     restart: unless-stopped 
-    command: node --max-http-header-size pv 
+    command: npm start 
   nginx:
     container_name: cin114-nginx
     restart: unless-stopped 
