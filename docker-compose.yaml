@@ -12,7 +12,7 @@ services:
     volumes:
       - ./:/usr/src/app
       - /usr/src/app/node_modules #ignore 
-      - /usr/src/app/next #ingore 
+      - /usr/src/app/.next #ingore 
     #never shut down the container, always restart
     restart: unless-stopped 
     command: npm start 
