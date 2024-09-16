@@ -7,7 +7,7 @@ export function TextChange() {
 	const [text, setText] = useState<string>('Contact Us')
 	const ref = React.useRef<HTMLDivElement>(null);
 	const oref = React.useRef<IntersectionObserver>();
-	const iref = React.useRef<Promise<{ cancel: () => void }>>();
+	const iref = React.useRef<{ cancel: () => void }>();
 
 	useEffect(() => {
 		if (oref.current) {
@@ -20,28 +20,55 @@ export function TextChange() {
 						if (iref.current) {
 							return;
 						}
-						iref.current = (async () => {
-							const text = BrandSettings.contact.email;
+						iref.current = (() => {
+							const text_ = BrandSettings.contact.email;
+							const original = "" + text; //avoid reference
 							let cancel_ = false;
-							for (let i = 0; i < text.length; i++) {
-								if (cancel_) {
-									return { cancel: () => { } };
-								}
-								await new Promise(r => setTimeout(r, 133));
-								setText(text.substring(0, i + 1));
+
+							const generic_cancel = () => {
+								cancel_ = true;
+								iref.current = undefined;
+								setText(original);
 							}
-							iref.current = undefined;
+
+							let timeout = setTimeout(async () => {
+								await new Promise(r => setTimeout(r, 225));
+								if (cancel_) {
+									generic_cancel();
+									return { cancel: () => { generic_cancel() } };
+								}
+								for (let i = 0; i < original.length; i++) {
+									if (cancel_) {
+										generic_cancel();
+										return { cancel: () => { generic_cancel() } };
+									}
+									await new Promise(r => setTimeout(r, 225));
+									let newText = original.substring(0, original.length - i - 1);
+									if (newText === "") newText = "   \n";
+									setText(newText);
+								}
+								for (let i = 0; i < text_.length; i++) {
+									if (cancel_) {
+										generic_cancel();
+										return { cancel: () => { generic_cancel() } };
+									}
+									await new Promise(r => setTimeout(r, 225));
+									setText(text_.substring(0, i + 1));
+								}
+								iref.current = undefined;
+							}, 2150);
 							return {
 								cancel() {
+									setText(original);
+									clearTimeout(timeout);
 									cancel_ = true;
 									iref.current = undefined;
-									setText(text);
 								}
 							}
 						})();
 					} else {
 						if (iref.current) {
-							Promise.resolve(iref.current)
+							iref.current.cancel();
 						} else {
 							setText('Contact Us');
 						}
