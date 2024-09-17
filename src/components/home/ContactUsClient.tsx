@@ -31,7 +31,7 @@ export function TextChange() {
 								setText(original);
 							}
 
-							let timeout = setTimeout(async () => {
+							const timeout = setTimeout(async () => {
 								await new Promise(r => setTimeout(r, 225));
 								if (cancel_) {
 									generic_cancel();
