@@ -17,7 +17,7 @@ function ContactUs() {
 				<div className="contactus__contact_text">
 					<TextChange />
 					<div className="contactus__contact_text_img">
-						<a href="#"><img src="/ui/youtube.svg" alt="YouTube" /></a>
+						<a href={BrandSettings.socials.youtube}><img src="/ui/youtube.svg" alt="YouTube" /></a>
 						<a href="#"><img src="/ui/instagram.svg" alt="instagram" /></a>
 						<a href="#"><img src="/ui/x.svg" alt="Twitter" /></a>
 						<a href="#"><img src="/ui/vimeo.svg" alt="Vimeo" /></a>

@@ -5,6 +5,10 @@ export const BrandSettings = {
 		display: 'Cinema-114'
 	},
 	contact: {
-		email: 'admin@cin114.net'
+		email: 'contact@cin114.net'
+	},
+	socials: {
+		youtube: 'https://www.youtube.com/@CIN114',
+
 	}
 }
