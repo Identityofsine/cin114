@@ -1,152 +1,185 @@
 @import '../../app/scss_lib/breakpoints.scss';
 
 .about-collage {
-  margin-bottom: 5.7500rem;
+	margin-bottom: 5.7500rem;
 
-  h2 {
-    text-transform: uppercase;
-    margin-bottom: 2.1389rem;
-  }
+	h2 {
+		text-transform: uppercase;
+		margin-bottom: 2.1389rem;
+	}
 
-  p {
-    font-weight: 300;
-    line-height: 1.5;
-  }
+	p {
+		font-weight: 300;
+		line-height: 1.5;
+		padding-left: 1.2rem;
 
-  &__content {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-  }
+		&:not(:first-child) {
+			margin-top: 1.8rem;
 
+		}
+	}
 
-  &__collage {
-    width: 30.7500rem;
-    height: 24.3611rem;
-    border: 1px solid #ffffff;
-    box-sizing: border-box;
-    position: relative;
-
-    img {
-      position: absolute;
-      object-fit: cover;
-    }
-
-    .c1 {
-      top: 0.5833rem;
-      left: -.25rem;
-      z-index: 7;
-    }
-
-    .c2 {
-      top: 6.9444rem;
-      left: 9.8056rem;
-      z-index: 6;
-      mix-blend-mode: lighten;
-    }
-
-    .c3 {
-      right: 0.3056rem;
-      top: 1.1944rem;
-      z-index: 5;
-    }
-
-    .c4 {
-      left: -0.8611rem;
-      bottom: 4.5833rem;
-      z-index: 4;
-    }
-
-    .c5 {
-      right: -0.3056rem;
-      bottom: 6.6389rem;
-      z-index: 3;
-    }
-
-    .c6 {
-      bottom: -1.4722rem;
-      left: 0.6389rem;
-      z-index: 2;
-    }
-
-    .c7 {
-      bottom: 0.9444rem;
-      right: -0.5556rem;
-      z-index: 1;
-    }
-  }
-
-  &__text {
-    width: 17.4722rem;
-    gap: 1.6rem;
-  }
+	&__content {
+		display: block;
+		height: 24.3611rem;
+	}
 
 
-  @include media('<=LGtablet') {
+	&__collage {
+		width: 30.7500rem;
+		height: 24.3611rem;
+		border: 1px solid #ffffff;
+		box-sizing: border-box;
+		position: relative;
+		margin-right: 1.5rem;
+		float: left;
 
-    &__content {
-      flex-direction: column;
-      align-items: center;
-      gap: 2rem;
-    }
 
-    &__collage {
-      width: 21.5405rem;
-      height: 17.0541rem;
+		img {
+			position: absolute;
+			object-fit: cover;
+		}
 
-      .c1 {
-        width: 9.2778rem;
-        height: 5.7778rem;
-        top: 0.4054rem;
-        left: -0.1351rem;
-      }
+		.cimg {
+			width: 100%;
+			height: 100%;
+			top: -1rem;
+			left: -.5rem;
+		}
 
-      .c2 {
-        width: 9.1111rem;
-        height: 6.8333rem;
-        top: 5.4054rem;
-        left: 6.3514rem;
-      }
+		.c1 {
+			top: 0.5833rem;
+			left: -.25rem;
+			z-index: 7;
+		}
 
-      .c3 {
-        width: 10.6111rem;
-        height: 6.5556rem;
-        right: 0.2027rem;
-        top: 0.7027rem;
-      }
+		.c2 {
+			top: 6.9444rem;
+			left: 9.8056rem;
+			z-index: 6;
+			mix-blend-mode: lighten;
+		}
 
-      .c4 {
-        width: 9.6667rem;
-        height: 6.0000rem;
-        left: -0.6081rem;
-        bottom: 3.5135rem;
-      }
+		.c3 {
+			right: 0.3056rem;
+			top: 1.1944rem;
+			z-index: 5;
+		}
 
-      .c5 {
-        width: 7.2778rem;
-        height: 4.3333rem;
-        right: -0.2027rem;
-        bottom: 5.1351rem;
-      }
+		.c4 {
+			left: -0.8611rem;
+			bottom: 4.5833rem;
+			z-index: 4;
+		}
 
-      .c6 {
-        width: 9.3889rem;
-        height: 5.3889rem;
-        bottom: -0.9459rem;
-        left: 0.7054rem;
-        z-index: 1;
-      }
+		.c5 {
+			right: -0.3056rem;
+			bottom: 6.6389rem;
+			z-index: 3;
+		}
 
-      .c7 {
-        width: 11.7778rem;
-        height: 4.1111rem;
-        bottom: 0.0081rem;
-        right: -0.3333rem;
-      }
-    }
+		.c6 {
+			bottom: -1.4722rem;
+			left: 0.6389rem;
+			z-index: 2;
+		}
 
-    &__text {
-      width: 21.5405rem;
-    }
-  }
+		.c7 {
+			bottom: 0.9444rem;
+			right: -0.5556rem;
+			z-index: 1;
+		}
+	}
+
+	&__text {
+		width: 17.4722rem;
+		gap: 1.6rem;
+		float: right;
+	}
+
+
+	@include media('<=LGtablet') {
+
+		&__content {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 2rem;
+			height: auto;
+
+		}
+
+		p {
+			&:not(:first-child) {
+				margin-top: 0;
+			}
+		}
+
+		&__collage {
+			width: 21.5405rem;
+			height: 17.0541rem;
+			margin-right: 0 !important;
+
+			.cimg {
+				width: 100%;
+				height: 100%;
+				top: -0.25rem;
+				left: -0.125rem;
+			}
+
+			.c1 {
+				width: 9.2778rem;
+				height: 5.7778rem;
+				top: 0.4054rem;
+				left: -0.1351rem;
+			}
+
+			.c2 {
+				width: 9.1111rem;
+				height: 6.8333rem;
+				top: 5.4054rem;
+				left: 6.3514rem;
+			}
+
+			.c3 {
+				width: 10.6111rem;
+				height: 6.5556rem;
+				right: 0.2027rem;
+				top: 0.7027rem;
+			}
+
+			.c4 {
+				width: 9.6667rem;
+				height: 6.0000rem;
+				left: -0.6081rem;
+				bottom: 3.5135rem;
+			}
+
+			.c5 {
+				width: 7.2778rem;
+				height: 4.3333rem;
+				right: -0.2027rem;
+				bottom: 5.1351rem;
+			}
+
+			.c6 {
+				width: 9.3889rem;
+				height: 5.3889rem;
+				bottom: -0.9459rem;
+				left: 0.7054rem;
+				z-index: 1;
+			}
+
+			.c7 {
+				width: 11.7778rem;
+				height: 4.1111rem;
+				bottom: 0.0081rem;
+				right: -0.3333rem;
+			}
+		}
+
+		&__text {
+			width: 21.5405rem;
+		}
+	}
 }

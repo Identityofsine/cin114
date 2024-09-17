@@ -5,9 +5,11 @@ function AboutCollage() {
 
 	return (
 		<div className="about-collage" id="about">
-			<h2>{BrandSettings.brandName.display}</h2>
-			<div className="about-collage__content flex">
+			<h2>{BrandSettings.brandName.displayShort}</h2>
+			<div className="about-collage__content">
 				<div className="about-collage__collage">
+					<img src="/home/collage/c-full.png" className="cimg" alt="Collage" />
+					{/* 
 					<img src="/home/collage/cimg-01.png" className="c1" alt="Collage" />
 					<img src="/home/collage/cimg-02.png" className="c2" alt="Collage" />
 					<img src="/home/collage/cimg-03.png" className="c3" alt="Collage" />
@@ -15,18 +17,20 @@ function AboutCollage() {
 					<img src="/home/collage/cimg-05.png" className="c5" alt="Collage" />
 					<img src="/home/collage/cimg-06.png" className="c6" alt="Collage" />
 					<img src="/home/collage/cimg-07.png" className="c7" alt="Collage" />
+					*/}
 				</div>
-				<div className="about-collage__text flex column">
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris mollis eget nunc non tincidunt. Ut consectetur bibendum velit, eget lacinia est vestibulum at. Suspendisse tempor lacus id nulla auctor pulvinar a faucibus ipsum. Duis rhoncus fermentum dui ac commodo. Integer at leo sed lacus consequat dapibus vel at metus.
-					</p>
-					<p>
-						Proin ac mi accumsan, pharetra odio eget, aliquam arcu. Cras sagittis urna purus. Integer tincidunt cursus quam nec consequat. Sed viverra egestas odio a commodo.
-					</p>
-				</div>
+				<p>
+					When we all met in a college class, coincidentally titled CIN-114, we had no plans to form a company. However, determined to collaborate, we started on our first film of many only a week after graduation. We haven’t been able to stop making movies since then.
+				</p>
+				<p>
+					Our films have played at AMC Theatres, NYLIFF and LIYFF, along with streaming to thousands on YouTube and Vimeo. Our goal is to give tools and community to local artists so that they can see their vision come to life on the silver screen.
+				</p>
+				<p>
+					We also provide videography services for weddings, birthdays, courses, and anything you can imagine. We believe that you are the star of your special day, which means it deserves to be captured in movie quality. Contact us for quotes.
+				</p>
 			</div>
 
-		</div>
+		</div >
 	)
 
 }

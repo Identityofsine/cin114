@@ -38,7 +38,10 @@ export default function CinLogo() {
 					</div>
 				</div>
 			</div>
-			<p className="cin-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+			<p className="cin-text">
+				Giving control back to creatives.
+				A production company built by artists, for artists.
+			</p>
 		</div>
 	)
 } 

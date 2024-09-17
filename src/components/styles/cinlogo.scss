@@ -38,6 +38,8 @@
 				flex-direction: column;
 				width: 21.9730rem;
 				height: 58.3765rem;
+				max-width: 100%;
+				margin-top: 4rem;
 			}
 
 			&__box {
@@ -49,6 +51,15 @@
 				border: 0.1081rem solid white;
 				filter: grayscale(1);
 				transition: filter 0.5s;
+
+
+				@include onMobile() {
+
+					&::before,
+					&::after {
+						height: 80% !important;
+					}
+				}
 
 				&::before,
 				&::after {
@@ -62,7 +73,7 @@
 					font-family: 'Playfair', serif;
 					font-weight: 700;
 					line-height: 1;
-					height: 87%;
+					height: 102%;
 					//pass pointer through 
 					pointer-events: none;
 				}
@@ -83,6 +94,29 @@
 
 			}
 
+			@include onMobile() {
+
+				&__box--1 {
+					aspect-ratio: 1/.69;
+				}
+
+				&__box--2 {
+					aspect-ratio: 1/.8;
+				}
+
+				&__box--3 {
+					border: 0.1081rem solid white !important;
+					aspect-ratio: 1/1.1;
+
+					&::before {
+						content: '4';
+						height: 114%;
+					}
+
+				}
+
+			}
+
 			&__box--1 {
 				aspect-ratio: .69/1;
 			}
@@ -97,13 +131,9 @@
 
 				&::before {
 					content: '4';
-					height: 97%;
+					height: 114%;
 				}
 
-				&::after {
-					content: '4';
-					height: 97%;
-				}
 			}
 
 			@include media('<=LGtablet') {

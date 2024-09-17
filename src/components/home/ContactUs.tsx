@@ -2,11 +2,17 @@ import { BrandSettings } from '@/brand.settings';
 import '../styles/contactus.scss';
 import { TextChange } from './ContactUsClient';
 
+const text = "Contact us to pitch ideas, book our crew for hands on set, and get quotes for videography. We’re always just an email away.";
+
 function ContactUs() {
 
 	return (
 		<div className="contactus" id="contact">
-			<div className="contactus__bg"></div>
+			<div className="contactus__bg">
+				<video autoPlay muted loop>
+					<source src="/home/bgcontact.mp4" type="video/mp4" />
+				</video>
+			</div>
 			<div className="contactus__content">
 				<div className="contactus__contact_text">
 					<TextChange />
@@ -20,7 +26,7 @@ function ContactUs() {
 				</div>
 				<div className="contactus__bottom">
 					<p className="contactus__text mobile-disable">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus  luctus dapibus risus, ac tincidunt purus auctor id. Phasellus pulvinar  felis at sollicitudin iaculis. Quisque sed efficitur tortor, id porta  ex.
+						{text}
 					</p>
 					<h2>{BrandSettings.contact.email}</h2>
 					<button className="contactus__button">
@@ -30,7 +36,7 @@ function ContactUs() {
 						</div>
 					</button>
 					<p className="contactus__text mobile-enable">
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus  luctus dapibus risus, ac tincidunt purus auctor id. Phasellus pulvinar  felis at sollicitudin iaculis. Quisque sed efficitur tortor, id porta  ex.
+						{text}
 					</p>
 				</div>
 			</div>

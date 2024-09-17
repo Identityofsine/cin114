@@ -8,6 +8,7 @@ import { useRef } from 'react';
 
 type VideoFeatureProp = {
 	title: string
+	description?: string
 	style: 'horiziontal' | 'vertical' | 'mix'
 	videos: VideoMetadata[]
 }
@@ -15,7 +16,7 @@ type VideoFeatureProp = {
 
 
 
-export function VideoFeature({ title, style, videos }: VideoFeatureProp) {
+export function VideoFeature({ title, style, description, videos }: VideoFeatureProp) {
 
 	const maxVideos = useRef(videos.length > 5 ? 5 : videos.length);
 
@@ -42,7 +43,7 @@ export function VideoFeature({ title, style, videos }: VideoFeatureProp) {
 	return (
 		<div className="video-feature">
 			<h2>{title}</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+			<p>{description}</p>
 			<div className={`video-feature__videos video-feature__videos__${style}`}>
 				{renderVideos()}
 			</div>
