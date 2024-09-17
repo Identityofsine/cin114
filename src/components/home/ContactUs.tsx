@@ -30,10 +30,12 @@ function ContactUs() {
 					</p>
 					<h2>{BrandSettings.contact.email}</h2>
 					<button className="contactus__button">
-						<div className="container">
-							Get In Touch
-							<img src="/ui/share.svg" alt="share" />
-						</div>
+						<a href={`mailto:${BrandSettings.contact.email}`}>
+							<div className="container">
+								Get In Touch
+								<img src="/ui/share.svg" alt="share" />
+							</div>
+						</a>
 					</button>
 					<p className="contactus__text mobile-enable">
 						{text}

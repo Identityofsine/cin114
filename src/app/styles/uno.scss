@@ -2,14 +2,23 @@
 
 .film {
   .uno {
+
+
     position: absolute;
     top: 3.835rem;
     right: 3.500rem;
     display: flex;
 
+    @include onMobile() {
+
+      top: 8.85rem;
+      right: 3.500rem;
+    }
+
     .logo {
       width: 15.9722rem;
       height: 9.0556rem;
+
     }
 
     .links {

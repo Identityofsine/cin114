@@ -32,7 +32,7 @@ function Slideshow({ slides, duration }: SlideshowProps) {
 	React.useEffect(() => {
 		setAnimationState('');
 		return () => {
-			setAnimationState('entering');
+			setAnimationState('');
 		}
 	}, [curSlide]);
 
