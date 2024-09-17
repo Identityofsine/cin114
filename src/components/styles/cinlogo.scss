@@ -129,7 +129,8 @@
 				border: 0.1081rem solid white !important;
 				aspect-ratio: 1.1;
 
-				&::before {
+				&::before,
+				&::after {
 					content: '4';
 					height: 114%;
 				}
