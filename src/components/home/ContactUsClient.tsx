@@ -80,7 +80,7 @@ export function TextChange() {
 			{ root: null, rootMargin: '2px', threshold: 0.0 });
 		oref.current.observe(ref.current!);
 		() => {
-			iref.current?.then(x => x.cancel);
+			iref.current!.cancel();
 		}
 	}, [])
 
