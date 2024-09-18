@@ -5,7 +5,7 @@ export type FilmIndex = 'johnford' | 'uno' | 'justgivemetonight' | 'uno' | 'thei
 export const Films: Record<FilmIndex, VideoMetadata> = {
 	'johnford': {
 		title: 'Interviewing John Ford',
-		description: 'A collection of films by John Ford',
+		description: 'A young interviewer gets the opportunity to interview famed film director John Ford.',
 		boxart: {
 			title: '',
 			caption: 'Ask the right questions...',
