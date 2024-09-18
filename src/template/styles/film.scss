@@ -14,7 +14,7 @@
 
   @include media('<=LGtablet') {
 
-    height: calc(100vh + 5rem + 15.3243rem);
+    height: fit-content;
   }
 
   @include media('<=LGphone') {

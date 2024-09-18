@@ -1,6 +1,11 @@
 @import '../scss_lib/breakpoints.scss';
 
 .film {
+
+  &__bg {
+    background-position: 50% 10% !important;
+  }
+
   .uno {
 
 
@@ -9,8 +14,13 @@
     right: 3.500rem;
     display: flex;
 
-    @include onMobile() {
+    @include media('<=LGtablet') {
+      top: 2.85rem;
+      right: 0.000rem;
 
+    }
+
+    @include media('<=LGphone') {
       top: 8.85rem;
       right: 3.500rem;
     }
@@ -18,6 +28,16 @@
     .logo {
       width: 15.9722rem;
       height: 9.0556rem;
+
+      @include media('<=LGtablet') {
+        width: 12.9722rem;
+        height: 7.0556rem;
+      }
+
+      @include media('<=LGphone') {
+        width: 15.9722rem;
+        height: 9.0556rem;
+      }
 
     }
 
