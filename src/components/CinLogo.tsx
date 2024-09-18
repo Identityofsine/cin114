@@ -7,17 +7,21 @@ const slides_1: Slide[] = [
 	{ img: '/home/logo/box1-3.png', href: '/catalog/john-ford' },
 	{ img: '/home/logo/box1-4.png', href: '/catalog/imaginary-rules-of-engagement' },
 	{ img: '/home/logo/box1-5.png', href: '/catalog/just-give-me-the-night' },
+	{ img: '/home/logo/box1-6.png', href: '/catalog/uno' },
 ]
 const slides_2: Slide[] = [
 	{ img: '/home/logo/box2-1.png', href: '/catalog/john-ford' },
 	{ img: '/home/logo/box2-2.png', href: '/catalog/john-ford' },
 	{ img: '/home/logo/box2-3.png', href: '/catalog/john-ford' },
 	{ img: '/home/logo/box2-4.jpg', href: '/catalog/imaginary-rules-of-engagement' },
+	{ img: '/home/logo/box2-5.png', href: '/catalog/uno' },
 ]
 const slides_3: Slide[] = [
 	{ img: '/home/logo/box3-1.png', href: '/catalog/imaginary-rules-of-engagement' },
 	{ img: '/home/logo/box3-2.png', href: '/catalog/just-give-me-the-night' },
 	{ img: '/home/logo/box3-3.png', href: '/catalog/just-give-me-the-night' },
+	{ img: '/home/logo/box3-4.png', href: '/catalog/uno' },
+	{ img: '/home/logo/box3-5.png', href: '/catalog/uno' },
 ]
 
 

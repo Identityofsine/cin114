@@ -4,15 +4,8 @@ import { VideoFeature } from '@/components/home/VideoFeature';
 import AboutCollage from '@/components/home/AboutCollage';
 import ContactUs from '@/components/home/ContactUs';
 import { VideoMetadata } from '@/types/video';
-import { BrandSettings } from '@/brand.settings';
 import { Films } from '@/film.settings';
 
-
-export function metadata() {
-	return {
-		title: 'Home - ' + BrandSettings.brandName.displayShort,
-	};
-}
 
 function repeat(n: number) {
 	const arr = [];
@@ -33,7 +26,7 @@ export default function Home() {
 				<CinLogo />
 			</div>
 			<div className="home__content">
-				<VideoFeature videos={repeat(5)} style={'horiziontal'} title={'Cinema'} description={"CIN-114 makes films that are worth taking a trip to the local Cinema for."} />
+				<VideoFeature videos={repeat(5)} style={'horiziontal'} title={'Cinema'} description={"CIN-114 makes films worth a trip to the theatre."} />
 				<VideoFeature videos={repeat(4)} style={'mix'} title={'Videography'} description={`We won’t just record your event, we’ll make it a movie.
 Our high end equipment and expertise will turn your wedding, tutorial series, or commercial into a filmlike experience.`} />
 				<VideoFeature videos={repeat(3)} style={'vertical'} title={'Music Videos'} description={`CIN-114 will work closely with you to plan, film, and edit your music video to bring your vision to life.`} />
