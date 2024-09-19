@@ -48,7 +48,7 @@ export default function UNO() {
 					{Films[film].links &&
 						(
 							(Films[film].links.youtube &&
-								<img src="/ui/youtube.svg" alt="YouTube" />)
+								<a href={Films[film].links.youtube}><img src="/ui/youtube.svg" alt="YouTube" /></a>)
 							||
 							(Films[film].links.vimeo &&
 								<img src="/ui/vimeo.svg" alt="Vimeo" />))
