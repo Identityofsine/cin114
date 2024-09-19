@@ -43,8 +43,7 @@ export default function CinLogo() {
 				</div>
 			</div>
 			<p className="cin-text">
-				Giving control back to creatives.
-				A production company built by artists, for artists.
+				Giving control back to creatives. A production company built for artists, by artists.
 			</p>
 		</div>
 	)

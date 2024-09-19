@@ -10,7 +10,7 @@ import React, { useRef } from 'react';
 type VideoFeatureProp = {
 	title: string
 	description?: string
-	style: 'horiziontal' | 'vertical' | 'mix'
+	style: 'horiziontal' | 'vertical' | 'mix' | 'single'
 	videos: VideoMetadata[]
 }
 
@@ -55,14 +55,14 @@ export function VideoFeature({ title, style, description, videos }: VideoFeature
 
 type VideoShowcaseProps = {
 	video: VideoMetadata[];
-	style: 'horiziontal' | 'vertical' | 'mix'
+	style: 'horiziontal' | 'vertical' | 'mix' | 'single'
 	className?: string
 	altgrow?: boolean
 }
 
 type VideoProps = {
 	video: VideoMetadata
-	style: 'horiziontal' | 'vertical' | 'mix'
+	style: 'horiziontal' | 'vertical' | 'mix' | 'single'
 	className?: string
 	altgrow?: boolean
 	index: number

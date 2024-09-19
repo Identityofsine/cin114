@@ -48,7 +48,7 @@ export default function TIRE() {
 
 					{
 						Films[film]?.links && Films[film].links.youtube &&
-						<img src="/ui/youtube.svg" alt="YouTube" />
+						<a href={Films[film]?.links.youtube}><img src="/ui/youtube.svg" alt="YouTube" /></a>
 					}
 					{
 						Films[film]?.links && Films[film].links.vimeo &&

@@ -15,8 +15,8 @@ function Footer() {
 				</div>
 			</div>
 			<div className="footer__href">
-				<a href="#">About</a>
-				<a href="#">Contact</a>
+				<a href="/#about">About</a>
+				<a href="/#contact">Contact</a>
 			</div>
 		</footer>
 	);

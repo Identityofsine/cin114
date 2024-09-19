@@ -17,12 +17,12 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 		},
 		credits: [
 			{
-				role: 'Director',
-				name: 'Kai Luckey',
+				role: "Starring",
+				name: ['Kai Luckey', 'Antonio Venticinque', 'Stefan Pallota', 'Katrina Robinson']
 			},
 			{
-				role: 'A.Director',
-				name: 'Noah Fields'
+				role: 'Director',
+				name: 'Kai Luckey',
 			},
 			{
 				role: 'Writers',
@@ -33,7 +33,7 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 				name: 'Kai Luckey'
 			},
 			{
-				role: 'Producer',
+				role: 'Producers',
 				name: ['Erin Hennig', 'Kai Luckey']
 			}
 		],
@@ -56,25 +56,26 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 		},
 		credits: [
 			{
+				role: "Starring",
+				name: ['Kai Luckey', 'Shane Keeley', 'Noah Fields'],
+			},
+			{
 				role: 'Director',
 				name: 'Kristopher King',
 			},
 			{
-				role: 'Writers',
+				role: 'Writer',
 				name: 'Kristopher King'
 			},
 			{
-				role: 'Colorist',
+				role: 'Cinematographer',
 				name: 'Kai Luckey'
 			},
 			{
 				role: 'Producer',
 				name: ['Kristopher King', 'Kai Luckey']
 			},
-			{
-				role: 'Editor',
-				name: ['Kristopher King']
-			},
+
 		],
 		date: '2024',
 		img: '/film/uno/image1.png',
@@ -95,15 +96,15 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 		},
 		credits: [
 			{
+				role: "Starring",
+				name: ['Shane Keeley', 'Kristopher King'],
+			},
+			{
 				role: 'Director',
 				name: 'Shane Keeley',
 			},
 			{
-				role: 'A.Director',
-				name: ['Noah Fields', 'Kai Luckey']
-			},
-			{
-				role: 'Writers',
+				role: 'Writer',
 				name: 'Shane Keeley'
 			},
 			{
@@ -111,7 +112,7 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 				name: 'Kai Luckey'
 			},
 			{
-				role: 'Producer',
+				role: 'Producers',
 				name: ['Shane Keeley', 'Kai Luckey']
 			},
 		],
