@@ -57,23 +57,23 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 		credits: [
 			{
 				role: 'Director',
-				name: 'Kai Luckey',
-			},
-			{
-				role: 'A.Director',
-				name: 'Noah Fields'
+				name: 'Kristopher King',
 			},
 			{
 				role: 'Writers',
-				name: 'Kai Luckey'
+				name: 'Kristopher King'
 			},
 			{
-				role: 'Cinemotographer',
+				role: 'Colorist',
 				name: 'Kai Luckey'
 			},
 			{
 				role: 'Producer',
-				name: ['Erin Hennig, Kai Luckey, Noah Fields']
+				name: ['Kristopher King', 'Kai Luckey']
+			},
+			{
+				role: 'Editor',
+				name: ['Kristopher King']
 			},
 		],
 		date: '2024',
