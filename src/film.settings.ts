@@ -217,6 +217,9 @@ export const MusicVideos: Record<MusicVideoIndex, VideoMetadata> = {
 			img: '/mv/mv3/image1.png',
 			video: '/mv/mv3/video.mp4',
 		},
+		style: {
+			backgroundPosition: '25% center',
+		},
 		useboxartaspreview: false,
 		url: '',
 		date: '',
