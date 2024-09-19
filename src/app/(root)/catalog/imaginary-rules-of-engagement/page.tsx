@@ -45,7 +45,6 @@ export default function TIRE() {
 			<div className="tire">
 				<img className="logo" src="/film/the-rules-of-engagement/logo.svg" alt="The Imaginary Rules of Engagement" />
 				<div className="links flex">
-
 					{
 						Films[film]?.links && Films[film].links.youtube &&
 						<a href={Films[film]?.links.youtube}><img src="/ui/youtube.svg" alt="YouTube" /></a>

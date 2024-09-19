@@ -45,14 +45,14 @@ export default function Page() {
 			<div className="jgmtd">
 				<img className="logo" src="/film/just-give-me-tonight/logo.svg" alt="Just Give Me Tonight" />
 				<div className="links flex">
-					{Films[film].links &&
+					{(Films[film].links &&
 						(
 							(Films[film].links.youtube &&
 								<img src="/ui/youtube.svg" alt="YouTube" />)
 							||
 							(Films[film].links.vimeo &&
 								<img src="/ui/vimeo.svg" />))
-					}
+					) || <p>Coming Soon</p>}
 				</div>
 			</div>
 		</FilmTemplate>

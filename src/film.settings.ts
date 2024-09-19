@@ -51,7 +51,6 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 			video: '/film/uno/video.mp4',
 		},
 		links: {
-			vimeo: 'https://vimeo.com/123456789',
 			youtube: 'https://www.youtube.com/watch?v=J6hMl5Y1BkE',
 		},
 		credits: [
@@ -91,8 +90,6 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 			video: '/film/just-give-me-tonight/video.mp4',
 		},
 		links: {
-			vimeo: 'https://vimeo.com/123456789',
-			youtube: 'https://www.youtube.com/watch?v=J6hMl5Y1BkE',
 		},
 		credits: [
 			{
@@ -135,12 +132,12 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 		},
 		credits: [
 			{
-				role: 'Director',
-				name: 'Noah Fields',
+				role: "Starring",
+				name: ['Louis Clarke', 'Meredith Reed', 'Gabriel Patrascu', 'Sebastian Caldwell', 'Kenrhon Anthony', 'Cayson Rhodes', 'Makayla Russo'],
 			},
 			{
-				role: 'A.Director',
-				name: 'Shane Keeley'
+				role: 'Director',
+				name: 'Noah Fields',
 			},
 			{
 				role: 'A.Camera',

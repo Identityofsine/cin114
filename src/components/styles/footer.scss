@@ -10,16 +10,26 @@ footer {
   padding: 0 1.6667rem;
   z-index: 9999;
 
+  @include media('<=LGtablet') {
+    height: 7rem;
+  }
+
   .footer {
     &__links {
       display: flex;
       flex-direction: column;
       gap: 0.3rem;
 
+
       &__contact {
         display: flex;
 
         gap: 0.2222rem;
+
+
+        @include media('<=LGtablet') {
+          gap: 0.5rem;
+        }
 
         a {
           display: flex;
@@ -29,6 +39,10 @@ footer {
         img {
           height: 0.3889rem;
           width: auto;
+
+          @include media('<=LGtablet') {
+            height: 1.2889rem;
+          }
         }
       }
 
@@ -37,6 +51,10 @@ footer {
     &__href {
       display: flex;
       gap: 1.3889rem;
+
+      @include media('<=LGtablet') {
+        display: none;
+      }
 
       a {
         font-size: 0.4444rem;
@@ -51,6 +69,10 @@ footer {
   h1 {
     font-size: 0.4444rem;
     font-weight: 500;
+
+    @include media('<=LGtablet') {
+      font-size: 1.25rem;
+    }
 
     b {
       font-weight: bold;

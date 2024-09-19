@@ -1,28 +1,31 @@
 .film {
-	.jgmtd {
-		position: absolute;
-		top: 10.5278rem;
-		right: 3.3889rem;
-		display: flex;
+  .jgmtd {
+    position: absolute;
+    top: 10.5278rem;
+    right: 3.3889rem;
+    display: flex;
 
-		.logo {
-			width: 18.5278rem;
-			height: 5.5556rem;
-		}
+    .logo {
+      width: 18.5278rem;
+      height: 5.5556rem;
+    }
 
-		.links {
-			position: absolute;
-			bottom: .415rem;
-			left: 6.25rem;
-			gap: .3rem;
-			margin-left: .5rem;
+    .links {
+      position: absolute;
+      bottom: .415rem;
+      left: 6.25rem;
+      gap: .3rem;
+      margin-left: .5rem;
 
+      p {
+        font-size: .6rem;
+      }
 
-			img {
-				height: 0.8889rem;
-				width: auto;
-			}
-		}
-	}
+      img {
+        height: 0.8889rem;
+        width: auto;
+      }
+    }
+  }
 
 }
