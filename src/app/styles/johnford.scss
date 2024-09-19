@@ -1,67 +1,69 @@
 @import '../scss_lib/breakpoints.scss';
 
 .film {
-  position: relative;
+	position: relative;
 
 
-  @include onMobile() {
-    .johnford {
+	@include onMobile() {
+		.johnford {
 
 
-      right: 0 !important;
-      left: 50%;
-      transform: translateX(-50%);
+			right: 0 !important;
+			left: 50%;
+			transform: translateX(-50%);
 
-      .logo {
-        width: auto !important;
-        height: 6.0811rem !important;
-      }
+			.logo {
+				width: auto !important;
+				height: 6.0811rem !important;
+			}
 
-      .links {
-        @include onMobile() {
-          position: absolute;
-          bottom: -2.25rem;
-          right: .5rem;
+			.links {
+				@include onMobile() {
+					position: absolute;
+					bottom: -2.25rem;
+					right: .5rem;
 
-          img {
-            height: 1.9459rem !important;
-            width: auto;
-          }
-        }
-      }
+					img {
+						height: 1.9459rem !important;
+						width: auto;
+					}
+				}
+			}
 
-    }
+		}
 
-    .film__bg {
-      background-position: 78% 50% !important;
-      background-size: cover !important;
-    }
-  }
+		.film__bg {
+			background-position: 78% 50% !important;
+			background-size: cover !important;
+		}
+	}
 
-  .johnford {
-    position: absolute;
-    top: 10.0000rem;
-    right: 12.500rem;
-    //top: 36vh;
-    //right: 21vw;
-    display: flex;
-    align-items: flex-end;
-    width: fit-content;
+	.johnford {
+		position: absolute;
+		top: 10.0000rem;
+		right: 12.500rem;
+		//top: 36vh;
+		//right: 21vw;
+		display: flex;
+		align-items: flex-end;
+		width: fit-content;
 
-    .logo {
-      width: 13.8056rem;
-      height: 4.7222rem;
-    }
+		.logo {
+			width: 13.8056rem;
+			height: 4.7222rem;
+		}
 
-    .links {
-      margin-bottom: 1.5rem;
-      gap: .3rem;
+		.links {
+			margin-bottom: 2.9rem;
+			gap: 1rem;
 
-      img {
-        height: 0.8889rem;
-        width: auto;
-      }
-    }
-  }
+			img {
+				transform: translateX(0.35rem);
+				box-sizing: content-box;
+				height: 0.8889rem;
+				width: auto;
+			}
+		}
+	}
 
 }
