@@ -68,7 +68,7 @@ type VideoProps = {
 	index: number
 }
 
-function Video({ video, style, className = "", altgrow = false, index }: VideoProps) {
+function Video({ video, style, altgrow = false, index }: VideoProps) {
 	const video_ref = useRef<HTMLVideoElement>(null);
 	const [onHover, setOnHover] = React.useState(false);
 

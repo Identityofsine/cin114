@@ -1,7 +1,6 @@
 import { VideoMetadata } from "@/types/video";
 import './styles/film.scss';
 import { FilmBackground } from "./FilmClient";
-import { isArray } from "util";
 
 type FilmTemplateProps = {
 	children?: React.ReactNode | React.ReactNode[];
