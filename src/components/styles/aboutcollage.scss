@@ -14,6 +14,10 @@
     padding-left: 1.2rem;
     font-size: .85rem;
 
+    @include onMobile() {
+      font-size: 1.2rem;
+    }
+
     &:not(:first-child) {
       margin-top: 1.8rem;
 
@@ -23,6 +27,13 @@
   &__content {
     display: block;
     height: 24.3611rem;
+
+    @include onMobile() {
+
+      .text-block {
+        gap: 1rem;
+      }
+    }
   }
 
 
@@ -115,15 +126,13 @@
     }
 
     &__collage {
-      width: 21.5405rem;
-      height: 17.0541rem;
+      width: 25.5405rem;
+      height: 25.0541rem;
       margin-right: 0 !important;
 
       .cimg {
         width: 100%;
         height: 100%;
-        top: -0.25rem;
-        left: -0.125rem;
       }
 
       .c1 {

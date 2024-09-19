@@ -19,7 +19,7 @@ function AboutCollage() {
 					<img src="/home/collage/cimg-07.png" className="c7" alt="Collage" />
 					*/}
 				</div>
-				<div className="flex column">
+				<div className="flex column text-block">
 					<p>
 						When we all met in a college class, coincidentally titled CIN-114, we had no plans to form a company. However, determined to collaborate, we started on our first film of many only a week after graduation. We haven’t been able to stop making movies since then.
 					</p>

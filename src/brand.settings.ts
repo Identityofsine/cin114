@@ -10,6 +10,7 @@ export const BrandSettings = {
 	},
 	socials: {
 		youtube: 'https://www.youtube.com/@CIN114',
-		instagram: 'https://www.instagram.com/cin114films'
+		instagram: 'https://www.instagram.com/cin114films',
+		twitter: 'https://x.com/CIN114films'
 	}
 }

@@ -44,7 +44,7 @@ export function TextChange() {
 									}
 									await new Promise(r => setTimeout(r, 225));
 									let newText = original.substring(0, original.length - i - 1);
-									if (newText === "") newText = "   \n";
+									if (newText === "") newText = '\u00A0';
 									setText(newText);
 								}
 								for (let i = 0; i < text_.length; i++) {
