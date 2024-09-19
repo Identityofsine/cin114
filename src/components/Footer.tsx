@@ -7,9 +7,9 @@ function Footer() {
 			<div className="footer__links">
 				<h1>© 2024 <b>{BrandSettings.brandName.displayShort}</b></h1>
 				<div className="footer__links__contact">
-					<a href="#"><img src="/ui/youtube.svg" alt="YouTube" /></a>
-					<a href="#"><img src="/ui/instagram.svg" alt="instagram" /></a>
-					<a href="#"><img src="/ui/x.svg" alt="Twitter" /></a>
+					<a href={BrandSettings.socials.youtube}><img src="/ui/youtube.svg" alt="YouTube" /></a>
+					<a href={BrandSettings.socials.instagram}><img src="/ui/instagram.svg" alt="instagram" /></a>
+					<a href={BrandSettings.socials.twitter}><img src="/ui/x.svg" alt="Twitter" /></a>
 					<a href="#"><img src="/ui/vimeo.svg" alt="Vimeo" /></a>
 					<a href="#"><img src="/ui/patreon.svg" alt="Patreon" /></a>
 				</div>
