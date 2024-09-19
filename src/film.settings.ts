@@ -51,7 +51,7 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 			video: '/film/uno/video.mp4',
 		},
 		links: {
-			youtube: 'https://www.youtube.com/watch?v=J6hMl5Y1BkE',
+			youtube: 'https://www.youtube.com/watch?v=usKIKXzoXyM&ab_channel=CIN114',
 		},
 		credits: [
 			{
