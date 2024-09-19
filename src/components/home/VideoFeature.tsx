@@ -1,7 +1,8 @@
 "use client";
 
+import { VideoMetadata } from '@/types/video';
 import '../styles/videofeature.scss';
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 
 
 
@@ -51,12 +52,6 @@ export function VideoFeature({ title, style, description, videos }: VideoFeature
 	);
 }
 
-type VideoMetadata = {
-	title: string;
-	url: string;
-	date: string;
-	img?: string;
-}
 
 type VideoShowcaseProps = {
 	video: VideoMetadata[];
@@ -65,7 +60,45 @@ type VideoShowcaseProps = {
 	altgrow?: boolean
 }
 
+type VideoProps = {
+	video: VideoMetadata
+	style: 'horiziontal' | 'vertical' | 'mix'
+	className?: string
+	altgrow?: boolean
+	index: number
+}
+
+function Video({ video, style, className = "", altgrow = false, index }: VideoProps) {
+	const video_ref = useRef<HTMLVideoElement>(null);
+	const [onHover, setOnHover] = React.useState(false);
+
+	React.useEffect(() => {
+		if (video_ref.current) {
+			if (onHover) {
+				video_ref.current.play();
+			}
+			else {
+				video_ref.current.pause();
+			}
+		}
+	}, [onHover, video_ref]);
+
+	return (
+		<a href={video.url} className={`video-showcase video-${style} video-${index + 1} ${index > 0 && altgrow && 'altgrow'}`} style={{ backgroundImage: `url('${video.img}')` }} onMouseEnter={() => setOnHover(true)} onMouseLeave={() => setOnHover(false)}>
+			{video.useboxartaspreview && <video ref={video_ref} className={`${onHover && 'hover' || ''}`} loop muted playsInline src={video.boxart.video} />}
+			<div className="flex column video-showcase__title">
+				<h3>{video.title}</h3>
+				<span>{video.date}</span>
+			</div>
+		</a>
+	)
+}
+
+
+
 function VideoShowcase({ video, style, className = "", altgrow = false }: VideoShowcaseProps) {
+
+
 
 	if (video.length === 0) return (<></>);
 	else if (video.length <= 2) {
@@ -73,12 +106,7 @@ function VideoShowcase({ video, style, className = "", altgrow = false }: VideoS
 			<div className={`videos-showcase videos-showcase-${style} ${className}`}>
 				{video.map((video, index) => (
 					index > 1 && <></> ||
-					(<a key={video?.date + index} href={video.url} className={`video-showcase video-${style} video-${index + 1} ${index > 0 && altgrow && 'altgrow'}`} style={{ backgroundImage: `url('${video.img}')` }}>
-						<div className="flex column video-showcase__title">
-							<h3>{video.title}</h3>
-							<span>{video.date}</span>
-						</div>
-					</a>)
+					(<Video key={video.url + index} video={video} style={style} index={index} altgrow={altgrow} />)
 				))}
 			</div>
 		);

@@ -1,6 +1,7 @@
 import { VideoMetadata } from "@/types/video";
 import './styles/film.scss';
 import { FilmBackground } from "./FilmClient";
+import { isArray } from "util";
 
 type FilmTemplateProps = {
 	children?: React.ReactNode | React.ReactNode[];
@@ -31,9 +32,11 @@ function FilmTemplate({ children, metadata }: FilmTemplateProps) {
 									</p>
 								</div>
 								<div className="film__credits__credit__name">
-									<p>
-										{credit.name}
-									</p>
+									{!Array.isArray(credit.name) ? <p>{credit.name}</p> :
+										credit.name.map((name, index) => (
+											<p key={name + index}>{name}</p>
+										))
+									}
 								</div>
 							</div>
 						))}

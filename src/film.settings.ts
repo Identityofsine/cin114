@@ -34,11 +34,7 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 			},
 			{
 				role: 'Producer',
-				name: 'Erin Hennig, Kai Luckey, Noah Fields'
-			},
-			{
-				role: 'Producer',
-				name: 'Erin Hennig, Kai Luckey, Noah Fields'
+				name: ['Erin Hennig', 'Kai Luckey']
 			}
 		],
 		url: '/catalog/john-ford',
@@ -77,7 +73,7 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 			},
 			{
 				role: 'Producer',
-				name: 'Erin Hennig, Kai Luckey, Noah Fields'
+				name: ['Erin Hennig, Kai Luckey, Noah Fields']
 			},
 		],
 		date: '2024',
@@ -104,11 +100,11 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 			},
 			{
 				role: 'A.Director',
-				name: 'Noah Fields, Kai Luckey'
+				name: ['Noah Fields', 'Kai Luckey']
 			},
 			{
 				role: 'Writers',
-				name: 'Kai Luckey'
+				name: 'Shane Keeley'
 			},
 			{
 				role: 'Cinemotographer',
@@ -116,7 +112,7 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 			},
 			{
 				role: 'Producer',
-				name: 'Shane Keeley, Kai Luckey'
+				name: ['Shane Keeley', 'Kai Luckey']
 			},
 		],
 		date: '2024',
@@ -134,21 +130,20 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 		},
 		img: '/film/the-rules-of-engagement/image1.png',
 		links: {
-			vimeo: 'https://vimeo.com/123456789',
-			youtube: 'https://www.youtube.com/watch?v=J6hMl5Y1BkE',
+			youtube: 'https://www.youtube.com/watch?v=Gk0a63sfaF0&ab_channel=CIN114',
 		},
 		credits: [
 			{
 				role: 'Director',
-				name: 'Kai Luckey',
+				name: 'Noah Fields',
 			},
 			{
 				role: 'A.Director',
-				name: 'Noah Fields'
+				name: 'Shane Keeley'
 			},
 			{
-				role: 'Writers',
-				name: 'Kai Luckey'
+				role: 'A.Camera',
+				name: 'Kristopher King'
 			},
 			{
 				role: 'Cinemotographer',
@@ -156,12 +151,78 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 			},
 			{
 				role: 'Producer',
-				name: 'Erin Hennig, Kai Luckey, Noah Fields'
+				name: ['Sebastian Caldwell', 'Kai Luckey']
 			},
 		],
 		date: '2024',
 		url: '/catalog/imaginary-rules-of-engagement',
 	}
+}
 
+type VideoIndex = '16round'
+
+export const Videos: Record<VideoIndex, VideoMetadata> = {
+	'16round': {
+		title: '16 ROUND Wood Fired Pizza',
+		description: 'A promotional video for 16 ROUND Wood Fired Pizza',
+		boxart: {
+			title: '',
+			caption: 'A promotional video for 16 ROUND Wood Fired Pizza',
+			img: '/video/16round/image1.png',
+			video: '/video/16round/video.mp4',
+		},
+		useboxartaspreview: true,
+		url: '#',
+		date: '2024',
+		img: '/video/16round/image1.png',
+	}
+}
+
+
+type MusicVideoIndex = 'mv1' | 'mv2' | 'mv3'
+
+export const MusicVideos: Record<MusicVideoIndex, VideoMetadata> = {
+	'mv1': {
+		title: '',
+		description: '',
+		boxart: {
+			title: '',
+			caption: '',
+			img: '/mv/mv1/image1.png',
+			video: '/mv/mv1video.mp4',
+		},
+		useboxartaspreview: false,
+		url: '#',
+		date: '',
+		img: '/mv/mv1/image1.png',
+	},
+	'mv2': {
+		title: '',
+		description: '',
+		boxart: {
+			title: '',
+			caption: '',
+			img: '/mv/mv2/image1.png',
+			video: '/mv/mv2/video.mp4',
+		},
+		useboxartaspreview: false,
+		url: '#',
+		date: '',
+		img: '/mv/mv2/image1.png',
+	},
+	'mv3': {
+		title: '',
+		description: '',
+		boxart: {
+			title: '',
+			caption: '',
+			img: '/mv/mv3/image1.png',
+			video: '/mv/mv3/video.mp4',
+		},
+		useboxartaspreview: false,
+		url: '',
+		date: '',
+		img: '/mv/mv3/image1.png',
+	},
 
 }

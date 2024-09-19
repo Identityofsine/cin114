@@ -1,11 +1,12 @@
 type Credit = {
-	name: string;
+	name: string | string[];
 	role: string;
 }
 
 export type VideoMetadata = {
 	title: string;
 	description?: string;
+	useboxartaspreview?: boolean;
 	boxart: {
 		title: string;
 		caption: string;
