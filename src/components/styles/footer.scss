@@ -14,11 +14,27 @@ footer {
     height: 7rem;
   }
 
+
+  .owners {
+    display: flex;
+    align-self: flex-end;
+    font-size: 0.4444rem;
+    margin-left: 1rem;
+    gap: .7rem;
+
+    @include media('<=LGtablet') {
+      font-size: 1.0rem;
+      gap: 1.2rem;
+      margin-left: 2rem;
+    }
+  }
+
   .footer {
     &__links {
       display: flex;
       flex-direction: column;
       gap: 0.3rem;
+
 
 
       &__contact {

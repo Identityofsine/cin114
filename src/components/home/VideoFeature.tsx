@@ -84,7 +84,7 @@ function Video({ video, style, altgrow = false, index }: VideoProps) {
 	}, [onHover, video_ref]);
 
 	return (
-		<a href={video.url} className={`video-showcase video-${style} video-${index + 1} ${index > 0 && altgrow && 'altgrow'}`} style={{ backgroundImage: `url('${video.img}')` }} onMouseEnter={() => setOnHover(true)} onMouseLeave={() => setOnHover(false)}>
+		<a href={video.url} className={`video-showcase video-${style} video-${index + 1} ${index > 0 && altgrow && 'altgrow'}`} style={{ backgroundImage: `url('${video.img}')`, ...video.style }} onMouseEnter={() => setOnHover(true)} onMouseLeave={() => setOnHover(false)}>
 			{video.useboxartaspreview && <video ref={video_ref} className={`${onHover && 'hover' || ''}`} loop muted playsInline src={video.boxart.video} />}
 			<div className="flex column video-showcase__title">
 				<h3>{video.title}</h3>

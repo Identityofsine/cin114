@@ -1,3 +1,5 @@
+import { CSSProperties } from "react";
+
 type Credit = {
 	name: string | string[];
 	role: string;
@@ -21,4 +23,5 @@ export type VideoMetadata = {
 	url: string;
 	date: string;
 	img?: string;
+	style?: CSSProperties;
 }

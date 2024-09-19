@@ -51,7 +51,7 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 			video: '/film/uno/video.mp4',
 		},
 		links: {
-			youtube: 'https://www.youtube.com/watch?v=J6hMl5Y1BkE',
+			youtube: 'https://www.youtube.com/watch?v=usKIKXzoXyM&ab_channel=CIN114',
 		},
 		credits: [
 			{
@@ -216,6 +216,9 @@ export const MusicVideos: Record<MusicVideoIndex, VideoMetadata> = {
 			caption: '',
 			img: '/mv/mv3/image1.png',
 			video: '/mv/mv3/video.mp4',
+		},
+		style: {
+			backgroundPosition: '25% center',
 		},
 		useboxartaspreview: false,
 		url: '',
