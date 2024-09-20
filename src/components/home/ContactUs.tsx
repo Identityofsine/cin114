@@ -10,7 +10,7 @@ function ContactUs() {
 		<div className="contactus" id="contact">
 			<div className="contactus__bg">
 				<video autoPlay muted loop>
-					<source src="/home/bgcontact.mp4" type="video/mp4" />
+					<source src="/home/bgcontact-nosound.mp4" type="video/mp4" />
 				</video>
 			</div>
 			<div className="contactus__content">
