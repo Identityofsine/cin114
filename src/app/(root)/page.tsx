@@ -26,7 +26,7 @@ export default function Home() {
 				<CinLogo />
 			</div>
 			<div className="home__content">
-				<VideoFeature videos={repeat(4)} style={'horiziontal'} title={'Cinema'} description={"CIN-114 makes films worth a trip to the theatre."} />
+				<VideoFeature videos={repeat(4)} style={'horiziontal'} title={'Cinema'} description={"CIN-114 makes films that are worth a trip to the theatre."} />
 				<VideoFeature videos={[Videos['16round']]} style={'single'} title={'Videography'} description={`We won’t just record your event, we’ll make it a movie.
 Our high end equipment and expertise will turn your wedding, tutorial series, or commercial into a filmlike experience.`} />
 				<VideoFeature videos={[MusicVideos['mv1'], MusicVideos['mv2'], MusicVideos['mv3']]} style={'vertical'} title={'Music Videos'} description={`CIN-114 will work closely with you to plan, film, and edit your music video to bring your vision to life.`} />
