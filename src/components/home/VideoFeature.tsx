@@ -79,6 +79,8 @@ function Video({ video, style, altgrow = false, index }: VideoProps) {
 			}
 			else {
 				video_ref.current.pause();
+				video_ref.current.currentTime = 0;
+				video_ref.current.load();
 			}
 		}
 	}, [onHover, video_ref]);

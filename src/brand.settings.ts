@@ -11,6 +11,8 @@ export const BrandSettings = {
 	socials: {
 		youtube: 'https://www.youtube.com/@CIN114',
 		instagram: 'https://www.instagram.com/cin114films',
-		twitter: 'https://x.com/CIN114films'
+		twitter: 'https://x.com/CIN114films',
+		pateron: 'https://www.patreon.com/CIN114',
+		vimeo: 'https://vimeo.com/user223422993'
 	}
 }
