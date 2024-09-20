@@ -18,7 +18,7 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 		credits: [
 			{
 				role: "Starring",
-				name: ['Kai Luckey', 'Antonio Venticinque', 'Stefan Pallota', 'Katrina Robinson']
+				name: ['Kai Luckey', 'Antonio Venticinque']
 			},
 			{
 				role: 'Director',
@@ -34,7 +34,7 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 			},
 			{
 				role: 'Producers',
-				name: ['Erin Hennig', 'Kai Luckey']
+				name: ['Erin Hennig', 'Kai Luckey', 'Noah Fields']
 			}
 		],
 		url: '/catalog/john-ford',
