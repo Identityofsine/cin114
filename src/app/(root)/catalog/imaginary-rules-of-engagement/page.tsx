@@ -7,16 +7,16 @@ import FilmTemplate from '@/template/Film';
 export function metadata() {
 	return {
 		...TemplateMetadata,
-		title: 'Imaginary Rules of Engagement',
+		title: 'Imaginary Rules of Engagement (2024)',
 		description: Films.uno.description,
 		twitter: {
 			...TemplateMetadata.twitter,
-			title: 'Imaginary Rules of Engagement',
+			title: 'Imaginary Rules of Engagement (2024)',
 			description: Films.uno.description,
 		},
 		openGraph: {
 			...TemplateMetadata.openGraph,
-			title: 'Imaginary Rules of Engagement',
+			title: 'Imaginary Rules of Engagement (2024)',
 			description: Films.uno.description,
 			images: [
 				{
