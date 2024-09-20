@@ -71,6 +71,7 @@ type VideoProps = {
 function Video({ video, style, altgrow = false, index }: VideoProps) {
 	const video_ref = useRef<HTMLVideoElement>(null);
 	const [onHover, setOnHover] = React.useState(false);
+	const [trigger, setTrigger] = React.useState<boolean>(false);
 
 	React.useEffect(() => {
 		if (video_ref.current) {
@@ -78,16 +79,23 @@ function Video({ video, style, altgrow = false, index }: VideoProps) {
 				video_ref.current.play();
 			}
 			else {
-				video_ref.current.pause();
-				video_ref.current.currentTime = 0;
-				video_ref.current.load();
+
 			}
 		}
 	}, [onHover, video_ref]);
 
+	React.useEffect(() => {
+		if (!trigger) {
+			if (video_ref.current) {
+				video_ref.current.pause();
+				video_ref.current.currentTime = 0;
+			}
+		}
+	}, [trigger, video_ref]);
+
 	return (
-		<a href={video.url} className={`video-showcase video-${style} video-${index + 1} ${index > 0 && altgrow && 'altgrow'}`} style={{ backgroundImage: `url('${video.img}')`, ...video.style }} onMouseEnter={() => setOnHover(true)} onMouseLeave={() => setOnHover(false)}>
-			{video.useboxartaspreview && <video ref={video_ref} className={`${onHover && 'hover' || ''}`} loop muted playsInline src={video.boxart.video} />}
+		<a href={video.url} className={`video-showcase video-${style} video-${index + 1} ${index > 0 && altgrow && 'altgrow'}`} style={{ backgroundImage: `url('${video.img}')`, ...video.style }} onMouseEnter={() => setOnHover(true)} onMouseLeave={() => setOnHover(false)} >
+			{video.useboxartaspreview && <video ref={video_ref} className={`${onHover && 'hover' || ''}`} loop muted playsInline src={video.boxart.video} onTransitionEnd={() => setTrigger(onHover)} />}
 			<div className="flex column video-showcase__title">
 				<h3>{video.title}</h3>
 				<span>{video.date}</span>
