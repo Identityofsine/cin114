@@ -11,8 +11,8 @@ function Footer() {
 						<a href={BrandSettings.socials.youtube}><img src="/ui/youtube.svg" alt="YouTube" /></a>
 						<a href={BrandSettings.socials.instagram}><img src="/ui/instagram.svg" alt="instagram" /></a>
 						<a href={BrandSettings.socials.twitter}><img src="/ui/x.svg" alt="Twitter" /></a>
-						<a href={BrandSettings.socials.pateron}><img src="/ui/vimeo.svg" alt="Vimeo" /></a>
-						<a href={BrandSettings.socials.vimeo}><img src="/ui/patreon.svg" alt="Patreon" /></a>
+						<a href={BrandSettings.socials.vimeo}><img src="/ui/vimeo.svg" alt="Vimeo" /></a>
+						<a href={BrandSettings.socials.pateron}><img src="/ui/patreon.svg" alt="Patreon" /></a>
 					</div>
 				</div>
 				<div className="flex owners row">
