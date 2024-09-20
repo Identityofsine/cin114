@@ -56,11 +56,11 @@
   }
 
   @include media("<=MDphone") {
-    font-size: 15px;
+    font-size: 13px;
   }
 
   @include media("<=phone") {
-    font-size: 12px;
+    font-size: 11.5px;
   }
 
 }
