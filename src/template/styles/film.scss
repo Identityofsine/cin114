@@ -1,293 +1,334 @@
 @import '../../app/scss_lib/breakpoints.scss';
 
 .film {
-	padding-top: 5rem;
-	min-height: 30rem;
-	width: 100%;
+  padding-top: 5rem;
+  min-height: 30rem;
+  width: 100%;
 
-	position: relative;
-	z-index: 0;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-
-
-	@include media('<=LGtablet') {
-
-		height: fit-content;
-	}
-
-	@include media('<=LGphone') {
-		margin-top: auto !important;
-		height: auto;
-	}
+  position: relative;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
 
-	&_loadbar {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 0.1rem;
-		background: #10101060;
-		backdrop-filter: blur(1rem);
-		z-index: 99;
-		animation-fill-mode: forwards;
-		transition: background 0.3s;
-		$bg: #ffffff60;
+  @include media('<=LGtablet') {
 
-		&.playing {
-			background: $bg;
-		}
+    height: fit-content;
+  }
 
-		&.waiting {
-			background: $bg;
-
-			@keyframes waiting {
-				0% {
-					width: 0%;
-				}
-
-				100% {
-					width: 100%;
-				}
-			}
-
-			animation-fill-mode: forwards;
-			animation: waiting 8s linear !important;
-		}
-
-		&.loading {
-			background: #ffffffff;
-
-			@keyframes loadbar {
-				0% {
-					opacity: .25;
-				}
-
-				50% {
-					opacity: .5;
-				}
-
-				100% {
-					opacity: .25;
-				}
-			}
-
-			animation-fill-mode: forwards;
-
-			animation: loadbar 3s linear infinite;
-		}
+  @include media('<=LGphone') {
+    margin-top: auto !important;
+    height: auto;
+  }
 
 
+  &_loadbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0.1rem;
+    background: #10101060;
+    backdrop-filter: blur(1rem);
+    z-index: 99;
+    animation-fill-mode: forwards;
+    transition: background 0.3s;
+    $bg: #ffffff60;
 
-		&__progress {
-			height: 100%;
-			background: var(--primary);
-			transition: width 0.3s;
-		}
-	}
+    &.playing {
+      background: $bg;
+    }
 
-	&__bg {
-		position: absolute;
-		width: 100vw;
-		height: 100%;
-		top: 0;
-		left: 0;
-		z-index: -1;
+    &.waiting {
+      background: $bg;
 
-		background-size: cover;
-		background-position: center;
-		background-repeat: no-repeat;
+      @keyframes waiting {
+        0% {
+          width: 0%;
+        }
+
+        100% {
+          width: 100%;
+        }
+      }
+
+      animation-fill-mode: forwards;
+      animation: waiting 8s linear !important;
+    }
+
+    &.loading {
+      background: #ffffffff;
+
+      @keyframes loadbar {
+        0% {
+          opacity: .25;
+        }
+
+        50% {
+          opacity: .5;
+        }
+
+        100% {
+          opacity: .25;
+        }
+      }
+
+      animation-fill-mode: forwards;
+
+      animation: loadbar 3s linear infinite;
+    }
 
 
-		@include onMobile() {
-			height: 100vh;
-			z-index: -2 !important;
 
-			&_video {
-				height: 100vh !important;
-				z-index: -1 !important;
-			}
-		}
+    &__progress {
+      height: 100%;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+  }
 
-		&_video {
-			position: absolute;
-			width: 100%;
-			height: 100%;
-			top: 0;
-			left: 0;
-			z-index: -1;
+  &__bg {
+    position: absolute;
+    width: 100vw;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
 
-			&.playing::before {
-				content: '';
-				position: absolute;
-				left: 0;
-				top: 0;
-				display: block;
-				width: 100%;
-				height: 100%;
-				background: #101010;
-				opacity: .5;
-				z-index: 2;
-			}
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
-			video {
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-				opacity: 0;
-				transition: opacity 0.2s;
 
-				&.playing {
-					opacity: 1;
-				}
+    @include onMobile() {
+      height: 100vh;
+      z-index: -2 !important;
 
-			}
+      &_video {
+        height: 100vh !important;
+        z-index: -1 !important;
+      }
+    }
 
-		}
-	}
+    &_video {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
 
-	&__static {
-		width: 95%;
-		margin: 0 auto;
-		margin-bottom: 2rem;
-		margin-top: auto;
+      &.playing::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: #101010;
+        opacity: .5;
+        z-index: 2;
+      }
 
-		@include media('<=LGtablet') {
-			margin-top: 75%;
-		}
+      video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 0.2s;
 
-		@include media('<=LGphone') {}
+        &.playing {
+          opacity: 1;
+        }
 
-		&__meta {
-			display: flex;
-			flex-direction: column;
-			padding: 0 1.1111rem;
-			width: 95%;
+      }
 
-			@include onMobile() {
-				padding: 0;
+    }
+  }
 
-				&__title {
-					font-size: 1.0541rem !important;
-				}
+  &__static {
+    width: 95%;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+    margin-top: auto;
 
-				&__description {
-					margin-top: .15rem;
-					font-size: 1.0541rem !important;
-				}
-			}
+    @include media('<=LGtablet') {
+      margin-top: 75%;
+    }
 
-			&__title {
-				font-size: 0.6667rem;
-				font-weight: 600;
-				font-style: italic;
-			}
+    @include media('<=LGphone') {}
 
-			&__description {
-				margin-top: 0.1389rem;
-				font-size: 0.5278rem;
-				font-weight: 300;
-				width: 18.9722rem;
-				line-height: 1.5;
-			}
-		}
-	}
+    &__meta {
+      display: flex;
+      flex-direction: column;
+      padding: 0 1.1111rem;
+      width: 95%;
 
-	&__credits {
-		display: flex;
-		align-items: center;
-		width: 100%;
-		min-height: 2.7778rem;
-		border-top: 0.0278rem solid var(--primary);
-		box-sizing: border-box;
-		padding: .5rem 1.1111rem;
-		position: relative;
-		margin-top: 0.6333rem;
-		backdrop-filter: blur(0.5833rem);
+      @include onMobile() {
+        padding: 0;
 
-		@include onMobile() {
-			width: 100%;
-			height: auto;
-			align-items: flex-start;
+        &__title {
+          font-size: 1.0541rem !important;
+        }
 
-			&__container {
-				margin-top: 2.1622rem;
-				padding-bottom: 2rem !important;
-				align-items: flex-start;
-				justify-content: flex-start;
-				flex-direction: column;
-				gap: 2.4865rem !important;
-				width: 100%;
-			}
+        &__description {
+          margin-top: .15rem;
+          font-size: 1.0541rem !important;
+        }
+      }
 
-			&__credit {
-				&__title {
+      &__title {
+        font-size: 0.6667rem;
+        font-weight: 600;
+        font-style: italic;
+      }
 
-					p {
-						font-size: 1.5135rem !important;
-					}
-				}
+      &__description {
+        margin-top: 0.1389rem;
+        font-size: 0.5278rem;
+        font-weight: 300;
+        width: 18.9722rem;
+        line-height: 1.5;
+      }
+    }
+  }
 
-				&__name {
-					p {
-						font-size: 1.1892rem !important;
-						max-width: 100% !important;
-					}
-				}
-			}
+  &__credits {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 2.7778rem;
+    border-top: 0.0278rem solid var(--primary);
+    box-sizing: border-box;
+    padding: .5rem 1.1111rem;
+    position: relative;
+    margin-top: 0.6333rem;
+    backdrop-filter: blur(0.5833rem);
 
-		}
+    @include onMobile() {
+      width: 100%;
+      height: auto;
 
-		&__container {
-			display: flex;
-			gap: 6.2500rem;
-			width: 100%;
-			overflow-y: hidden;
-			overflow-x: scroll;
-		}
 
-		&::before {
-			content: '';
-			position: absolute;
-			left: 0;
-			top: 0;
-			display: block;
-			width: calc(100%);
-			height: 100%;
-			z-index: -1;
-			background: linear-gradient(0deg, rgba(15, 15, 15, 1) 0%, rgba(155, 155, 155, 1) 100%);
-			opacity: .1;
-		}
 
-		&__credit {
-			flex: 0 0 auto;
+      align-items: flex-start;
 
-			&__title {
-				margin-bottom: .3rem;
+      &__container {
+        margin-top: 2.1622rem;
+        padding-bottom: 2rem !important;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: column;
+        gap: 2.4865rem !important;
+        width: 100%;
 
-				p {
-					font-size: 0.6667rem;
-					font-weight: 700;
-					line-height: 1;
-					line-break: anywhere;
-					//use hypen
-					hyphens: auto;
-				}
-			}
+        -ms-overflow-style: none;
+        scrollbar-width: auto;
+      }
 
-			&__name {
-				p {
-					margin-top: .1rem;
-					font-size: 0.5278rem;
-					font-weight: 400;
-					line-height: 1;
-					hyphens: auto;
-					text-overflow: hyphenate;
-					max-width: 4.7083rem;
-				}
-			}
-		}
-	}
+      &__credit {
+        &__title {
+
+          p {
+            font-size: 1.5135rem !important;
+          }
+        }
+
+        &__name {
+          p {
+            font-size: 1.1892rem !important;
+            max-width: 100% !important;
+          }
+        }
+      }
+
+    }
+
+    .scrollbar {
+
+      @include onMobile() {
+        display: none;
+      }
+
+      position: absolute;
+      width: 100%;
+      left: 0;
+      bottom: 0;
+      height: .15rem;
+      background: #ffffff50;
+
+      &::before {
+        content: '';
+        position: absolute;
+        width: var(--scrollbar-width);
+        height: .15rem;
+        bottom: 0;
+        left: 0;
+
+        transition: width 0.3s;
+        background: #ffffff;
+      }
+    }
+
+
+    &__container {
+      display: flex;
+      gap: 6.2500rem;
+      width: 100%;
+      overflow-y: hidden;
+      overflow-x: scroll;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+
+
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: block;
+      width: calc(100%);
+      height: 100%;
+      z-index: -1;
+      background: linear-gradient(0deg, rgba(15, 15, 15, 1) 0%, rgba(155, 155, 155, 1) 100%);
+      opacity: .1;
+    }
+
+    &__credit {
+      flex: 0 0 auto;
+
+      &__title {
+        margin-bottom: .3rem;
+
+        p {
+          font-size: 0.6667rem;
+          font-weight: 700;
+          line-height: 1;
+          line-break: anywhere;
+          //use hypen
+          hyphens: auto;
+        }
+      }
+
+      &__name {
+        p {
+          margin-top: .1rem;
+          font-size: 0.5278rem;
+          font-weight: 400;
+          line-height: 1;
+          hyphens: auto;
+          text-overflow: hyphenate;
+        }
+      }
+    }
+  }
 }

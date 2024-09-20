@@ -1,7 +1,7 @@
 'use client';
 
 import { VideoMetadata } from "@/types/video";
-import React from "react";
+import React, { CSSProperties } from "react";
 
 type FilmClientProps = {
 	metadata: VideoMetadata;
@@ -75,4 +75,45 @@ export function FilmBackground({ metadata }: FilmClientProps) {
 			</div>
 		</>
 	)
+}
+
+export function FilmCredit({ metadata }: FilmClientProps) {
+
+	const scroll_ref = React.useRef<HTMLDivElement>(null);
+	const [scroll, setScroll] = React.useState(0);
+
+	React.useEffect(() => {
+		console.log(scroll);
+	}, [scroll])
+
+	function onScroll(e: React.UIEvent<HTMLDivElement>) {
+		const target = e.target as HTMLDivElement;
+		const scroll = e.currentTarget.scrollLeft / (target.scrollWidth - target.clientWidth) * 100;
+		const clamp = (v: number, min: number, max: number) => Math.min(Math.max(v, min), max);
+
+		setScroll(clamp(scroll, 0, 100));
+	}
+
+	return (
+		<div className="film__credits">
+			<div className="scrollbar" style={{ '--scrollbar-width': `${scroll}%` } as CSSProperties} />
+			<div ref={scroll_ref} className="film__credits__container" onScroll={onScroll}>
+				{metadata?.credits && metadata.credits.map((credit, index) => (
+					<div className="film__credits__credit" key={credit.role + credit.name + index}>
+						<div className="film__credits__credit__title" key={credit.role + index}>
+							<p>
+								{credit.role}
+							</p>
+						</div>
+						<div className="film__credits__credit__name">
+							{!Array.isArray(credit.name) ? <p>{credit.name}</p> :
+								credit.name.map((name, index) => (
+									<p key={name + index}>{name}</p>
+								))
+							}
+						</div>
+					</div>
+				))}
+			</div>
+		</div>)
 }

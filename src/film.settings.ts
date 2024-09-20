@@ -30,7 +30,7 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 			},
 			{
 				role: 'Cinemotographer',
-				name: 'Kai Luckey'
+				name: 'Shane Keeley'
 			},
 			{
 				role: 'Producers',
@@ -94,7 +94,7 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 		credits: [
 			{
 				role: "Starring",
-				name: ['Shane Keeley', 'Kristopher King'],
+				name: ['Kristopher King', 'Kai Luckey'],
 			},
 			{
 				role: 'Director',

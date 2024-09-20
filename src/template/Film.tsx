@@ -1,6 +1,6 @@
 import { VideoMetadata } from "@/types/video";
 import './styles/film.scss';
-import { FilmBackground } from "./FilmClient";
+import { FilmBackground, FilmCredit } from "./FilmClient";
 
 type FilmTemplateProps = {
 	children?: React.ReactNode | React.ReactNode[];
@@ -21,26 +21,7 @@ function FilmTemplate({ children, metadata }: FilmTemplateProps) {
 						{metadata.boxart.caption}
 					</p>
 				</div>
-				<div className="film__credits">
-					<div className="film__credits__container">
-						{metadata?.credits && metadata.credits.map((credit, index) => (
-							<div className="film__credits__credit" key={credit.role + credit.name + index}>
-								<div className="film__credits__credit__title" key={credit.role + index}>
-									<p>
-										{credit.role}
-									</p>
-								</div>
-								<div className="film__credits__credit__name">
-									{!Array.isArray(credit.name) ? <p>{credit.name}</p> :
-										credit.name.map((name, index) => (
-											<p key={name + index}>{name}</p>
-										))
-									}
-								</div>
-							</div>
-						))}
-					</div>
-				</div>
+				<FilmCredit metadata={metadata} />
 			</div>
 		</div >
 	)

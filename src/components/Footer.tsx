@@ -21,7 +21,7 @@ function Footer() {
 						<span>Erin Hennig</span>
 					</div>
 					<div className="flex column">
-						<span>Shane Keely</span>
+						<span>Shane Keeley</span>
 						<span>Noah Fields</span>
 					</div>
 					<div className="flex column">
@@ -32,7 +32,9 @@ function Footer() {
 			<div className="footer__href">
 				<a href="/#about">About</a>
 				<a href="/#contact">Contact</a>
+				<a href="https://fofx.zip/">Designer</a>
 			</div>
+
 		</footer>
 	);
 }

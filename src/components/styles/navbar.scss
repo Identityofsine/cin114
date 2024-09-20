@@ -40,8 +40,7 @@
         font-size: 2rem;
 
         &::before {
-          counter-increment: a;
-          content: counter(a)'.';
+          content: '⋅';
           transition: margin-right .3s;
           margin-right: .9rem;
           font-size: .5rem;
