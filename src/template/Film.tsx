@@ -1,3 +1,4 @@
+//@FILEDESC FilmTemplate is a template component that renders the film's metadata and background, it allows for children to be passed in to render the film's content (usually a logo).
 import { VideoMetadata } from "@/types/video";
 import './styles/film.scss';
 import { FilmBackground, FilmCredit } from "./FilmClient";
@@ -7,6 +8,9 @@ type FilmTemplateProps = {
 	metadata: VideoMetadata;
 }
 
+//@BLOCK
+//@TITLE FilmTemplate
+//@DESC FilmTemplate is a template component that renders the film's metadata and background, it allows for children to be passed in to render the film's content (usually a logo).
 function FilmTemplate({ children, metadata }: FilmTemplateProps) {
 	return (
 		<div className="film">
@@ -26,5 +30,6 @@ function FilmTemplate({ children, metadata }: FilmTemplateProps) {
 		</div >
 	)
 }
+//@END
 
 export default FilmTemplate;
