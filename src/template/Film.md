@@ -1,6 +1,6 @@
 # Film.tsx
 FilmTemplate is a template component that renders the film's metadata and background, it allows for children to be passed in to render the film's content (usually a logo).
-## FilmTemplate
+#### FilmTemplate
 FilmTemplate is a template component that renders the film's metadata and background, it allows for children to be passed in to render the film's content (usually a logo).
 ```tsx
 function FilmTemplate({ children, metadata }: FilmTemplateProps) {

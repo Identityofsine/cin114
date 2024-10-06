@@ -1,24 +1,13 @@
-'use client';
-
-import { VideoMetadata } from "@/types/video";
-import React, { CSSProperties } from "react";
-
-//@FILEDESC FilmClient is a client-side file that contains various Components strictly used in the `Film.tsx` file. These shouldn't be used outside of the `Film.tsx` file.
-
-type FilmClientProps = {
-	metadata: VideoMetadata;
-}
-
-//@BLOCK
-//@TITLE FilmBackground
-//@DESC FilmBackground is a component that renders the film's background video and image. This component first fetches the video file and then waits a few moments before playing the video. This is to ensure a valuable user experience so that the still image is shown first before the video starts playing. While this isn't a perfect solution, it keeps a good check on React Renders and ensures that the video is loaded before playing.
+# FilmClient.tsx
+FilmClient is a client-side file that contains various Components strictly used in the `Film.tsx` file. These shouldn't be used outside of the `Film.tsx` file.
+#### FilmBackground
+FilmBackground is a component that renders the film's background video and image. This component first fetches the video file and then waits a few moments before playing the video. This is to ensure a valuable user experience so that the still image is shown first before the video starts playing. While this isn't a perfect solution, it keeps a good check on React Renders and ensures that the video is loaded before playing.
+```tsx
 export function FilmBackground({ metadata }: FilmClientProps) {
-
 	const [loaded, setLoaded] = React.useState(false);
 	const [playing, setPlaying] = React.useState(false);
 	const [progress, setProgress] = React.useState(0);
 	const ref = React.useRef<HTMLVideoElement>(null);
-
 	React.useEffect(() => {
 		if (loaded || playing) return;
 		const timeout = setTimeout(() => {
@@ -46,12 +35,10 @@ export function FilmBackground({ metadata }: FilmClientProps) {
 				xhr.send();
 			}
 		}, 6000)
-
 		return () => {
 			clearTimeout(timeout);
 		}
 	}, [ref.current, loaded, playing])
-
 	function start(e: AnimationEvent) {
 		if (e.animationName !== 'waiting') return;
 		if (playing) return;
@@ -62,7 +49,6 @@ export function FilmBackground({ metadata }: FilmClientProps) {
 			setLoaded(false);
 		}
 	}
-
 	return (
 		<>
 			{metadata.boxart?.video &&
@@ -81,24 +67,19 @@ export function FilmBackground({ metadata }: FilmClientProps) {
 		</>
 	)
 }
-//@END
-
-//@BLOCK
-//@TITLE FilmCredit
-//@DESC FilmCredit is a component that renders the film's credits. It takes in the metadata and renders the credits in a horizontal scrollable container. This component is used to display the credits of the film. This component is adjusted to have a horiziontal scrollbar that shows the credits of the film if any overflow occurs.
+```
+#### FilmCredit
+FilmCredit is a component that renders the film's credits. It takes in the metadata and renders the credits in a horizontal scrollable container. This component is used to display the credits of the film. This component is adjusted to have a horiziontal scrollbar that shows the credits of the film if any overflow occurs.
+```tsx
 export function FilmCredit({ metadata }: FilmClientProps) {
-
 	const scroll_ref = React.useRef<HTMLDivElement>(null);
 	const [scroll, setScroll] = React.useState(0);
-
 	function onScroll(e: React.UIEvent<HTMLDivElement>) {
 		const target = e.target as HTMLDivElement;
 		const scroll = e.currentTarget.scrollLeft / (target.scrollWidth - target.clientWidth) * 100;
 		const clamp = (v: number, min: number, max: number) => Math.min(Math.max(v, min), max);
-
 		setScroll(clamp(scroll, 0, 100));
 	}
-
 	return (
 		<div className="film__credits">
 			<div className="scrollbar" style={{ '--scrollbar-width': `${scroll}%` } as CSSProperties} />
@@ -122,4 +103,4 @@ export function FilmCredit({ metadata }: FilmClientProps) {
 			</div>
 		</div>)
 }
-//@END
+```
