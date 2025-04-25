@@ -16,5 +16,11 @@ services:
     #never shut down the container, always restart
     restart: unless-stopped 
     command: npm start 
+    networks:
+      - shared-net
 
+networks:
+  shared-net:
+    external: true
+    name: cin114-net
 
