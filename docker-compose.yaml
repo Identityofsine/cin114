@@ -16,15 +16,5 @@ services:
     #never shut down the container, always restart
     restart: unless-stopped 
     command: npm start 
-  nginx:
-    container_name: cin114-nginx
-    restart: unless-stopped 
-    build:
-      context: .
-      dockerfile: Dockerfile.nginx
-    ports:
-      - "80:80"
-      - "443:443"
-    depends_on:
-      - nextjs
+
 
