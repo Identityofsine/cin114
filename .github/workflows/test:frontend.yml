@@ -1,1 +1,28 @@
+name: Test and Build Frontend Application
 
+on:
+  pull_request:
+  push:
+    branches:
+      - develop 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js (v.20)
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run tests
+      run: npm test
+
+    - name: Build application
+      run: npm run build
