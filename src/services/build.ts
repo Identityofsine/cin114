@@ -12,7 +12,10 @@ export function getBuildInfo(): BuildInfo {
 	const buildDate = displayDate(
 		new Date(process.env.BUILD_DATE || Date.now())
 	)
-	const branch = process.env.NEXT_PUBLIC_BRANCH_NAME === 'main' ? 'prod' : 'dev';
+	const branch = process.env.NEXT_PUBLIC_BRANCH || 'dev';
+	if (branch !== 'prod' && branch !== 'dev') {
+		throw new Error(`Invalid branch name: ${branch}`);
+	}
 
 	return {
 		branch,
