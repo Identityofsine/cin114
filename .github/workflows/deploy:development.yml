@@ -41,6 +41,7 @@ jobs:
           docker compose -f docker-compose.yaml -f docker-compose.dev.yaml build \
             --build-arg BUILD_DATE=${{ env.BUILD_DATE }} \
             --build-arg BUILD_ID=${{ env.BUILD_ID }} \
+            --build-arg NEXT_PUBLIC_BRANCH=dev \
 
       - name: Push Docker image
         run: docker compose -f docker-compose.yaml -f docker-compose.dev.yaml push
