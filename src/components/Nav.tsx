@@ -54,11 +54,13 @@ export function Navbar({ buildInfo }: NavbarProps) {
 					alt="navbar"
 					draggable={false} />
 				<span>{curPage}</span>
-				<span className="build">
-					{buildInfo.buildDate}
-					{buildInfo.branch && ` (${buildInfo.branch})`}
-					{buildInfo.buildId && ` - ${buildInfo.buildId}`}
-				</span>
+				{buildInfo.branch !== 'prod' && (
+					<span className="build">
+						{buildInfo.buildDate}
+						{buildInfo.branch && ` (${buildInfo.branch})`}
+						{buildInfo.buildId && ` - ${buildInfo.buildId}`}
+					</span>
+				)}
 			</div>
 		</>
 	)
