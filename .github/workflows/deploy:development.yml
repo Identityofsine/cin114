@@ -31,7 +31,7 @@ jobs:
           docker compose -f docker-compose.yaml -f docker-compose.dev.yaml build
 
       - name: Push Docker image
-        run: docker compose -f docker-compose.yaml -f docker-compose.dev.yaml push $IMAGE_NAME:$TAG
+        run: docker compose -f docker-compose.yaml -f docker-compose.dev.yaml push
 
   deploy:
     runs-on: ubuntu-latest
