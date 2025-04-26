@@ -13,12 +13,17 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4.2.2
 
-    - name: Set up SSH
-      uses: webfactory/ssh-agent@v0.9.1
+    - name: Execute deployment script 
+      uses: appleboy/ssh-action@v1
       with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}  # Store your private key in GitHub secrets
-
-    - name: Run deployment script
-      run: |
-        ssh -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} 'bash -s' < './homebrew/deploy.sh dev'
-      continue-on-error: false  # This ensures that if the SSH command fails, the job fails
+        host: ${{ secrets.SERVER_IP }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          #!/bin/bash
+          set -e  # Exit immediately if a command exits with a non-zero status
+          set -x  # Print each command before executing it
+          # Navigate to the homebrew directory
+          cd ~/homebrew || exit 1
+          # Run the deployment script with the 'dev' argument
+          ./deploy.sh dev
