@@ -21,7 +21,9 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body>
-				<Navbar />
+				<Navbar
+					buildInfo={build}
+				/>
 				{children}
 				<Footer />
 			</body>
