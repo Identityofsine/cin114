@@ -1,10 +1,7 @@
 name: Test and Build Frontend Application
 
 on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches: ["main", "develop"]
-    
+
   # Runs on any open or reopened pull request
   pull_request:
     types: [opened, reopened] # you can change this according to https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/triggering-a-workflow#using-multiple-events

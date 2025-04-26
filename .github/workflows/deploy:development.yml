@@ -2,10 +2,14 @@ name: Test, Build, and Deploy to Development Environment
 
 on:
   push:
-    branches: ["main", "develop"]
+    branches: ["develop"]
   workflow_dispatch:
 
 jobs:
+
+  test:
+    uses: ./.github/workflows/test:frontend.yml
+
   deploy:
     runs-on: ubuntu-latest
 
