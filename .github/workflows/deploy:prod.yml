@@ -31,7 +31,7 @@ jobs:
           docker compose build
 
       - name: Push Docker image
-        run: docker compose push $IMAGE_NAME:$TAG
+        run: docker compose push
 
   deploy:
     runs-on: ubuntu-latest
