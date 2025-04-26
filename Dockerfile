@@ -22,6 +22,6 @@ RUN npm install
 RUN npm run build 
 
 # You can verify the variables are set by adding:
-RUN bash -c 'echo "Build Date: $BUILD_DATE" && echo "Commit Hash: $BUILD_ID" && echo "Branch: $NEXT_PUBLIC_BRANCH"'
+RUN bash -c 'echo -e "Build Date: $BUILD_DATE" && echo -e "Commit Hash: $BUILD_ID" && echo -e "Branch: $NEXT_PUBLIC_BRANCH"'
 
 CMD ["npm", "start"]
