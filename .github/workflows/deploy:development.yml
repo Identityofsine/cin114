@@ -19,5 +19,5 @@ jobs:
 
     - name: Run deployment script
       run: |
-        ssh -o StrictHostKeyChecking=no {{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} 'bash -s' < ./deploy/deploy-script.sh
+        ssh -o StrictHostKeyChecking=no {{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} 'bash -s' < './homebrew/deploy.sh dev'
       continue-on-error: false  # This ensures that if the SSH command fails, the job fails
