@@ -2,6 +2,6 @@ version: '3'
 
 services:
 	nextjs:
-    name: devcin114 
+    container_name: devcin114 
 	  hostname: devnextjs
 
