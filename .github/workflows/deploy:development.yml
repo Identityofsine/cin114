@@ -28,12 +28,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4.2.2
 
+      - name: Set build environment variables
+        run: |
+          echo "BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_ENV
+          echo "BUILD_ID=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
       - name: Log in to GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build Docker image
         run: |
-          docker compose -f docker-compose.yaml -f docker-compose.dev.yaml build
+          docker compose -f docker-compose.yaml -f docker-compose.dev.yaml build \
+            --build-arg BUILD_DATE=${{ env.BUILD_DATE }} \
+            --build-arg BUILD_ID=${{ env.BUILD_ID }} \
 
       - name: Push Docker image
         run: docker compose -f docker-compose.yaml -f docker-compose.dev.yaml push
