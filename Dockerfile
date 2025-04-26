@@ -3,6 +3,7 @@ FROM node:20
 # Set build-time arguments
 ARG BUILD_DATE
 ARG BUILD_ID
+ARG NEXT_PUBLIC_BRANCH
 
 # Set as environment variables (available during build and runtime)
 ENV BUILD_DATE=$BUILD_DATE
