@@ -39,7 +39,7 @@ jobs:
           docker compose build \
             --build-arg BUILD_DATE=${{ env.BUILD_DATE }} \
             --build-arg BUILD_ID=${{ env.BUILD_ID }} \
-            --build-arg NEXT_PUBLIC_BRANCH=${{ github.ref_name }} 
+            --build-arg NEXT_PUBLIC_BRANCH="prod"
 
       - name: Push Docker image
         run: docker compose push
