@@ -2,6 +2,7 @@ import { VideoMetadata } from "./types/video";
 
 export type FilmIndex = 'johnford' | 'uno' | 'justgivemetonight' | 'uno' | 'theimaginaryrulesofengagement'
 
+//@TODO change to Map
 export const Films: Record<FilmIndex, VideoMetadata> = {
 	'johnford': {
 		title: 'Interviewing John Ford',

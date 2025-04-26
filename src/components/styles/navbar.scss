@@ -13,6 +13,13 @@
   border-bottom-right-radius: 100%;
   overflow: hidden;
 
+  .build {
+    font-size: 9px;
+    color:white;
+    font-family: 400;
+    display: inline-block;
+  }
+
 
   .navmenu {
     &__container {
@@ -113,3 +120,5 @@
     opacity: 1;
   }
 }
+
+
