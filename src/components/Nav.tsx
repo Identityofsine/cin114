@@ -2,9 +2,13 @@
 
 import React from 'react';
 import './styles/navbar.scss';
+import { BuildInfo } from '@/services/build';
 
+type NavbarProps = {
+	buildInfo: BuildInfo;
+}
 
-export function Navbar() {
+export function Navbar({ buildInfo }: NavbarProps) {
 
 	const [curPage, setCurPage] = React.useState<string>('');
 	const [open, setOpen] = React.useState<boolean>(false);
@@ -31,15 +35,23 @@ export function Navbar() {
 
 	return (
 		<>
-			<div id="navmenu" className={`navmenu ${open && 'open' || ''}`}>
+			<div
+				id="navmenu"
+				className={`navmenu ${open && 'open' || ''}`}>
 				<div className="navmenu__container">
 					<Link href="/">Home</Link>
 					<Link href="/#about">About</Link>
 					<Link href="/#contact">Contact</Link>
 				</div>
 			</div>
-			<div className={`nav flex align-center ${open && 'open' || ''}`} onClick={() => { setOpen(!open) }}>
-				<img src="/ui/navthing.svg" alt="navbar" draggable={false} />
+			<div
+				className={`nav flex align-center ${open && 'open' || ''}`}
+				onClick={() => { setOpen(!open) }}
+			>
+				<img
+					src="/ui/navthing.svg"
+					alt="navbar"
+					draggable={false} />
 				<span>{curPage}</span>
 			</div>
 		</>
