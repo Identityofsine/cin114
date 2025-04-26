@@ -9,6 +9,10 @@ env:
   IMAGE_NAME: ghcr.io/identityofsine/cin114
   TAG: dev  # change to 'prod' for production branch
 
+permissions:
+  packages: write
+  contents: read
+
 jobs:
 
   test:
