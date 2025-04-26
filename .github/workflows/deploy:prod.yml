@@ -27,10 +27,11 @@ jobs:
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build Docker image
-        run: docker build -t $IMAGE_NAME:$TAG .
+        run: |
+          docker compose build
 
       - name: Push Docker image
-        run: docker push $IMAGE_NAME:$TAG
+        run: docker compose push $IMAGE_NAME:$TAG
 
   deploy:
     runs-on: ubuntu-latest
