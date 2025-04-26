@@ -3,5 +3,6 @@ version: '3'
 services:
 	nextjs:
     container_name: devcin114 
+    image: ghcr.io/identityofsine/cin114:dev  # 👈 ADD THIS LINE
 	  hostname: devnextjs
 

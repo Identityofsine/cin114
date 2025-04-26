@@ -1,14 +1,36 @@
-name: Test, Build, and Deploy to Production Environment
+name: Test, Build, and Deploy to Development Environment
 
 on:
   push:
     branches: ["main"]
   workflow_dispatch:
 
+env:
+  IMAGE_NAME: ghcr.io/kcosine/cin114
+  TAG: prod  # change to 'prod' for production branch
+
 jobs:
 
   test:
+    name: Test and Build
     uses: ./.github/workflows/test:frontend.yml
+
+  build-and-push:
+    name: Build and Push Docker Image
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2
+
+      - name: Log in to GitHub Container Registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build Docker image
+        run: docker build -t $IMAGE_NAME:$TAG .
+
+      - name: Push Docker image
+        run: docker push $IMAGE_NAME:$TAG
 
   deploy:
     runs-on: ubuntu-latest
@@ -29,5 +51,5 @@ jobs:
           set -x  # Print each command before executing it
           # Navigate to the homebrew directory
           cd ~/homebrew || exit 1
-          # Run the deployment script with the 'prod' argument
-          ./deploy.sh prod 
+          # Run the deployment script with the 'dev' argument
+          ./deploy.sh dev
