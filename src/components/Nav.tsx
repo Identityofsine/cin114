@@ -37,7 +37,8 @@ export function Navbar({ buildInfo }: NavbarProps) {
 		<>
 			<div
 				id="navmenu"
-				className={`navmenu ${open && 'open' || ''}`}>
+				className={`navmenu ${open && 'open' || ''}`}
+			>
 				<div className="navmenu__container">
 					<Link href="/">Home</Link>
 					<Link href="/#about">About</Link>
@@ -53,6 +54,11 @@ export function Navbar({ buildInfo }: NavbarProps) {
 					alt="navbar"
 					draggable={false} />
 				<span>{curPage}</span>
+				<span className="build">
+					{buildInfo.buildDate}
+					{buildInfo.branch && ` (${buildInfo.branch})`}
+					{buildInfo.buildId && ` - ${buildInfo.buildId}`}
+				</span>
 			</div>
 		</>
 	)
