@@ -17,7 +17,7 @@ services:
       - "3030:3001"
     build: 
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.local
     restart:
       always
     working_dir: /usr/src/app
