@@ -34,6 +34,7 @@ fi
 echo "Pulling latest pre-built images..."
 docker pull ghcr.io/identityofsine/$TAG
 docker pull ghcr.io/identityofsine/$API_TAG
+docker pull postgres:15-alpine
 
 if [ $? -ne 0 ]; then
     echo "Failed to pull the latest images."

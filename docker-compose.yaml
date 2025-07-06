@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # NextJS Frontend
   nextjs:
@@ -99,5 +97,6 @@ volumes:
 networks:
   cin114-network:
     driver: bridge
-    name: cin114-${DEPLOY_ENV:-dev}-net
+    external: true
+    name: cin114-net
 
