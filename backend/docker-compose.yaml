@@ -2,7 +2,7 @@ version: '3'
 
 services:
   api:
-    container_name: fofx-go-gin-prod 
+    container_name: cin114-backend-prod 
     environment:
       - GO_ENV=production
       - URI=https://api.example.com/
@@ -28,7 +28,7 @@ services:
         condition: service_healthy
 
   db:
-    container_name: fofx-go-gin-prod-db
+    container_name: cin114-backend-prod-db
     image: postgres:latest 
     restart: always
     tty: true
