@@ -6,27 +6,27 @@ import { TemplateMetadata } from "./template_metadata";
 import { getBuildInfo } from "@/services/build";
 
 export const metadata: Metadata = {
-	...TemplateMetadata
+  ...TemplateMetadata
 };
 
 
-export default function RootLayout({
-	children,
+export default async function RootLayout({
+  children,
 }: Readonly<{
-	children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
 
-	const build = getBuildInfo();
+  const build = getBuildInfo();
 
-	return (
-		<html lang="en">
-			<body>
-				<Navbar
-					buildInfo={build}
-				/>
-				{children}
-				<Footer />
-			</body>
-		</html>
-	);
+  return (
+    <html lang="en">
+      <body>
+        <Navbar
+          buildInfo={build}
+        />
+        {children}
+        <Footer />
+      </body>
+    </html>
+  );
 }
