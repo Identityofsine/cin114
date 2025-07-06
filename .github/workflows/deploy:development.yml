@@ -64,7 +64,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4.2.2
 
-    - name: Execute deployment script 
+    - name: Deploy to Development
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SERVER_IP }}
@@ -81,5 +81,6 @@ jobs:
           export BUILD_ID="$(git rev-parse --short HEAD 2>/dev/null || echo 'unknown')"
           # Navigate to the homebrew directory
           cd ~/homebrew || exit 1
-          # Run the deployment script with the 'dev' argument
-          ./deploy.sh dev
+          # Run the NEW streamlined deployment script
+          ./deploy-new.sh dev
+
