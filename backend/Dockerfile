@@ -1,7 +1,7 @@
 # Specifies a parent image
 FROM golang:1.23.1-bookworm
 
-# Creates an app directory to hold your app’s source code
+# Creates an app directory to hold your app's source code
 WORKDIR /usr/src/app
 
 RUN apt-get update
@@ -27,4 +27,4 @@ RUN go build -o ./app ./cmd/server/main.go
 EXPOSE 3001 
 
 # Specifies the executable command that runs when the container starts
-CMD ["go", "run", "./main/init/app.go"]
+CMD ["./app"]
