@@ -70,7 +70,6 @@ jobs:
         host: ${{ secrets.SERVER_IP }}
         username: ${{ secrets.SERVER_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        envs: NEXT_PUBLIC_BRANCH,NODE_ENV,BUILD_DATE,BUILD_ID
         script: |
           #!/bin/bash
           set -e  # Exit immediately if a command exits with a non-zero status
