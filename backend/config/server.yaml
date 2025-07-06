@@ -1,5 +1,5 @@
 version: "0.0.1"
-server_name: "fofx-go-gin"
+server_name: "cin114-backend"
 iteration: 1
-commit: "9da0d09"
-branch: "main"
+commit: "c494099"
+branch: "feat/9-stripe-payment-intergration"

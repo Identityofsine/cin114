@@ -17,7 +17,10 @@ func CreateUserOAuthToken(userId int64, accessToken, refreshToken, source, expir
 
 	_, err := db.Query[UserOAuthTokenDB](query, userId, accessToken, refreshToken, source, expires_at)
 
-	return err
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func UpdateOrCreateUserOAuthToken(userId int64, accessToken, refreshToken, source, expires_at string) db.DatabaseError {
@@ -30,7 +33,10 @@ func UpdateOrCreateUserOAuthToken(userId int64, accessToken, refreshToken, sourc
 			expires_at = EXCLUDED.expires_at
 	`
 	_, err := db.Query[UserOAuthTokenDB](query, userId, accessToken, refreshToken, source, expires_at)
-	return err
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func GetUserOAuthTokenByUserIdAndSource(userId int64, source string) (*UserOAuthTokenDB, db.DatabaseError) {

@@ -6,9 +6,12 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE_NAME: ghcr.io/identityofsine/cin114
-  TAG: prod  # change to 'prod' for production branch
+  FRONTEND_IMAGE: ghcr.io/identityofsine/cin114
+  API_IMAGE: ghcr.io/identityofsine/cin114-api
+  TAG: prod
 
+permissions:
+  packages: write
 
 jobs:
 
@@ -17,7 +20,7 @@ jobs:
     uses: ./.github/workflows/test:frontend.yml
 
   build-and-push:
-    name: Build and Push Docker Image
+    name: Build and Push Docker Images
     permissions:
       packages: write
     runs-on: ubuntu-latest
@@ -30,20 +33,29 @@ jobs:
         run: |
           echo "BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_ENV
           echo "BUILD_ID=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-          echo 'NEXT_PUBLIC_BRANCH="prod"' >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_BRANCH=prod" >> $GITHUB_ENV
 
       - name: Log in to GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      - name: Build Docker image
+      - name: Build Frontend Docker image
         run: |
-          docker compose build \
+          docker build -t ${{ env.FRONTEND_IMAGE }}:${{ env.TAG }} \
             --build-arg BUILD_DATE=${{ env.BUILD_DATE }} \
             --build-arg BUILD_ID=${{ env.BUILD_ID }} \
-            --build-arg NEXT_PUBLIC_BRANCH=${{ env.NEXT_PUBLIC_BRANCH }}
+            --build-arg NEXT_PUBLIC_BRANCH=${{ env.NEXT_PUBLIC_BRANCH }} \
+            -f Dockerfile .
 
-      - name: Push Docker image
-        run: docker compose push
+      - name: Build API Docker image
+        run: |
+          docker build -t ${{ env.API_IMAGE }}:${{ env.TAG }} \
+            -f backend/Dockerfile ./backend
+
+      - name: Push Frontend Docker image
+        run: docker push ${{ env.FRONTEND_IMAGE }}:${{ env.TAG }}
+
+      - name: Push API Docker image
+        run: docker push ${{ env.API_IMAGE }}:${{ env.TAG }}
 
   deploy:
     runs-on: ubuntu-latest
