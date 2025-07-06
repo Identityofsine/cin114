@@ -2,23 +2,22 @@
 const nextConfig = {
   async rewrites() {
     // For local development, proxy to localhost:3030
-    // For production/deployment, proxy to the external API subdomain
+    // For Docker deployment, use the literal API URL from environment
     const isLocal = process.env.NODE_ENV === 'development' && !process.env.DOCKER_ENV;
-    const isProduction = process.env.NEXT_PUBLIC_BRANCH === 'main' || process.env.NEXT_PUBLIC_BRANCH === 'prod';
     
     let backendURL;
     if (isLocal) {
       backendURL = 'http://localhost:3030'; // Local development
-    } else if (isProduction) {
-      backendURL = 'https://api.cin114.net'; // Production API subdomain
+    } else if (process.env.NEXT_PUBLIC_API_BASE_URL) {
+      backendURL = process.env.NEXT_PUBLIC_API_BASE_URL; // Literal URL from Docker Compose
     } else {
-      backendURL = 'https://api.dev.cin114.net'; // Dev API subdomain
+      backendURL = 'https://api.dev.cin114.net'; // Fallback
     }
 
     return [
       {
         source: '/api/:path*',
-        destination: `${backendURL}/api/:path*` // Proxy to Backend (local or external API subdomain)
+        destination: `${backendURL}/api/:path*` // Proxy to Backend (local or literal API URL)
       }
     ]
   }
