@@ -12,7 +12,10 @@ type dberror struct {
 
 type DatabaseError = *dberror
 
-func (e dberror) Error() string {
+func (e *dberror) Error() string {
+	if e == nil {
+		return "nil database error"
+	}
 	return fmt.Sprintf("[%s] %s: %s (%d)", e.Source, e.Message, e.Err, e.Code)
 }
 

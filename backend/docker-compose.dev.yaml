@@ -2,7 +2,7 @@ version: '3'
 
 services:
   api:
-    container_name: fofx-go-gin-dev
+    container_name: cin114-backend-dev
     environment:
       - GO_ENV=development
       - URI=http://localhost:3030/
@@ -13,7 +13,7 @@ services:
     ports:
       - "3030:3001"
   db:
-    container_name: fofx-go-gin-dev-db
+    container_name: cin114-backend-dev-db
     ports:
       - "5432:5432"
     volumes:
