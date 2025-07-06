@@ -1,42 +1,67 @@
-version: '3'
+version: '3.8'
 
 services:
+  # NextJS Frontend
   nextjs:
-    container_name: cin114 
-    build: 
+    container_name: cin114-frontend-${DEPLOY_ENV:-dev}
+    build:
       context: .
       dockerfile: Dockerfile
-    image: ghcr.io/identityofsine/cin114:prod  # 👈 ADD THIS LINE
+      args:
+        - BUILD_DATE=${BUILD_DATE:-}
+        - BUILD_ID=${BUILD_ID:-}
+        - NEXT_PUBLIC_BRANCH=${NEXT_PUBLIC_BRANCH:-dev}
+    image: ghcr.io/identityofsine/cin114:${IMAGE_TAG:-dev}
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL:-https://dev.cin114.net}
+      - NEXT_PUBLIC_BRANCH=${NEXT_PUBLIC_BRANCH:-dev}
+      - BUILD_DATE=${BUILD_DATE:-}
+      - BUILD_ID=${BUILD_ID:-}
     ports:
       - "3000:3000"
-    hostname: nextjs 
+    hostname: nextjs
     volumes:
       - ./:/usr/src/app
-      - /usr/src/app/node_modules #ignore 
-      - /usr/src/app/.next #ingore 
-    #never shut down the container, always restart
-    restart: unless-stopped 
-    command: npm start 
+      - /usr/src/app/node_modules
+      - /usr/src/app/.next
+    restart: unless-stopped
+    command: npm start
+    depends_on:
+      - api
     networks:
-      - shared-net
+      - cin114-network
 
+  # Go Backend API
   api:
-    container_name: fofx-go-gin-prod 
-    environment:
-      - GO_ENV=production
-      - URI=https://api.cin114.net/
-      - DOMAIN=cin114.net
-      - FRONTEND_URI=https://cin114.net/
-      - PORT=3001
-      - DB_USER=postgres
-      - DB_PASSWORD=docker
-      - DB_NAME=app
-    command: go run cmd/server/main.go
-    ports:
-      - "3030:3001"
-    build: 
+    container_name: cin114-backend-merge-${DEPLOY_ENV:-dev}
+    image: ghcr.io/identityofsine/cin114-api:${IMAGE_TAG:-dev}
+    build:
       context: ./backend
       dockerfile: Dockerfile
+    environment:
+      - GO_ENV=${GO_ENV:-development}
+      - URI=${API_URI:-https://dev.cin114.net/}
+      - DOMAIN=${DOMAIN:-dev.cin114.net}
+      - FRONTEND_URI=${FRONTEND_URI:-https://dev.cin114.net/}
+      - PORT=3030
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=${DB_USER:-postgres}
+      - DB_PASSWORD=${DB_PASSWORD:-docker}
+      - DB_NAME=${DB_NAME:-app}
+      - DB_SSL_MODE=${DB_SSL_MODE:-disable}
+      # Authentication & Security
+      - JWT_SECRET=${JWT_SECRET:-dev-jwt-secret}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID:-}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET:-}
+      - CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS:-https://dev.cin114.net}
+      # Stripe Configuration
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY:-}
+      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET:-}
+    command: go run cmd/server/main.go
+    ports:
+      - "3030:3030"
     restart: always
     working_dir: /usr/src/app
     volumes:
@@ -45,28 +70,36 @@ services:
       db:
         condition: service_healthy
     networks:
-      - shared-net
+      - cin114-network
 
+  # PostgreSQL Database
   db:
-    container_name: fofx-go-gin-prod-db
-    image: postgres:latest 
-    restart: always
-    tty: true
-    volumes:
-      - ./backend/sql/database.sql:/docker-entrypoint-initdb.d/init.sql
+    container_name: cin114-database-merge-${DEPLOY_ENV:-dev}
+    image: postgres:15-alpine
     environment:
-      POSTGRES_PASSWORD: docker
+      - POSTGRES_DB=${DB_NAME:-app}
+      - POSTGRES_USER=${DB_USER:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-docker}
+      - POSTGRES_INITDB_ARGS=${POSTGRES_INITDB_ARGS:---auth-local=trust}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/sql/database.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    restart: unless-stopped
+    networks:
+      - cin114-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-app}"]
       interval: 10s
       timeout: 5s
-      retries: 3
-      start_period: 10s
-    networks:
-      - shared-net
+      retries: 5
+      start_period: 30s
+
+volumes:
+  postgres_data:
+    driver: local
 
 networks:
-  shared-net:
-    external: true
-    name: cin114-net
+  cin114-network:
+    driver: bridge
+    name: cin114-${DEPLOY_ENV:-dev}-net
 

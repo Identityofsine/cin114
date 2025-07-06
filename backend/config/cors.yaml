@@ -1,5 +1,6 @@
 allow_origins:
   - "https://cin114.net"
+  - "https://dev.cin114.net"
   - "http://localhost:3000"
 allow_methods:
   - "GET"
@@ -10,10 +11,14 @@ allow_methods:
   - "PATCH"
 allow_headers:
   - "Origin"
+  - "Authorization"
+  - "Content-Type"
+  - "Accept"
 expose_headers:
   - "Content-Length"
 allow_credentials: true
 allow_origin_func:
   - "https://cin114.net"
+  - "https://dev.cin114.net"
   - "http://localhost:3000"
 max_age: 3600 
