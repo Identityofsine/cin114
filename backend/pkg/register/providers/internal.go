@@ -4,6 +4,7 @@ import (
 	"errors"
 
 	userdb "github.com/identityofsine/fofx-go-gin-api-template/internal/repository/model"
+	useremailwhitelistdb "github.com/identityofsine/fofx-go-gin-api-template/internal/repository/model"
 	authTypeLks "github.com/identityofsine/fofx-go-gin-api-template/pkg/auth/types"
 	. "github.com/identityofsine/fofx-go-gin-api-template/pkg/register/types"
 	validators "github.com/identityofsine/fofx-go-gin-api-template/pkg/register/validator/providers"
@@ -16,6 +17,11 @@ func (obj *InternalRegisterProvider) Register(args RegisterArgs) error {
 	err := validators.InternalRegisterValidator.Validate(args)
 	if err != nil {
 		return err
+	}
+
+	// Check if the email is whitelisted
+	if whitelist, err := useremailwhitelistdb.GetUserEmailWhitelistByEmail(args["username"].(string)); err != nil || whitelist == nil {
+		return errors.New("Email not whitelisted")
 	}
 
 	//create a new user if the username doesn't exist already
