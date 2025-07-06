@@ -16,7 +16,10 @@ func CreateUser(username, password, authMethod string) db.DatabaseError {
 
 	_, err := db.Query[UserDB](query, username, password, authMethod)
 
-	return err
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func CreateUserByUserDb(user *UserDB) db.DatabaseError {
@@ -34,7 +37,7 @@ func CreateUserByUserDb(user *UserDB) db.DatabaseError {
 
 	user.Id = nUser.Id
 
-	return err
+	return nil
 }
 
 func GetUserByUsername(username string) (*UserDB, db.DatabaseError) {
