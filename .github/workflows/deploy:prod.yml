@@ -64,21 +64,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4.2.2
 
-    - name: Install SSH client
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y openssh-client
-
-    - name: Setup SSH key
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
-
     - name: Deploy to Production
-      run: |
-        ssh -o ConnectTimeout=30 -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SERVER_IP }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
           #!/bin/bash
           set -e  # Exit immediately if a command exits with a non-zero status
           set -x  # Print each command before executing it
@@ -91,4 +83,3 @@ jobs:
           cd ~/homebrew || exit 1
           # Run the NEW streamlined deployment script
           ./deploy-new.sh prod
-        EOF
