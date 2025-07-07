@@ -8,13 +8,13 @@ services:
       - URI=http://localhost:3030/
       - DOMAIN=localhost
       - FRONTEND_URI=http://localhost:3000/
-      - PORT=3001
+      - PORT=3030
       - DB_USER=postgres
       - DB_PASSWORD=docker
       - DB_NAME=app
     command: nodemon -L --legacy-watch --exec go run cmd/server/main.go --signal SIGTERM
     ports:
-      - "3030:3001"
+      - "3030:3030"
     build: 
       context: .
       dockerfile: Dockerfile.local
