@@ -40,13 +40,21 @@ jobs:
     - name: Setup SSH key
       run: |
         mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
+        chmod 700 ~/.ssh
         ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+        # Start SSH agent and add key
+        eval $(ssh-agent -s)
+        ssh-add ~/.ssh/id_rsa
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
     - name: Test SSH Connection
       run: |
-        ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
+        eval $(ssh-agent -s)
+        ssh-add ~/.ssh/id_rsa
+        ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no -o UserKnownHostsFile=~/.ssh/known_hosts ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
           echo "✅ SSH connection successful!"
           echo "Current user: $(whoami)"
           echo "Current directory: $(pwd)"
@@ -114,9 +122,15 @@ jobs:
     - name: Setup SSH key
       run: |
         mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
+        chmod 700 ~/.ssh
         ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+        # Start SSH agent and add key
+        eval $(ssh-agent -s)
+        ssh-add ~/.ssh/id_rsa
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
     - name: Deploy to Development
       run: |
