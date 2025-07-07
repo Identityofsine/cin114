@@ -15,8 +15,8 @@ permissions:
 
 jobs:
 
-  debug-secrets:
-    name: Debug - Check Secrets Access
+  test-secrets:
+    name: Debug - Check Secrets and SSH Connection
     runs-on: ubuntu-latest
     steps:
     - name: Debug - Check if secrets are accessible
@@ -31,6 +31,20 @@ jobs:
       env:
         SERVER_IP: ${{ secrets.SERVER_IP }}
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Test SSH Connection
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SERVER_IP }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        debug: true
+        script: |
+          echo "✅ SSH connection successful!"
+          echo "Current user: $(whoami)"
+          echo "Current directory: $(pwd)"
+          echo "Server hostname: $(hostname)"
+          echo "Date: $(date)"
 
   test:
     name: Test
