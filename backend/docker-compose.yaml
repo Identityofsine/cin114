@@ -13,8 +13,6 @@ services:
       - DB_PASSWORD=docker
       - DB_NAME=app
     command: go run cmd/server/main.go
-    ports:
-      - "3030:3001"
     build: 
       context: .
       dockerfile: Dockerfile.local
