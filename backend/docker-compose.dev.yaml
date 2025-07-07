@@ -12,6 +12,7 @@ services:
       - DB_USER=postgres
       - DB_PASSWORD=docker
       - DB_NAME=app
+      - DB_HOST=db
     command: nodemon -L --legacy-watch --exec go run cmd/server/main.go --signal SIGTERM
     ports:
       - "3030:3030"
@@ -31,7 +32,7 @@ services:
     restart: always
     tty: true
     ports:
-      - "5432:5432"
+      - "5555:5432"
     volumes:
       - ./dev-data/sql:/var/lib/postgresql/data
       - ./sql/database.sql:/docker-entrypoint-initdb.d/init.sql
