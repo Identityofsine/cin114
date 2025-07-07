@@ -11,6 +11,12 @@ REGISTRY="ghcr.io"
 NAMESPACE="identityofsine"
 FRONTEND_IMAGE="$REGISTRY/$NAMESPACE/cin114"
 API_IMAGE="$REGISTRY/$NAMESPACE/cin114-api"
+export BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+#short git commit hash
+export GIT_COMMIT=$(git rev-parse --short HEAD 2>/dev/null || echo "local")
+export GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "unknown")
+export BUILD_ID="${GIT_BRANCH}-${GIT_COMMIT:-local}"
+export VERSION="0.0.1"
 
 # Colors for output
 RED='\033[0;31m'
@@ -116,18 +122,24 @@ build_frontend() {
     
     log_info "Building frontend image for $env environment..."
     
-    # Set build arguments
-    local build_date=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
-    local build_id=$(cd ../cin114 && git rev-parse --short HEAD 2>/dev/null || echo 'local')
-    local branch=$env
+    # Debug: Print build arguments being passed
+    echo "BUILD_DATE: $BUILD_DATE"
+    echo "BUILD_ID: $BUILD_ID"
+    echo "GIT_COMMIT: $GIT_COMMIT"
+    echo "GIT_BRANCH: $GIT_BRANCH"
+    echo "VERSION: $VERSION"
+    echo "NEXT_PUBLIC_BRANCH: $env"
     
     # Build the frontend image
     docker build \
         $cache_option \
         -t $FRONTEND_IMAGE:$tag \
-        --build-arg BUILD_DATE="$build_date" \
-        --build-arg BUILD_ID="$build_id" \
-        --build-arg NEXT_PUBLIC_BRANCH="$branch" \
+        --build-arg BUILD_DATE="$BUILD_DATE" \
+        --build-arg BUILD_ID="$BUILD_ID" \
+        --build-arg GIT_COMMIT="$GIT_COMMIT" \
+        --build-arg GIT_BRANCH="$GIT_BRANCH" \
+        --build-arg VERSION="$VERSION" \
+        --build-arg NEXT_PUBLIC_BRANCH="$env" \
         -f ../cin114/Dockerfile \
         ../cin114/
     
@@ -141,10 +153,22 @@ build_api() {
     
     log_info "Building API image for $env environment..."
     
+    # Debug: Print build arguments being passed
+    echo "BUILD_DATE: $BUILD_DATE"
+    echo "BUILD_ID: $BUILD_ID"
+    echo "GIT_COMMIT: $GIT_COMMIT"
+    echo "GIT_BRANCH: $GIT_BRANCH"
+    echo "VERSION: $VERSION"
+    
     # Build the API image
     docker build \
         $cache_option \
         -t $API_IMAGE:$tag \
+        --build-arg BUILD_DATE="$BUILD_DATE" \
+        --build-arg BUILD_ID="$BUILD_ID" \
+        --build-arg GIT_COMMIT="$GIT_COMMIT" \
+        --build-arg GIT_BRANCH="$GIT_BRANCH" \
+        --build-arg VERSION="$VERSION" \
         -f ../cin114/backend/Dockerfile \
         ../cin114/backend/
     

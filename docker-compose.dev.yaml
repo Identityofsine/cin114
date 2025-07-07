@@ -1,39 +1,66 @@
 services:
-  nextjs:
+  # NextJS Frontend - Development
+  nextjs-dev:
+    container_name: cin114-dev-frontend
     image: ghcr.io/identityofsine/cin114:dev
     environment:
       - NODE_ENV=development
-      - NEXT_PUBLIC_API_URL=https://dev.cin114.net
       - NEXT_PUBLIC_BRANCH=dev
+      - NEXT_PUBLIC_API_URL=https://dev.cin114.net
+      - NEXT_PUBLIC_API_BASE_URL=https://api.dev.cin114.net
+      - BASE_URL=https://dev.cin114.net
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - "3001:3000"  # Different port for dev
+      - "3004:3000"
+    hostname: devnextjs
+    restart: unless-stopped
+    depends_on:
+      - api-dev
     networks:
-      - cin114-network
+      - cin114-net
 
-  api:
+  # Go Backend API - Development
+  api-dev:
+    container_name: cin114-dev-api
     image: ghcr.io/identityofsine/cin114-api:dev
     environment:
       - GO_ENV=development
+      - NODE_ENV=development
       - PORT=3030
       - URI=https://dev.cin114.net/
       - DOMAIN=dev.cin114.net
       - FRONTEND_URI=https://dev.cin114.net/
       - CORS_ALLOWED_ORIGINS=https://dev.cin114.net
-      - DB_HOST=db
+      - DB_HOST=db-dev
       - DB_PORT=5432
       - DB_USER=postgres
       - DB_PASSWORD=docker
       - DB_NAME=app
       - DB_SSL_MODE=disable
+      - JWT_SECRET=${JWT_SECRET:-dev-jwt-secret}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID:-}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET:-}
+      - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY:-}
+      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET:-}
+      - BUILD_DATE=${BUILD_DATE:-}
+      - BUILD_ID=${BUILD_ID:-}
+      - GIT_COMMIT=${GIT_COMMIT:-}
+      - GIT_BRANCH=${GIT_BRANCH:-}
+      - VERSION=${VERSION:-}
+    hostname: devapi
+    restart: unless-stopped
     depends_on:
-      db:
+      db-dev:
         condition: service_healthy
     networks:
-      - cin114-network
+      - cin114-net
+      - dev-only
 
-  # PostgreSQL Database
-  db:
-    container_name: cin114-database-dev
+  # PostgreSQL Database - Development
+  db-dev:
+    container_name: cin114-dev-db
     image: postgres:15-alpine
     environment:
       - POSTGRES_DB=app
@@ -41,11 +68,11 @@ services:
       - POSTGRES_PASSWORD=docker
       - POSTGRES_INITDB_ARGS=--auth-local=trust
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data_dev:/var/lib/postgresql/data
       - ./backend/sql/database.sql:/docker-entrypoint-initdb.d/init.sql:ro
     restart: unless-stopped
     networks:
-      - cin114-network
+      - dev-only
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d app"]
       interval: 10s
@@ -54,11 +81,14 @@ services:
       start_period: 30s
 
 volumes:
-  postgres_data:
+  postgres_data_dev:
     driver: local
 
 networks:
-  cin114-network:
+  dev-only:
+    driver: bridge
+    name: dev-only
+  cin114-net:
     driver: bridge
     external: true
     name: cin114-net
