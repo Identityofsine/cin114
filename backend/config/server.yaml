@@ -1,5 +1,5 @@
 version: "0.0.1"
 server_name: "cin114-backend"
 iteration: 1
-commit: "c494099"
-branch: "feat/9-stripe-payment-intergration"
+commit: "0f28e60"
+branch: "develop"
