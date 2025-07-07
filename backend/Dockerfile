@@ -1,6 +1,20 @@
 # Specifies a parent image
 FROM golang:1.23.1-bookworm
 
+# Build arguments for dynamic configuration
+ARG BUILD_DATE
+ARG BUILD_ID
+ARG GIT_COMMIT
+ARG GIT_BRANCH
+ARG VERSION=0.0.1
+
+# Set as environment variables (available during build and runtime)
+ENV BUILD_DATE=$BUILD_DATE
+ENV BUILD_ID=$BUILD_ID
+ENV GIT_COMMIT=$GIT_COMMIT
+ENV GIT_BRANCH=$GIT_BRANCH
+ENV VERSION=$VERSION
+
 # Creates an app directory to hold your app's source code
 WORKDIR /usr/src/app
 
@@ -16,6 +30,26 @@ RUN npm install -g nodemon
 
 # Copies everything from your root directory into /app
 COPY . .
+
+# Debug: Print build arguments to verify they're set
+RUN echo "Build Date: $BUILD_DATE" && \
+    echo "Build ID: $BUILD_ID" && \
+    echo "Git Commit: $GIT_COMMIT" && \
+    echo "Git Branch: $GIT_BRANCH" && \
+    echo "Version: $VERSION"
+
+# Generate server.yaml with build-time information (remove existing file first)
+RUN rm -f config/server.yaml && \
+    echo "version: \"${VERSION}\"" > config/server.yaml && \
+    echo "server_name: \"cin114-backend\"" >> config/server.yaml && \
+    echo "iteration: 1" >> config/server.yaml && \
+    echo "commit: \"${GIT_COMMIT:-unknown}\"" >> config/server.yaml && \
+    echo "branch: \"${GIT_BRANCH:-unknown}\"" >> config/server.yaml && \
+    echo "build_date: \"${BUILD_DATE:-unknown}\"" >> config/server.yaml && \
+    echo "build_id: \"${BUILD_ID:-unknown}\"" >> config/server.yaml
+
+# Debug: Show the generated server.yaml file
+RUN cat config/server.yaml
 
 # Installs Go dependencies
 RUN go mod download

@@ -2,24 +2,40 @@ package db
 
 import (
 	"database/sql"
-	_ "errors"
+
 	"fmt"
-	_ "fmt"
-	_ "github.com/lib/pq" // This is important! The underscore is to import the package for side-effects
-	"github.com/pressly/goose"
 	"log"
 	"os"
 	"reflect"
 	"strings"
+
+	_ "github.com/lib/pq" // This is important! The underscore is to import the package for side-effects
+	"github.com/pressly/goose"
 )
+
+func getDBHost() string {
+	host := os.Getenv("DB_HOST")
+	if host == "" {
+		return "db" // default fallback
+	}
+	return host
+}
+
+func getDBPort() string {
+	port := os.Getenv("DB_PORT")
+	if port == "" {
+		return "5432" // default fallback
+	}
+	return port
+}
 
 var cfg = fmt.Sprintf(
 	"user=%s password=%s dbname=%s host=%s port=%s sslmode=disable",
 	os.Getenv("DB_USER"),
 	os.Getenv("DB_PASSWORD"),
 	os.Getenv("DB_NAME"),
-	"db",   // e.g., "db" if using Docker Compose
-	"5432", // e.g., "5432"
+	getDBHost(), // Use environment variable or default to "db"
+	getDBPort(), // Use environment variable or default to "5432"
 )
 
 var database *sql.DB = nil
