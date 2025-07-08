@@ -1,0 +1,5 @@
+# Stripe Configuration
+# The webhook secret is used to verify that webhook events are actually sent from Stripe
+# In development, this can be obtained from the Stripe CLI
+# In production, this should be set from your webhook endpoint configuration
+webhook_secret: ""
