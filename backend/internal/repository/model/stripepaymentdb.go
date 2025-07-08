@@ -133,6 +133,12 @@ func GetStripePaymentsByEmail(email string) ([]StripePaymentDB, db.DatabaseError
 }
 
 func CreateStripePayment(payment *StripePaymentDB) db.DatabaseError {
+	// Struct to match the RETURNING clause
+	type TimestampResult struct {
+		CreatedAt time.Time `json:"created_at"`
+		UpdatedAt time.Time `json:"updated_at"`
+	}
+
 	query := `INSERT INTO stripe_payments (
 		id, object, amount, amount_captured, amount_refunded, application, application_fee, 
 		application_fee_amount, balance_transaction, billing_email, billing_name, billing_phone,
@@ -150,10 +156,10 @@ func CreateStripePayment(payment *StripePaymentDB) db.DatabaseError {
 		$1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19,
 		$20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35, $36,
 		$37, $38, $39, $40, $41, $42, $43, $44, $45, $46, $47, $48, $49, $50, $51, $52, $53,
-		$54, $55, $56, $57, $58, $59, $60, $61
+		$54, $55, $56, $57, $58, $59, $60, $61, $62
 	) RETURNING created_at, updated_at`
 
-	rows, err := db.Query[StripePaymentDB](query,
+	rows, err := db.Query[TimestampResult](query,
 		payment.Id, payment.Object, payment.Amount, payment.AmountCaptured, payment.AmountRefunded,
 		payment.Application, payment.ApplicationFee, payment.ApplicationFeeAmount, payment.BalanceTransaction,
 		payment.BillingEmail, payment.BillingName, payment.BillingPhone, payment.BillingAddressLine1,

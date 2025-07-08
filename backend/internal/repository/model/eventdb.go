@@ -88,3 +88,81 @@ func EventExists(eventId int64) (bool, db.DatabaseError) {
 	}
 	return (*rows)[0], nil
 }
+
+func GetEventByIdWithChildren(eventId int64) (*EventDB, []EventLocationDB, []EventImageDB, db.DatabaseError) {
+	// Get the main event
+	event, err := GetEventById(eventId)
+	if err != nil {
+		return nil, nil, nil, err
+	}
+
+	// Get locations for this event
+	locations, err := GetLocationsByEventId(eventId)
+	if err != nil {
+		return event, nil, nil, err
+	}
+
+	// Get images for this event
+	images, err := GetImagesByEventId(eventId)
+	if err != nil {
+		return event, locations, nil, err
+	}
+
+	return event, locations, images, nil
+}
+
+func GetAllEventsWithChildren() ([]EventDB, map[int64][]EventLocationDB, map[int64][]EventImageDB, db.DatabaseError) {
+	// Get all events
+	events, err := GetAllEvents()
+	if err != nil {
+		return nil, nil, nil, err
+	}
+
+	locationsMap := make(map[int64][]EventLocationDB)
+	imagesMap := make(map[int64][]EventImageDB)
+
+	// Get locations and images for each event
+	for _, event := range events {
+		locations, err := GetLocationsByEventId(event.EventId)
+		if err != nil {
+			return events, locationsMap, imagesMap, err
+		}
+		locationsMap[event.EventId] = locations
+
+		images, err := GetImagesByEventId(event.EventId)
+		if err != nil {
+			return events, locationsMap, imagesMap, err
+		}
+		imagesMap[event.EventId] = images
+	}
+
+	return events, locationsMap, imagesMap, nil
+}
+
+func GetActiveEventsWithChildren() ([]EventDB, map[int64][]EventLocationDB, map[int64][]EventImageDB, db.DatabaseError) {
+	// Get active events
+	events, err := GetActiveEvents()
+	if err != nil {
+		return nil, nil, nil, err
+	}
+
+	locationsMap := make(map[int64][]EventLocationDB)
+	imagesMap := make(map[int64][]EventImageDB)
+
+	// Get locations and images for each event
+	for _, event := range events {
+		locations, err := GetLocationsByEventId(event.EventId)
+		if err != nil {
+			return events, locationsMap, imagesMap, err
+		}
+		locationsMap[event.EventId] = locations
+
+		images, err := GetImagesByEventId(event.EventId)
+		if err != nil {
+			return events, locationsMap, imagesMap, err
+		}
+		imagesMap[event.EventId] = images
+	}
+
+	return events, locationsMap, imagesMap, nil
+}
