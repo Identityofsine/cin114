@@ -3,10 +3,12 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	authController "github.com/identityofsine/fofx-go-gin-api-template/internal/components/auth/controller"
+	eventController "github.com/identityofsine/fofx-go-gin-api-template/internal/components/event/controller"
+	eventStripePriceController "github.com/identityofsine/fofx-go-gin-api-template/internal/components/eventstripprice/controller"
 	healthController "github.com/identityofsine/fofx-go-gin-api-template/internal/components/health/controller"
 	registerController "github.com/identityofsine/fofx-go-gin-api-template/internal/components/register/controller"
 	logsController "github.com/identityofsine/fofx-go-gin-api-template/internal/components/storedlogs/controller"
-
+	stripeController "github.com/identityofsine/fofx-go-gin-api-template/internal/components/stripe/controller"
 	"github.com/identityofsine/fofx-go-gin-api-template/pkg/middlewares"
 )
 
@@ -33,9 +35,12 @@ func setupRoutes(engine *gin.Engine) {
 	authController.AuthRoute.UseRouter(api)
 	registerController.RegisterRoute.UseRouter(api)
 
+	eventController.EventRoute.UseRouter(api)
 	healthController.HealthRoute.UseRouter(api)
+	stripeController.StripeRoute.UseRouter(api)
 
 	api.Use(middlewares.UseAuthenticationEnforcementMiddleware().Middleware)
 	logsController.LogsRoute.UseRouter(api)
+	eventStripePriceController.EventStripePriceRoute.UseRouter(api)
 
 }

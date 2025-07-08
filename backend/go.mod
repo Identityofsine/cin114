@@ -39,6 +39,8 @@ require (
 	github.com/pressly/goose v2.7.0+incompatible // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/robfig/cron/v3 v3.0.0 // indirect
+	github.com/stripe/stripe-go v70.15.0+incompatible // indirect
+	github.com/stripe/stripe-go/v82 v82.3.0 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.2.12 // indirect
 	golang.org/x/arch v0.17.0 // indirect

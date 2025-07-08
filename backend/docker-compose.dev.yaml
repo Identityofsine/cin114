@@ -34,7 +34,7 @@ services:
     ports:
       - "5555:5432"
     volumes:
-      - ./dev-data/sql:/var/lib/postgresql/data
+      - dev_db_data:/var/lib/postgresql/data
       - ./sql/database.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       POSTGRES_PASSWORD: docker
@@ -44,3 +44,6 @@ services:
       timeout: 5s
       retries: 3
       start_period: 10s
+
+volumes:
+  dev_db_data:
