@@ -9,47 +9,51 @@ import (
 	"github.com/identityofsine/fofx-go-gin-api-template/pkg/payment"
 )
 
-// GetAllEventsService returns all events
+// GetAllEventsService returns all events with their locations and images
 func GetAllEventsService() ([]dto.Event, db.DatabaseError) {
-	events, err := model.GetAllEvents()
+	events, locationsMap, imagesMap, err := model.GetAllEventsWithChildren()
 	if err != nil {
 		return nil, err
 	}
 
 	result := make([]dto.Event, len(events))
 	for i, event := range events {
-		result[i] = dto.Map(event)
+		locations := locationsMap[event.EventId]
+		images := imagesMap[event.EventId]
+		result[i] = dto.MapWithChildren(event, locations, images)
 	}
 
 	return result, nil
 }
 
-// GetEventByIdService returns a specific event by ID
+// GetEventByIdService returns a specific event by ID with its locations and images
 func GetEventByIdService(id string) (*dto.Event, db.DatabaseError) {
 	idInt, parseErr := strconv.ParseInt(id, 10, 64)
 	if parseErr != nil {
 		return nil, db.NewDatabaseError("GetEventById", "Invalid ID format", "invalid-id", 400)
 	}
 
-	event, err := model.GetEventById(idInt)
+	event, locations, images, err := model.GetEventByIdWithChildren(idInt)
 	if err != nil {
 		return nil, err
 	}
 
-	result := dto.Map(*event)
+	result := dto.MapWithChildren(*event, locations, images)
 	return &result, nil
 }
 
-// GetActiveEventsService returns all active events (not expired)
+// GetActiveEventsService returns all active events (not expired) with their locations and images
 func GetActiveEventsService() ([]dto.Event, db.DatabaseError) {
-	events, err := model.GetActiveEvents()
+	events, locationsMap, imagesMap, err := model.GetActiveEventsWithChildren()
 	if err != nil {
 		return nil, err
 	}
 
 	result := make([]dto.Event, len(events))
 	for i, event := range events {
-		result[i] = dto.Map(event)
+		locations := locationsMap[event.EventId]
+		images := imagesMap[event.EventId]
+		result[i] = dto.MapWithChildren(event, locations, images)
 	}
 
 	return result, nil
