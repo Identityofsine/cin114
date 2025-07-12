@@ -3,6 +3,8 @@ version: '3'
 services:
   api:
     container_name: cin114-backend-dev
+    env_file:
+      - .env
     environment:
       - GO_ENV=development
       - URI=http://localhost:3030/
@@ -13,7 +15,7 @@ services:
       - DB_PASSWORD=docker
       - DB_NAME=app
       - DB_HOST=db
-      - STRIPE_REDIRECT_URL=http://localhost:3000
+      - STRIPE_REDIRECT_URL=http://localhost:3000/thank-you
       - STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY:-}
       - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET:-}
     command: nodemon -L --legacy-watch --exec go run cmd/server/main.go --signal SIGTERM

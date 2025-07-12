@@ -18,6 +18,7 @@ export GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "unknown
 export BUILD_ID="${GIT_BRANCH}-${GIT_COMMIT:-local}"
 export VERSION="0.0.1"
 source backend/.env
+export STRIPE_REDIRECT_URL="https://dev.cin114.net/thank-you"
 
 # Secret validation function
 validate_secrets() {
@@ -157,6 +158,9 @@ build_frontend() {
     echo "GIT_BRANCH: $GIT_BRANCH"
     echo "VERSION: $VERSION"
     echo "NEXT_PUBLIC_BRANCH: $env"
+    echo "STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-not set}"
+    echo "STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-not set}"
+    echo "STRIPE_REDIRECT_URL: $STRIPE_REDIRECT_URL"
     
     # Build the frontend image
     docker build \
