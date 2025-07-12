@@ -18,6 +18,9 @@ func SetupRouter() *gin.Engine {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 
+	// Apply CORS middleware at the root level
+	r.Use(middlewares.UseCors().Middleware)
+
 	// Set up the router
 	setupRoutes(r)
 
@@ -27,9 +30,6 @@ func SetupRouter() *gin.Engine {
 func setupRoutes(engine *gin.Engine) {
 	// Set up the routes for the application
 	api := engine.Group("/api/v1")
-
-	// Top Level Middleware
-	api.Use(middlewares.UseCors().Middleware)
 
 	//inject your routes here:
 	//login
@@ -45,5 +45,4 @@ func setupRoutes(engine *gin.Engine) {
 
 	logsController.LogsRoute.UseRouter(api)
 	eventStripePriceController.EventStripePriceRoute.UseRouter(api)
-
 }

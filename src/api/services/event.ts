@@ -21,7 +21,9 @@ export async function getEvent(eventId: number): Promise<Event | null> {
 
 export async function createCheckout(eventId: number): Promise<Checkout> {
   try {
-    const response = await authAxios.post<CheckoutApi>('/api/v1/events/' + eventId + '/checkout');
+    const response = await authAxios.post<CheckoutApi>('api/v1/events/' + eventId + '/checkout', {
+      quantity: 1 // Assuming a default quantity of 1 for the checkout
+    });
     // Convert API response to the desired format
     const checkout = populateCheckoutFromBackend(response.data);
     return checkout;

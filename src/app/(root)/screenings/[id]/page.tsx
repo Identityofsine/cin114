@@ -1,5 +1,6 @@
+import ScreeningCallToAction from '@/components/screening/ScreeningCallToAction';
+import ScreeningHeader from '@/components/screening/ScreeningHeader';
 import '@/components/screening/styles/screening.scss';
-import { Films } from '@/film.settings';
 import { FilmBackground } from '@/template/FilmClient';
 import { Event } from '@/types/event';
 import { VideoMetadata } from '@/types/video';
@@ -16,7 +17,6 @@ export default async function Page({
     if (!event) {
       throw new Error(`Event with ID ${id} not found`);
     }
-    console.log('Event:', event);
     if (event?.videoId) {
       const video = await import('@/api').then(mod => mod.getVideo(event.videoId));
       resolve({ event, video: video });
@@ -45,6 +45,17 @@ export default async function Page({
   return (
     <section className="screening">
       <div className="screening-hero">
+        <div className="screening-hero-content">
+          <div className="screening-hero-header">
+            <ScreeningHeader />
+          </div>
+          <div className="screening-hero-cta">
+            <ScreeningCallToAction
+              eventId={event.eventId || 0}
+              expirationDate={event.expirationDate || new Date()}
+            />
+          </div>
+        </div>
         <FilmBackground
           metadata={{
             ...video,
