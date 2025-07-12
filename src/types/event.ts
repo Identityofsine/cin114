@@ -1,5 +1,6 @@
 export interface EventApi {
   event_id?: number; // Unique identifier for the event
+  video_id?: number; // Optional video identifier associated with the event
   description?: string; // Description of the event
   short_description?: string; // Optional short description of the event
   expiration_date?: string; // Optional expiration date of the event
@@ -11,6 +12,7 @@ export interface EventApi {
 
 export interface Event {
   eventId?: number; // Unique identifier for the event
+  videoId?: number; // Optional video identifier associated with the event
   description?: string; // Description of the event
   shortDescription?: string; // Optional short description of the event
   expirationDate?: Date; // Optional expiration date of the event

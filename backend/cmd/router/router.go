@@ -9,6 +9,7 @@ import (
 	registerController "github.com/identityofsine/fofx-go-gin-api-template/internal/components/register/controller"
 	logsController "github.com/identityofsine/fofx-go-gin-api-template/internal/components/storedlogs/controller"
 	stripeController "github.com/identityofsine/fofx-go-gin-api-template/internal/components/stripe/controller"
+	videoController "github.com/identityofsine/fofx-go-gin-api-template/internal/components/video/controller"
 	"github.com/identityofsine/fofx-go-gin-api-template/pkg/middlewares"
 )
 
@@ -38,8 +39,10 @@ func setupRoutes(engine *gin.Engine) {
 	eventController.EventRoute.UseRouter(api)
 	healthController.HealthRoute.UseRouter(api)
 	stripeController.StripeRoute.UseRouter(api)
+	videoController.VideoRoute.UseRouter(api)
 
 	api.Use(middlewares.UseAuthenticationEnforcementMiddleware().Middleware)
+
 	logsController.LogsRoute.UseRouter(api)
 	eventStripePriceController.EventStripePriceRoute.UseRouter(api)
 
