@@ -1,29 +1,30 @@
 package model
 
 import (
-	"encoding/json"
+	"database/sql"
 	"time"
 
 	"github.com/identityofsine/fofx-go-gin-api-template/pkg/db"
 )
 
 type VideoDB struct {
-	VideoId            int64           `json:"video_id"`
-	Title              string          `json:"title"`
-	Description        *string         `json:"description"`
-	Weight             int             `json:"weight"`
-	UseBoxartAsPreview bool            `json:"use_boxart_as_preview"`
-	BoxartTitle        *string         `json:"boxart_title"`
-	BoxartCaption      *string         `json:"boxart_caption"`
-	BoxartImg          *string         `json:"boxart_img"`
-	BoxartVideo        *string         `json:"boxart_video"`
-	Url                string          `json:"url"`
-	Date               *string         `json:"date"`
-	Img                *string         `json:"img"`
-	StyleJson          json.RawMessage `json:"style_json"`
-	VideoType          string          `json:"video_type"`
-	CreatedAt          time.Time       `json:"created_at"`
-	UpdatedAt          time.Time       `json:"updated_at"`
+	VideoId            int64          `json:"video_id"`
+	Title              string         `json:"title"`
+	Description        *string        `json:"description"`
+	Weight             int            `json:"weight"`
+	UseBoxartAsPreview bool           `json:"use_boxart_as_preview"`
+	BoxartTitle        *string        `json:"boxart_title"`
+	BoxartCaption      *string        `json:"boxart_caption"`
+	BoxartImg          *string        `json:"boxart_img"`
+	BoxartVideo        *string        `json:"boxart_video"`
+	Url                string         `json:"url"`
+	Date               *string        `json:"date"`
+	Img                *string        `json:"img"`
+	StyleJson          sql.NullString `json:"style_json"`
+	VideoType          string         `json:"video_type"`
+	CreatedAt          time.Time      `json:"created_at"`
+	UpdatedAt          time.Time      `json:"updated_at"`
+	Previewable        bool           `json:"previewable"`
 }
 
 func GetAllVideos() ([]VideoDB, db.DatabaseError) {
