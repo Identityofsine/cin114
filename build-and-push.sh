@@ -17,6 +17,34 @@ export GIT_COMMIT=$(git rev-parse --short HEAD 2>/dev/null || echo "local")
 export GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "unknown")
 export BUILD_ID="${GIT_BRANCH}-${GIT_COMMIT:-local}"
 export VERSION="0.0.1"
+source backend/.env
+
+# Secret validation function
+validate_secrets() {
+    local env=$1
+    local missing_secrets=()
+    
+    # Check for required secrets based on environment
+    if [[ "$env" == "prod" ]]; then
+        if [[ -z "${STRIPE_SECRET_KEY:-}" ]]; then
+            missing_secrets+=("STRIPE_SECRET_KEY")
+        fi
+        if [[ -z "${STRIPE_WEBHOOK_SECRET:-}" ]]; then
+            missing_secrets+=("STRIPE_WEBHOOK_SECRET")
+        fi
+        if [[ -z "${STRIPE_REDIRECT_URL:-}" ]]; then
+            missing_secrets+=("STRIPE_REDIRECT_URL")
+        fi
+    fi
+    
+    if [[ ${#missing_secrets[@]} -gt 0 ]]; then
+        log_warning "Missing required secrets for $env environment: ${missing_secrets[*]}"
+        log_warning "These secrets should be set as environment variables before building"
+        return 1
+    fi
+    
+    return 0
+}
 
 # Colors for output
 RED='\033[0;31m'
@@ -244,6 +272,13 @@ main() {
     
     # Check prerequisites
     check_prerequisites
+    
+    # Validate secrets for production builds
+    if [[ "$environment" == "prod" ]]; then
+        if ! validate_secrets "$environment"; then
+            log_warning "Continuing with build, but secrets should be configured for production"
+        fi
+    fi
     
     # Authenticate if we're going to push
     if [ "$push_images" = true ]; then
