@@ -11,7 +11,9 @@ type route Routeable
 //of the health component of this web application
 
 func (_ *route) UseRouter(router *gin.RouterGroup) *gin.RouterGroup {
+	router.GET("/video", GetAllVideos)
 	router.GET("/video/:videoId", GetVideoById)
+
 	return router
 }
 
