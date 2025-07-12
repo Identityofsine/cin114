@@ -1,3 +1,5 @@
+import { VideoFeature } from '@/components/home/VideoFeature';
+
 export default async function Page({
   params,
 }: {
@@ -9,7 +11,6 @@ export default async function Page({
   return (
     <section>
       <div>
-        <h4>Event Details: {event?.eventId}</h4>
       </div>
     </section>
   )
