@@ -66,6 +66,15 @@ func GetStripeSettings() *StripeSettings {
 		config.WebhookSecret = os.Getenv("STRIPE_WEBHOOK_SECRET")
 		config.StripeRedirectURL = os.Getenv("STRIPE_REDIRECT_URL")
 
+		// Debug: Print what we loaded (without exposing the full key)
+		secretKeyLen := len(config.StripeSecretKey)
+		if secretKeyLen > 0 {
+			fmt.Printf("Stripe config loaded - Secret key length: %d, starts with: %s\n",
+				secretKeyLen, config.StripeSecretKey[:7])
+		} else {
+			fmt.Printf("Stripe config loaded - Secret key is empty\n")
+		}
+
 		// Validate the configuration
 		if validationErr := validateStripeSecrets(config); validationErr != nil {
 			fmt.Printf("Warning: %v\n", validationErr)
@@ -79,6 +88,15 @@ func GetStripeSettings() *StripeSettings {
 			StripeSecretKey:   os.Getenv("STRIPE_SECRET_KEY"),
 			WebhookSecret:     os.Getenv("STRIPE_WEBHOOK_SECRET"),
 			StripeRedirectURL: os.Getenv("STRIPE_REDIRECT_URL"),
+		}
+
+		// Debug: Print what we loaded (without exposing the full key)
+		secretKeyLen := len(config.StripeSecretKey)
+		if secretKeyLen > 0 {
+			fmt.Printf("Stripe config loaded (fallback) - Secret key length: %d, starts with: %s\n",
+				secretKeyLen, config.StripeSecretKey[:7])
+		} else {
+			fmt.Printf("Stripe config loaded (fallback) - Secret key is empty\n")
 		}
 
 		// Validate the configuration
