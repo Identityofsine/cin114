@@ -35,6 +35,7 @@ type EventImageLk struct {
 
 type Event struct {
 	EventId          int64           `json:"event_id"`
+	VideoId          int64           `json:"video_id,omitempty"`
 	Description      string          `json:"description"`
 	ShortDescription *string         `json:"short_description"`
 	ExpirationDate   *time.Time      `json:"expiration_date"`
@@ -97,6 +98,7 @@ type CheckoutResponse struct {
 func Map(object EventDB) Event {
 	return Event{
 		EventId:          object.EventId,
+		VideoId:          object.VideoId,
 		Description:      object.Description,
 		ShortDescription: object.ShortDescription,
 		ExpirationDate:   object.ExpirationDate,
