@@ -24,8 +24,21 @@ export default async function Page({
     resolve({ event, video: undefined });
   });
 
+  if (!event) {
+    return <div className="error">Event not found</div>;
+  }
+
   if (!video) {
     return <div className="error">Video not found</div>;
+  }
+
+  const headerImages = event.images?.filter(image => image.imageType === 'poster' || image.imageType === 'poster-mobile');
+
+  const boxart: VideoMetadata['boxart'] = {
+    title: event.shortDescription || event.description || video.title || '',
+    caption: event.shortDescription || event.description || video.description || '',
+    img: headerImages?.find(image => image.imageType === 'poster')?.imageUrl || '',
+    video: video.url || '',
   }
 
 
@@ -35,9 +48,7 @@ export default async function Page({
         <FilmBackground
           metadata={{
             ...video,
-            boxart: {
-              ...video.boxart,
-            },
+            boxart
           }}
         >
         </FilmBackground>

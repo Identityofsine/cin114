@@ -3,6 +3,7 @@ package controller
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/identityofsine/fofx-go-gin-api-template/internal/components/video/service"
+	"github.com/identityofsine/fofx-go-gin-api-template/pkg/storedlogs"
 )
 
 // /video/:videoId
@@ -22,4 +23,18 @@ func GetVideoById(c *gin.Context) {
 	}
 
 	c.JSON(200, videoDetails)
+}
+
+// /video
+func GetAllVideos(c *gin.Context) {
+
+	videos, err := service.GetAllVideosService()
+	if err != nil {
+		c.JSON(500, gin.H{"error": "Failed to retrieve videos"})
+		storedlogs.LogError("Failed to retrieve videos", err)
+		return
+	}
+
+	c.JSON(200, videos)
+
 }
