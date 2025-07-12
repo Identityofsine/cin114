@@ -1,11 +1,7 @@
 -- +goose Up
 
 ALTER TABLE events ADD COLUMN video_id INTEGER NULL;
--- Add foreign key constraint for video_id in videos TABLE
-ALTER TABLE videos ADD CONSTRAINT fk_videos_event_id 
-  FOREIGN KEY (video_id) 
-  REFERENCES events(event_id) 
-  ON DELETE SET NULL;
+-- Add previewable column to videos table
 ALTER TABLE videos ADD COLUMN previewable BOOLEAN DEFAULT TRUE;
 
 -- Add foreign key constraint for video_id in events table
