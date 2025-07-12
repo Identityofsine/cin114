@@ -8,6 +8,7 @@ type Credit = {
 export type VideoMetadata = {
 	title: string;
 	description?: string;
+	weight?: number; // weight of how much to show in the header.
 	useboxartaspreview?: boolean;
 	boxart: {
 		title: string;
