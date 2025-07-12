@@ -1,4 +1,5 @@
 import { authAxios } from "@/api/instance/instance";
+import { Checkout, CheckoutApi } from "@/types/checkout";
 import { Event, EventApi } from "@/types/event";
 
 export async function getEvent(eventId: number): Promise<Event | null> {
@@ -15,6 +16,25 @@ export async function getEvent(eventId: number): Promise<Event | null> {
     // During SSR or when backend is unavailable, return null instead of throwing
     console.warn('Health check failed:', error instanceof Error ? error.message : 'Unknown error');
     return null;
+  }
+}
+
+export async function createCheckout(eventId: number): Promise<Checkout> {
+  try {
+    const response = await authAxios.post<CheckoutApi>('/api/v1/events/' + eventId + '/checkout');
+    // Convert API response to the desired format
+    const checkout = populateCheckoutFromBackend(response.data);
+    return checkout;
+  } catch (error) {
+    console.error('Error creating checkout:', error);
+    throw error; // Re-throw the error for further handling
+  }
+}
+
+function populateCheckoutFromBackend(checkout: CheckoutApi): Checkout {
+  return {
+    checkoutUrl: checkout.checkout_url,
+    sessionId: checkout.session_id
   }
 }
 
