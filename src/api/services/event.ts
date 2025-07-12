@@ -21,6 +21,7 @@ export async function getEvent(eventId: number): Promise<Event | null> {
 function populateEventFromBackend(event: EventApi): Event {
   return {
     eventId: event.event_id,
+    videoId: event.video_id,
     description: event.description,
     shortDescription: event.short_description,
     expirationDate: event.expiration_date ? new Date(event.expiration_date) : undefined,
