@@ -1,5 +1,21 @@
 -- +goose Up
 
+-- Insert cast members first
+INSERT INTO cast_members (name, created_at, updated_at) VALUES
+  ('Kai Helenius', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Antonio Venticinque', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Shane Keeley', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Erin Hennig', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Noah Fields', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Kristopher King', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Louis Clarke', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Meredith Reed', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Gabriel Patrascu', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Sebastian Caldwell', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Kenrhon Anthony', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Cayson Rhodes', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+  ('Makayla Russo', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
 -- Insert Films data
 INSERT INTO videos (
   title,
@@ -130,393 +146,393 @@ FROM videos v
 WHERE v.title = 'The Imaginary Rules of Engagement';
 
 -- Insert video credits for "Interviewing John Ford"
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'starring',
-  'Kai Luckey',
   1,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'Interviewing John Ford';
+FROM videos v, cast_members cm
+WHERE v.title = 'Interviewing John Ford' AND cm.name = 'Kai Luckey';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'starring',
-  'Antonio Venticinque',
   2,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'Interviewing John Ford';
+FROM videos v, cast_members cm
+WHERE v.title = 'Interviewing John Ford' AND cm.name = 'Antonio Venticinque';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'director',
-  'Kai Luckey',
   3,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'Interviewing John Ford';
+FROM videos v, cast_members cm
+WHERE v.title = 'Interviewing John Ford' AND cm.name = 'Kai Luckey';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'writer',
-  'Kai Luckey',
   4,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'Interviewing John Ford';
+FROM videos v, cast_members cm
+WHERE v.title = 'Interviewing John Ford' AND cm.name = 'Kai Luckey';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'cinematographer',
-  'Shane Keeley',
   5,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'Interviewing John Ford';
+FROM videos v, cast_members cm
+WHERE v.title = 'Interviewing John Ford' AND cm.name = 'Shane Keeley';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'producer',
-  'Erin Hennig',
   6,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'Interviewing John Ford';
+FROM videos v, cast_members cm
+WHERE v.title = 'Interviewing John Ford' AND cm.name = 'Erin Hennig';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'producer',
-  'Kai Luckey',
   7,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'Interviewing John Ford';
+FROM videos v, cast_members cm
+WHERE v.title = 'Interviewing John Ford' AND cm.name = 'Kai Luckey';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'producer',
-  'Noah Fields',
   8,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'Interviewing John Ford';
+FROM videos v, cast_members cm
+WHERE v.title = 'Interviewing John Ford' AND cm.name = 'Noah Fields';
 
 -- Insert video credits for "UNO"
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'starring',
-  'Kai Luckey',
   1,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'UNO';
+FROM videos v, cast_members cm
+WHERE v.title = 'UNO' AND cm.name = 'Kai Luckey';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'starring',
-  'Shane Keeley',
   2,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'UNO';
+FROM videos v, cast_members cm
+WHERE v.title = 'UNO' AND cm.name = 'Shane Keeley';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'starring',
-  'Noah Fields',
   3,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'UNO';
+FROM videos v, cast_members cm
+WHERE v.title = 'UNO' AND cm.name = 'Noah Fields';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'director',
-  'Kristopher King',
   4,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'UNO';
+FROM videos v, cast_members cm
+WHERE v.title = 'UNO' AND cm.name = 'Kristopher King';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'writer',
-  'Kristopher King',
   5,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'UNO';
+FROM videos v, cast_members cm
+WHERE v.title = 'UNO' AND cm.name = 'Kristopher King';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'cinematographer',
-  'Kai Luckey',
   6,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'UNO';
+FROM videos v, cast_members cm
+WHERE v.title = 'UNO' AND cm.name = 'Kai Luckey';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'producer',
-  'Kristopher King',
   7,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'UNO';
+FROM videos v, cast_members cm
+WHERE v.title = 'UNO' AND cm.name = 'Kristopher King';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'producer',
-  'Kai Luckey',
   8,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'UNO';
+FROM videos v, cast_members cm
+WHERE v.title = 'UNO' AND cm.name = 'Kai Luckey';
 
 -- Insert video credits for "Just Give Me The Night"
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'starring',
-  'Kristopher King',
   1,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'Just Give Me The Night';
+FROM videos v, cast_members cm
+WHERE v.title = 'Just Give Me The Night' AND cm.name = 'Kristopher King';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'starring',
-  'Kai Luckey',
   2,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'Just Give Me The Night';
+FROM videos v, cast_members cm
+WHERE v.title = 'Just Give Me The Night' AND cm.name = 'Kai Luckey';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'director',
-  'Shane Keeley',
   3,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'Just Give Me The Night';
+FROM videos v, cast_members cm
+WHERE v.title = 'Just Give Me The Night' AND cm.name = 'Shane Keeley';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'writer',
-  'Shane Keeley',
   4,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'Just Give Me The Night';
+FROM videos v, cast_members cm
+WHERE v.title = 'Just Give Me The Night' AND cm.name = 'Shane Keeley';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'cinematographer',
-  'Kai Luckey',
   5,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'Just Give Me The Night';
+FROM videos v, cast_members cm
+WHERE v.title = 'Just Give Me The Night' AND cm.name = 'Kai Luckey';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'producer',
-  'Shane Keeley',
   6,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'Just Give Me The Night';
+FROM videos v, cast_members cm
+WHERE v.title = 'Just Give Me The Night' AND cm.name = 'Shane Keeley';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'producer',
-  'Kai Luckey',
   7,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'Just Give Me The Night';
+FROM videos v, cast_members cm
+WHERE v.title = 'Just Give Me The Night' AND cm.name = 'Kai Luckey';
 
 -- Insert video credits for "The Imaginary Rules of Engagement"
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'starring',
-  'Louis Clarke',
   1,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'The Imaginary Rules of Engagement';
+FROM videos v, cast_members cm
+WHERE v.title = 'The Imaginary Rules of Engagement' AND cm.name = 'Louis Clarke';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'starring',
-  'Meredith Reed',
   2,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'The Imaginary Rules of Engagement';
+FROM videos v, cast_members cm
+WHERE v.title = 'The Imaginary Rules of Engagement' AND cm.name = 'Meredith Reed';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'starring',
-  'Gabriel Patrascu',
   3,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'The Imaginary Rules of Engagement';
+FROM videos v, cast_members cm
+WHERE v.title = 'The Imaginary Rules of Engagement' AND cm.name = 'Gabriel Patrascu';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'starring',
-  'Sebastian Caldwell',
   4,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'The Imaginary Rules of Engagement';
+FROM videos v, cast_members cm
+WHERE v.title = 'The Imaginary Rules of Engagement' AND cm.name = 'Sebastian Caldwell';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'starring',
-  'Kenrhon Anthony',
   5,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'The Imaginary Rules of Engagement';
+FROM videos v, cast_members cm
+WHERE v.title = 'The Imaginary Rules of Engagement' AND cm.name = 'Kenrhon Anthony';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'starring',
-  'Cayson Rhodes',
   6,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'The Imaginary Rules of Engagement';
+FROM videos v, cast_members cm
+WHERE v.title = 'The Imaginary Rules of Engagement' AND cm.name = 'Cayson Rhodes';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'starring',
-  'Makayla Russo',
   7,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'The Imaginary Rules of Engagement';
+FROM videos v, cast_members cm
+WHERE v.title = 'The Imaginary Rules of Engagement' AND cm.name = 'Makayla Russo';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'director',
-  'Noah Fields',
   8,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'The Imaginary Rules of Engagement';
+FROM videos v, cast_members cm
+WHERE v.title = 'The Imaginary Rules of Engagement' AND cm.name = 'Noah Fields';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'a_camera',
-  'Kristopher King',
   9,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'The Imaginary Rules of Engagement';
+FROM videos v, cast_members cm
+WHERE v.title = 'The Imaginary Rules of Engagement' AND cm.name = 'Kristopher King';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'cinematographer',
-  'Kai Luckey',
   10,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'The Imaginary Rules of Engagement';
+FROM videos v, cast_members cm
+WHERE v.title = 'The Imaginary Rules of Engagement' AND cm.name = 'Kai Luckey';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'producer',
-  'Sebastian Caldwell',
   11,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'The Imaginary Rules of Engagement';
+FROM videos v, cast_members cm
+WHERE v.title = 'The Imaginary Rules of Engagement' AND cm.name = 'Sebastian Caldwell';
 
-INSERT INTO video_credits (video_id, credit_role, credit_name, credit_order, created_at, updated_at)
+INSERT INTO video_credits (video_id, cast_member_id, credit_role, credit_order, created_at, updated_at)
 SELECT 
   v.video_id,
+  cm.cast_member_id,
   'producer',
-  'Kai Luckey',
   12,
   CURRENT_TIMESTAMP,
   CURRENT_TIMESTAMP
-FROM videos v 
-WHERE v.title = 'The Imaginary Rules of Engagement';
+FROM videos v, cast_members cm
+WHERE v.title = 'The Imaginary Rules of Engagement' AND cm.name = 'Kai Luckey';
 
 -- Update style_json for mv3 (music video with background position)
 UPDATE videos 

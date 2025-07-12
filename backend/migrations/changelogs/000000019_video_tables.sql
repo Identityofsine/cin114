@@ -24,6 +24,14 @@ CREATE TABLE IF NOT EXISTS link_type_lks (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Cast members table
+CREATE TABLE IF NOT EXISTS cast_members (
+  cast_member_id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Main videos table
 CREATE TABLE IF NOT EXISTS videos (
   video_id SERIAL PRIMARY KEY,
@@ -54,8 +62,8 @@ CREATE TABLE IF NOT EXISTS videos (
 CREATE TABLE IF NOT EXISTS video_credits (
   video_credit_id SERIAL PRIMARY KEY,
   video_id INTEGER NOT NULL,
+  cast_member_id INTEGER NOT NULL,
   credit_role VARCHAR(50) NOT NULL,
-  credit_name VARCHAR(255) NOT NULL,
   credit_order INTEGER DEFAULT 0,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -64,6 +72,11 @@ CREATE TABLE IF NOT EXISTS video_credits (
   CONSTRAINT fk_video_credits_video_id 
     FOREIGN KEY (video_id) 
     REFERENCES videos(video_id) 
+    ON DELETE CASCADE,
+
+  CONSTRAINT fk_video_credits_cast_member_id
+    FOREIGN KEY (cast_member_id)
+    REFERENCES cast_members(cast_member_id)
     ON DELETE CASCADE,
 
   CONSTRAINT fk_video_credits_credit_role 
@@ -115,21 +128,27 @@ INSERT INTO link_type_lks (link_type_lk, link_type_description) VALUES
   ('instagram', 'Instagram post link'),
   ('website', 'External website link');
 
--- Sequences will be auto-generated
+-- Set the starting value for video_id to 1000
+ALTER SEQUENCE videos_video_id_seq RESTART WITH 1000;
+ALTER SEQUENCE video_credits_video_credit_id_seq RESTART WITH 1000;
+ALTER SEQUENCE video_links_video_link_id_seq RESTART WITH 1000;
 
 -- Add indexes for common queries
 CREATE INDEX idx_videos_video_type ON videos(video_type);
 CREATE INDEX idx_videos_weight ON videos(weight);
 CREATE INDEX idx_videos_created_at ON videos(created_at);
 CREATE INDEX idx_video_credits_video_id ON video_credits(video_id);
+CREATE INDEX idx_video_credits_cast_member_id ON video_credits(cast_member_id);
 CREATE INDEX idx_video_credits_credit_role ON video_credits(credit_role);
 CREATE INDEX idx_video_links_video_id ON video_links(video_id);
 CREATE INDEX idx_video_links_link_type ON video_links(link_type);
+CREATE UNIQUE INDEX idx_cast_members_name ON cast_members(name);
 
 -- +goose Down
 
 DROP TABLE IF EXISTS video_links;
 DROP TABLE IF EXISTS video_credits;
+DROP TABLE IF EXISTS cast_members;
 DROP TABLE IF EXISTS videos;
 DROP TABLE IF EXISTS link_type_lks;
 DROP TABLE IF EXISTS credit_role_lks;
