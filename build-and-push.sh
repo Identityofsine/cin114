@@ -158,10 +158,7 @@ build_frontend() {
     echo "GIT_BRANCH: $GIT_BRANCH"
     echo "VERSION: $VERSION"
     echo "NEXT_PUBLIC_BRANCH: $env"
-    echo "STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-not set}"
-    echo "STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-not set}"
-    echo "STRIPE_REDIRECT_URL: $STRIPE_REDIRECT_URL"
-    
+
     # Build the frontend image
     docker build \
         $cache_option \
@@ -191,7 +188,10 @@ build_api() {
     echo "GIT_COMMIT: $GIT_COMMIT"
     echo "GIT_BRANCH: $GIT_BRANCH"
     echo "VERSION: $VERSION"
-    
+    echo "STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-not set}"
+    echo "STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-not set}"
+    echo "STRIPE_REDIRECT_URL: $STRIPE_REDIRECT_URL"
+
     # Build the API image
     docker build \
         $cache_option \
@@ -201,6 +201,9 @@ build_api() {
         --build-arg GIT_COMMIT="$GIT_COMMIT" \
         --build-arg GIT_BRANCH="$GIT_BRANCH" \
         --build-arg VERSION="$VERSION" \
+        --build-arg STRIPE_SECRET_KEY="${STRIPE_SECRET_KEY:-}" \
+        --build-arg STRIPE_WEBHOOK_SECRET="${STRIPE_WEBHOOK_SECRET:-}" \
+        --build-arg STRIPE_REDIRECT_URL="$STRIPE_REDIRECT_URL" \
         -f ../cin114/backend/Dockerfile \
         ../cin114/backend/
     
