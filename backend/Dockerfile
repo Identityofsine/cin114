@@ -7,6 +7,9 @@ ARG BUILD_ID
 ARG GIT_COMMIT
 ARG GIT_BRANCH
 ARG VERSION=0.0.1
+ARG STRIPE_SECRET_KEY
+ARG STRIPE_WEBHOOK_SECRET
+ARG STRIPE_REDIRECT_URL
 
 # Set as environment variables (available during build and runtime)
 ENV BUILD_DATE=$BUILD_DATE
@@ -14,6 +17,9 @@ ENV BUILD_ID=$BUILD_ID
 ENV GIT_COMMIT=$GIT_COMMIT
 ENV GIT_BRANCH=$GIT_BRANCH
 ENV VERSION=$VERSION
+ENV STRIPE_SECRET_KEY=$STRIPE_SECRET_KEY
+ENV STRIPE_WEBHOOK_SECRET=$STRIPE_WEBHOOK_SECRET
+ENV STRIPE_REDIRECT_URL=$STRIPE_REDIRECT_URL
 
 # Creates an app directory to hold your app's source code
 WORKDIR /usr/src/app
@@ -36,7 +42,7 @@ RUN echo "Build Date: $BUILD_DATE" && \
     echo "Build ID: $BUILD_ID" && \
     echo "Git Commit: $GIT_COMMIT" && \
     echo "Git Branch: $GIT_BRANCH" && \
-    echo "Version: $VERSION"
+    echo "Version: $VERSION" 
 
 # Generate server.yaml with build-time information (remove existing file first)
 RUN rm -f config/server.yaml && \
