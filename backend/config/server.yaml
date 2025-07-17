@@ -1,5 +1,5 @@
 version: "0.0.1"
 server_name: "cin114-backend"
 iteration: 1
-commit: "6363c7f"
-branch: "feat/11-1-payment-page-implementation"
+commit: "7702aa5"
+branch: "feat/10-emails"
