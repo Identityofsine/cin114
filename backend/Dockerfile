@@ -24,10 +24,10 @@ ENV STRIPE_REDIRECT_URL=$STRIPE_REDIRECT_URL
 # Creates an app directory to hold your app's source code
 WORKDIR /usr/src/app
 
-RUN apt-get update
+RUN apt-get update --allow-insecure-repositories
 
 # Installs Node.js and npm
-RUN apt-get install -y npm 
+RUN apt install -y npm 
 RUN wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 RUN . ~/.nvm/nvm.sh && nvm install 20.0.0
 
@@ -54,8 +54,15 @@ RUN rm -f config/server.yaml && \
     echo "build_date: \"${BUILD_DATE:-unknown}\"" >> config/server.yaml && \
     echo "build_id: \"${BUILD_ID:-unknown}\"" >> config/server.yaml
 
-# Debug: Show the generated server.yaml file
-RUN cat config/server.yaml
+# Generate stripe.yaml with build-time Stripe configuration
+RUN rm -f config/stripe.yaml && \
+    echo "# Stripe Configuration (Generated at build time)" > config/stripe.yaml && \
+    echo "stripe_secret_key: \"${STRIPE_SECRET_KEY:-}\"" >> config/stripe.yaml && \
+    echo "webhook_secret: \"${STRIPE_WEBHOOK_SECRET:-}\"" >> config/stripe.yaml && \
+    echo "stripe_redirect_url: \"${STRIPE_REDIRECT_URL:-}\"" >> config/stripe.yaml
+
+# Debug: Show the generated files
+RUN cat config/server.yaml && echo "---" && cat config/stripe.yaml
 
 # Installs Go dependencies
 RUN go mod download

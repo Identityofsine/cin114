@@ -95,6 +95,10 @@ jobs:
           export NODE_ENV="production"
           export BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
           export BUILD_ID="$(git rev-parse --short HEAD 2>/dev/null || echo 'unknown')"
+          # Set Stripe environment variables
+          export STRIPE_SECRET_KEY="${{ secrets.STRIPE_SECRET_KEY }}"
+          export STRIPE_WEBHOOK_SECRET="${{ secrets.STRIPE_WEBHOOK_SECRET }}"
+          export STRIPE_REDIRECT_URL="${{ secrets.STRIPE_REDIRECT_URL }}"
           # Navigate to the homebrew directory
           cd ~/homebrew || exit 1
           # Run the NEW streamlined deployment script

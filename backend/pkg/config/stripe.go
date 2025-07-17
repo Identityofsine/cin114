@@ -4,15 +4,17 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	"github.com/joho/godotenv"
 )
 
 // StripeSettings contains the configuration for Stripe payment processing
 
 type StripeSettings struct {
 	ConfigFile
-	StripeSecretKey   string
-	StripeRedirectURL string
-	WebhookSecret     string
+	StripeSecretKey   string `yaml:"stripe_secret_key"`
+	StripeRedirectURL string `yaml:"stripe_redirect_url"`
+	WebhookSecret     string `yaml:"webhook_secret"`
 }
 
 var (
@@ -61,10 +63,25 @@ func GetStripeSettings() *StripeSettings {
 	if stripeCachedConfig != nil {
 		return stripeCachedConfig
 	}
+
+	// Try to load from YAML config first
 	if config, err := loadConfig[*StripeSettings]("stripe"); err == nil {
-		config.StripeSecretKey = os.Getenv("STRIPE_SECRET_KEY")
-		config.WebhookSecret = os.Getenv("STRIPE_WEBHOOK_SECRET")
-		config.StripeRedirectURL = os.Getenv("STRIPE_REDIRECT_URL")
+		// If YAML values are empty, fall back to environment variables
+		if config.StripeSecretKey == "" {
+			// Only load .env file if it exists (for local development)
+			if _, err := os.Stat(".env"); err == nil {
+				godotenv.Load(".env")
+			}
+			config.StripeSecretKey = os.Getenv("STRIPE_SECRET_KEY")
+		}
+
+		if config.WebhookSecret == "" {
+			config.WebhookSecret = os.Getenv("STRIPE_WEBHOOK_SECRET")
+		}
+
+		if config.StripeRedirectURL == "" {
+			config.StripeRedirectURL = os.Getenv("STRIPE_REDIRECT_URL")
+		}
 
 		// Debug: Print what we loaded (without exposing the full key)
 		secretKeyLen := len(config.StripeSecretKey)
@@ -75,6 +92,9 @@ func GetStripeSettings() *StripeSettings {
 			fmt.Printf("Stripe config loaded - Secret key is empty\n")
 		}
 
+		fmt.Printf("Stripe webhook secret length: %d\n", len(config.WebhookSecret))
+		fmt.Printf("Stripe redirect URL: %s\n", config.StripeRedirectURL)
+
 		// Validate the configuration
 		if validationErr := validateStripeSecrets(config); validationErr != nil {
 			fmt.Printf("Warning: %v\n", validationErr)
@@ -84,19 +104,25 @@ func GetStripeSettings() *StripeSettings {
 		return config
 	} else {
 		fmt.Printf("Error loading stripe config: %v\n", err)
+		// Fallback to environment variables only
+		if _, err := os.Stat(".env"); err == nil {
+			godotenv.Load(".env")
+		}
+
 		config := &StripeSettings{
 			StripeSecretKey:   os.Getenv("STRIPE_SECRET_KEY"),
 			WebhookSecret:     os.Getenv("STRIPE_WEBHOOK_SECRET"),
 			StripeRedirectURL: os.Getenv("STRIPE_REDIRECT_URL"),
 		}
 
-		// Debug: Print what we loaded (without exposing the full key)
+		// Debug: Print fallback config
+		fmt.Printf("Using fallback environment variables for Stripe config\n")
 		secretKeyLen := len(config.StripeSecretKey)
 		if secretKeyLen > 0 {
-			fmt.Printf("Stripe config loaded (fallback) - Secret key length: %d, starts with: %s\n",
+			fmt.Printf("Stripe config (fallback) - Secret key length: %d, starts with: %s\n",
 				secretKeyLen, config.StripeSecretKey[:7])
 		} else {
-			fmt.Printf("Stripe config loaded (fallback) - Secret key is empty\n")
+			fmt.Printf("Stripe config (fallback) - Secret key is empty\n")
 		}
 
 		// Validate the configuration

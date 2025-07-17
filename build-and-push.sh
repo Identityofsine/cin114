@@ -17,8 +17,20 @@ export GIT_COMMIT=$(git rev-parse --short HEAD 2>/dev/null || echo "local")
 export GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "unknown")
 export BUILD_ID="${GIT_BRANCH}-${GIT_COMMIT:-local}"
 export VERSION="0.0.1"
-source backend/.env
-export STRIPE_REDIRECT_URL="https://dev.cin114.net/thank-you"
+
+# Load environment variables from .env file if it exists
+if [ -f ".env-$1" ]; then
+    source .env-$1
+    echo "Loaded environment variables from .env-$1 file"
+elif [ -f "backend/.env-$1" ]; then
+    source backend/.env-$1
+    echo "Loaded environment variables from backend/.env-$1 file"
+else
+    echo "No .env-$1 file found, using environment variables or defaults"
+fi
+
+# Set default redirect URL if not set
+export STRIPE_REDIRECT_URL="${STRIPE_REDIRECT_URL:-https://dev.cin114.net/thank-you}"
 
 # Secret validation function
 validate_secrets() {
@@ -106,10 +118,10 @@ check_prerequisites() {
         exit 1
     fi
     
-    # Check if source code directory exists
-    if [ ! -d "../cin114" ]; then
-        log_error "Source code directory ../cin114 not found."
-        log_error "Make sure you're running this script from the homebrew directory."
+    # Check if we're in the right directory (should have backend/ and src/ directories)
+    if [ ! -d "backend" ] || [ ! -d "src" ]; then
+        log_error "This script should be run from the cin114 root directory."
+        log_error "Expected to find backend/ and src/ directories here."
         exit 1
     fi
     
