@@ -1,5 +1,7 @@
 import ScreeningCallToAction from '@/components/screening/ScreeningCallToAction';
+import ScreeningDetails from '@/components/screening/ScreeningDetails';
 import ScreeningHeader from '@/components/screening/ScreeningHeader';
+import ScreeningMapPreview from '@/components/screening/ScreeningMapPreview';
 import '@/components/screening/styles/screening.scss';
 import { FilmBackground } from '@/template/FilmClient';
 import { Event } from '@/types/event';
@@ -65,6 +67,8 @@ export default async function Page({
         </FilmBackground>
       </div>
       <div className="screening-content">
+        <ScreeningMapPreview />
+        <ScreeningDetails event={event} />
       </div>
     </section>
   )
