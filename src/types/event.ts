@@ -28,6 +28,7 @@ export interface EventLocationApi {
   location_description?: string; // Optional description of the location
   latitude?: number; // Latitude of the location
   longitude?: number; // Longitude of the location
+  location_address?: string; // Address of the location
   created_at?: string; // Creation date of the location
   updated_at?: string; // Last update date of the location
 }
@@ -38,6 +39,7 @@ export interface EventLocation {
   locationDescription?: string; // Optional description of the location
   latitude?: number; // Latitude of the location
   longitude?: number; // Longitude of the location
+  address?: string; // Address of the location
   createdAt?: Date; // Creation date of the location
   updatedAt?: Date; // Last update date of the location
 }

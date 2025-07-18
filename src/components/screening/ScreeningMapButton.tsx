@@ -1,3 +1,6 @@
+'use client'
+
+import Image from 'next/image';
 import './styles/screeningmapbutton.scss';
 
 export const MAP_PROVIDERS = {
@@ -19,7 +22,16 @@ function ScreeningMapButton({
 }: ScreeningMapButtonProps) {
   return (
     <div className="screening-map-button" onClick={() => onClick(provider)}>
-      Open in {provider}
+      <div className="screening-map-button__icon">
+        <Image
+          src={`/ui/map-${provider.toLowerCase().replace(' ', '-')}.svg`} alt={`${provider} icon`}
+          width="37"
+          height="37"
+        />
+      </div>
+      <span>
+        Open in {provider}
+      </span>
     </div>
   )
 }
