@@ -15,6 +15,7 @@ type EventLocationDB struct {
 	Latitude            float64   `json:"latitude"`
 	CreatedAt           time.Time `json:"created_at"`
 	UpdatedAt           time.Time `json:"updated_at"`
+	LocationAddress     *string   `json:"location_address"`
 }
 
 func GetLocationsByEventId(eventId int64) ([]EventLocationDB, db.DatabaseError) {
@@ -39,8 +40,8 @@ func GetLocationById(locationId int64) (*EventLocationDB, db.DatabaseError) {
 }
 
 func CreateEventLocation(location *EventLocationDB) db.DatabaseError {
-	query := "INSERT INTO event_locations (event_id, location_name, location_description, longitude, latitude) VALUES ($1, $2, $3, $4, $5) RETURNING event_location_id, created_at, updated_at"
-	rows, err := db.Query[EventLocationDB](query, location.EventId, location.LocationName, location.LocationDescription, location.Longitude, location.Latitude)
+	query := "INSERT INTO event_locations (event_id, location_name, location_description, location_address longitude, latitude) VALUES ($1, $2, $3, $4, $5, $6) RETURNING event_location_id, created_at, updated_at"
+	rows, err := db.Query[EventLocationDB](query, location.EventId, location.LocationName, location.LocationDescription, location.LocationAddress, location.Longitude, location.Latitude)
 	if err != nil {
 		return err
 	}

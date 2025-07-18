@@ -2,7 +2,7 @@ import './styles/screeningmappreview.scss'
 
 function ScreeningMapPreview() {
   return (
-    <div></div>
+    <div className="screening-map-preview"></div>
   )
 }
 
