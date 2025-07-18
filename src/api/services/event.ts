@@ -53,6 +53,7 @@ function populateEventFromBackend(event: EventApi): Event {
       locationDescription: location.location_description,
       latitude: location.latitude,
       longitude: location.longitude,
+      address: location.location_address,
       createdAt: location.created_at ? new Date(location.created_at) : undefined,
       updatedAt: location.updated_at ? new Date(location.updated_at) : undefined
     })),

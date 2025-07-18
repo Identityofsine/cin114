@@ -36,6 +36,16 @@
       }
     }
   }
+
+  &-content {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 2rem 0;
+    margin-bottom: 3rem;
+    gap: 20px;
+    width: 100%;
+  }
 }
 
 .film__bg,
@@ -57,10 +67,10 @@
 @include media("<=tablet") {
   .screening {
     margin-top: 40px;
-    
+
     &-hero {
       max-height: 100vh;
-      
+
       &-content {
         padding: 40px 16px;
         justify-content: center;
@@ -73,7 +83,7 @@
 @include media("<=phone") {
   .screening {
     margin-top: 20px;
-    
+
     &-hero {
       &-content {
         padding: 30px 12px;
