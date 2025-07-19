@@ -6,11 +6,13 @@ import (
 	"io"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/identityofsine/fofx-go-gin-api-template/internal/repository/model"
 	"github.com/identityofsine/fofx-go-gin-api-template/pkg/config"
 	"github.com/identityofsine/fofx-go-gin-api-template/pkg/db"
+	"github.com/identityofsine/fofx-go-gin-api-template/pkg/notifications"
 	"github.com/identityofsine/fofx-go-gin-api-template/pkg/storedlogs"
 	"github.com/stripe/stripe-go/v82"
 	"github.com/stripe/stripe-go/v82/charge"
@@ -153,7 +155,8 @@ func handleCheckoutSessionCompleted(c *gin.Context, event stripe.Event) {
 		quantity = checkoutSession.LineItems.Data[0].Quantity
 	}
 
-	// Create ticket records
+	// Create ticket records and collect ticket IDs
+	var createdTickets []model.TicketDB
 	for i := int64(0); i < quantity; i++ {
 		ticket := &model.TicketDB{
 			EventId:         eventId,
@@ -165,10 +168,27 @@ func handleCheckoutSessionCompleted(c *gin.Context, event stripe.Event) {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Error creating ticket"})
 			return
 		}
+		createdTickets = append(createdTickets, *ticket)
+	}
+
+	// Send ticket confirmation email
+	if err := sendTicketConfirmationEmail(checkoutSession, eventId, createdTickets, stripeCharge); err != nil {
+		storedlogs.LogError("Failed to send ticket confirmation email", err)
+		// Don't fail the webhook for email issues, just log the error
+	}
+
+	// Get the first ticket ID for redirect
+	var redirectTicketId int64
+	if len(createdTickets) > 0 {
+		redirectTicketId = createdTickets[0].TicketId
 	}
 
 	storedlogs.LogInfo(fmt.Sprintf("Successfully created payment record and %d tickets for event %d", quantity, eventId))
-	c.JSON(http.StatusOK, gin.H{"message": "Webhook processed successfully"})
+	c.JSON(http.StatusOK, gin.H{
+		"message":   "Webhook processed successfully",
+		"ticket_id": redirectTicketId,
+		"redirect":  fmt.Sprintf("https://cin114.net/thank-you?ticket_id=%d", redirectTicketId),
+	})
 }
 
 func createPaymentRecord(charge *stripe.Charge) db.DatabaseError {
@@ -385,4 +405,94 @@ func createPaymentRecord(charge *stripe.Charge) db.DatabaseError {
 	}
 
 	return model.CreateStripePayment(payment)
+}
+
+// sendTicketConfirmationEmail sends a confirmation email with ticket details
+func sendTicketConfirmationEmail(checkoutSession stripe.CheckoutSession, eventId int64, tickets []model.TicketDB, stripeCharge *stripe.Charge) error {
+	// Get customer email from checkout session
+	customerEmail := ""
+	if checkoutSession.CustomerDetails != nil && checkoutSession.CustomerDetails.Email != "" {
+		customerEmail = checkoutSession.CustomerDetails.Email
+	} else if stripeCharge.ReceiptEmail != "" {
+		customerEmail = stripeCharge.ReceiptEmail
+	}
+
+	if customerEmail == "" {
+		return fmt.Errorf("no customer email found")
+	}
+
+	// Get event details with location information
+	event, locations, _, err := model.GetEventByIdWithChildren(eventId)
+	if err != nil {
+		return fmt.Errorf("failed to get event details: %w", err)
+	}
+
+	// Format event information
+	eventTitle := event.Description
+	if event.ShortDescription != nil && *event.ShortDescription != "" {
+		eventTitle = *event.ShortDescription
+	}
+
+	// Default venue and address
+	eventVenue := "CIN114 Theater"
+	eventAddress := "To be announced"
+	if len(locations) > 0 {
+		eventVenue = locations[0].LocationName
+		if locations[0].LocationAddress != nil {
+			eventAddress = *locations[0].LocationAddress
+		}
+	}
+
+	// Format event date (for now, use a placeholder - you might want to add this to your event model)
+	eventDate := "To be announced"
+	eventTime := "To be announced"
+	if event.ExpirationDate != nil {
+		eventDate = event.ExpirationDate.Format("January 2, 2006")
+		eventTime = event.ExpirationDate.Format("3:04 PM")
+	}
+
+	// Format ticket information
+	var ticketList []notifications.Ticket
+	for _, ticket := range tickets {
+		ticketList = append(ticketList, notifications.Ticket{
+			Number: fmt.Sprintf("T-%d", ticket.TicketId),
+			Type:   "General Admission",
+			Price:  fmt.Sprintf("%.2f", float64(stripeCharge.Amount)/100.0/float64(len(tickets))),
+		})
+	}
+
+	// Format payment information
+	subtotal := fmt.Sprintf("%.2f", float64(stripeCharge.Amount)/100.0)
+	processingFee := "0.00" // You might want to calculate this based on your fee structure
+	taxAmount := "0.00"     // You might want to calculate this based on your tax structure
+	totalAmount := fmt.Sprintf("%.2f", float64(stripeCharge.Amount)/100.0)
+
+	paymentMethod := "Credit Card"
+	if stripeCharge.PaymentMethodDetails != nil && stripeCharge.PaymentMethodDetails.Card != nil {
+		brand := string(stripeCharge.PaymentMethodDetails.Card.Brand)
+		last4 := stripeCharge.PaymentMethodDetails.Card.Last4
+		paymentMethod = fmt.Sprintf("%s ending in %s", brand, last4)
+	}
+
+	purchaseDate := time.Unix(stripeCharge.Created, 0).Format("January 2, 2006 3:04 PM MST")
+
+	// Create email data
+	emailData := notifications.TicketConfirmationData{
+		EventTitle:    eventTitle,
+		EventDate:     eventDate,
+		EventTime:     eventTime,
+		EventVenue:    eventVenue,
+		EventAddress:  eventAddress,
+		Tickets:       ticketList,
+		Subtotal:      subtotal,
+		ProcessingFee: processingFee,
+		TaxAmount:     taxAmount,
+		TotalAmount:   totalAmount,
+		PaymentMethod: paymentMethod,
+		TransactionID: stripeCharge.ID,
+		PurchaseDate:  purchaseDate,
+	}
+
+	// Send the email
+	return notifications.SendTicketConfirmationEmail(customerEmail, emailData)
 }

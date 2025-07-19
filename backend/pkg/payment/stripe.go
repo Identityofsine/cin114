@@ -34,6 +34,16 @@ var (
 
 func CreateStripePriceForScreening(form EventStripePriceForm) (*model.EventStripePriceDB, db.DatabaseError) {
 
+	// Validate Stripe key before using it
+	if stripeConfig.StripeSecretKey == "" || stripeConfig.StripeSecretKey == "sk_test_placeholder" {
+		return nil, db.NewDatabaseError(
+			"CreateStripePriceForScreening",
+			"Stripe secret key not configured",
+			"stripe-key-not-configured",
+			500,
+		)
+	}
+
 	stripe.Key = stripeConfig.StripeSecretKey
 
 	if exists, err := doesStripePriceExist(form.Event.EventId); err != nil || exists {
@@ -74,6 +84,16 @@ func CreateStripePriceForScreening(form EventStripePriceForm) (*model.EventStrip
 }
 
 func CreateCheckoutSessionForEvent(form CheckoutSessionForm) (*stripe.CheckoutSession, db.DatabaseError) {
+	// Validate Stripe key before using it
+	if stripeConfig.StripeSecretKey == "" || stripeConfig.StripeSecretKey == "sk_test_placeholder" {
+		return nil, db.NewDatabaseError(
+			"CreateCheckoutSessionForEvent",
+			"Stripe secret key not configured",
+			"stripe-key-not-configured",
+			500,
+		)
+	}
+
 	stripe.Key = stripeConfig.StripeSecretKey
 
 	// Get the event from database
@@ -208,6 +228,16 @@ func createStripePaymentInDatabase(price *stripe.Price, event Event) (*model.Eve
 }
 
 func StripeSetupWebhookOnCheckoutSession() db.DatabaseError {
+	// Validate Stripe key before using it
+	if stripeConfig.StripeSecretKey == "" || stripeConfig.StripeSecretKey == "sk_test_placeholder" {
+		return db.NewDatabaseError(
+			"StripeSetupWebhookOnCheckoutSession",
+			"Stripe secret key not configured",
+			"stripe-key-not-configured",
+			500,
+		)
+	}
+
 	stripe.Key = stripeConfig.StripeSecretKey
 	serverCfg := config.GetServerDetails()
 

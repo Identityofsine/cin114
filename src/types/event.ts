@@ -1,5 +1,6 @@
 export interface EventApi {
   event_id?: number; // Unique identifier for the event
+  video_id?: number; // Optional video identifier associated with the event
   description?: string; // Description of the event
   short_description?: string; // Optional short description of the event
   expiration_date?: string; // Optional expiration date of the event
@@ -11,6 +12,7 @@ export interface EventApi {
 
 export interface Event {
   eventId?: number; // Unique identifier for the event
+  videoId?: number; // Optional video identifier associated with the event
   description?: string; // Description of the event
   shortDescription?: string; // Optional short description of the event
   expirationDate?: Date; // Optional expiration date of the event
@@ -26,6 +28,7 @@ export interface EventLocationApi {
   location_description?: string; // Optional description of the location
   latitude?: number; // Latitude of the location
   longitude?: number; // Longitude of the location
+  location_address?: string; // Address of the location
   created_at?: string; // Creation date of the location
   updated_at?: string; // Last update date of the location
 }
@@ -36,6 +39,7 @@ export interface EventLocation {
   locationDescription?: string; // Optional description of the location
   latitude?: number; // Latitude of the location
   longitude?: number; // Longitude of the location
+  address?: string; // Address of the location
   createdAt?: Date; // Creation date of the location
   updatedAt?: Date; // Last update date of the location
 }
