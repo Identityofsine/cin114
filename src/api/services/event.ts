@@ -1,4 +1,5 @@
 import { authAxios } from "@/api/instance/instance";
+import { Checkout, CheckoutApi } from "@/types/checkout";
 import { Event, EventApi } from "@/types/event";
 
 export async function getEvent(eventId: number): Promise<Event | null> {
@@ -18,29 +19,65 @@ export async function getEvent(eventId: number): Promise<Event | null> {
   }
 }
 
+export async function createCheckout(eventId: number): Promise<Checkout> {
+  try {
+    const response = await authAxios.post<CheckoutApi>('api/v1/events/' + eventId + '/checkout', {
+      quantity: 1 // Assuming a default quantity of 1 for the checkout
+    });
+    // Convert API response to the desired format
+    const checkout = populateCheckoutFromBackend(response.data);
+    return checkout;
+  } catch (error) {
+    console.error('Error creating checkout:', error);
+    throw error; // Re-throw the error for further handling
+  }
+}
+
+function populateCheckoutFromBackend(checkout: CheckoutApi): Checkout {
+  return {
+    checkoutUrl: checkout.checkout_url,
+    sessionId: checkout.session_id
+  }
+}
+
 function populateEventFromBackend(event: EventApi): Event {
+  // Helper function to parse date as local time instead of UTC
+  const parseAsLocalDate = (dateString: string): Date => {
+    // Replace 'T' with space if present, and remove 'Z' if present
+    const cleanDateString = dateString.replace('T', ' ').replace('Z', '');
+    // Split the date string into components
+    const [datePart, timePart] = cleanDateString.split(' ');
+    const [year, month, day] = datePart.split('-').map(Number);
+    const [hour, minute, second] = (timePart || '00:00:00').split(':').map(Number);
+    
+    // Create date using local timezone (not UTC)
+    return new Date(year, month - 1, day, hour, minute, second || 0);
+  };
+
   return {
     eventId: event.event_id,
+    videoId: event.video_id,
     description: event.description,
     shortDescription: event.short_description,
-    expirationDate: event.expiration_date ? new Date(event.expiration_date) : undefined,
+    expirationDate: event.expiration_date ? parseAsLocalDate(event.expiration_date) : undefined,
     locations: event.locations?.map(location => ({
       eventId: location.event_id,
       locationName: location.location_name,
       locationDescription: location.location_description,
       latitude: location.latitude,
       longitude: location.longitude,
-      createdAt: location.created_at ? new Date(location.created_at) : undefined,
-      updatedAt: location.updated_at ? new Date(location.updated_at) : undefined
+      address: location.location_address,
+      createdAt: location.created_at ? parseAsLocalDate(location.created_at) : undefined,
+      updatedAt: location.updated_at ? parseAsLocalDate(location.updated_at) : undefined
     })),
     images: event.images?.map(image => ({
       eventId: image.event_id,
       imageUrl: image.image_url,
       imageType: image.image_type, // Assuming image_type is already in the correct format
-      createdAt: image.created_at ? new Date(image.created_at) : undefined,
-      updatedAt: image.updated_at ? new Date(image.updated_at) : undefined
+      createdAt: image.created_at ? parseAsLocalDate(image.created_at) : undefined,
+      updatedAt: image.updated_at ? parseAsLocalDate(image.updated_at) : undefined
     })),
-    createdAt: event.created_at ? new Date(event.created_at) : undefined,
-    updatedAt: event.updated_at ? new Date(event.updated_at) : undefined
+    createdAt: event.created_at ? parseAsLocalDate(event.created_at) : undefined,
+    updatedAt: event.updated_at ? parseAsLocalDate(event.updated_at) : undefined
   }
 }

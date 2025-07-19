@@ -1,5 +1,5 @@
 version: "0.0.1"
 server_name: "cin114-backend"
 iteration: 1
-commit: "8f51ba4"
-branch: "develop"
+commit: "d90149a"
+branch: "feat/10-emails"

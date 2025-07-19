@@ -1,5 +1,11 @@
 # Stripe Configuration
+# This file is used for local development only
+# In production/Docker builds, this file is regenerated with build-time secrets
 # The webhook secret is used to verify that webhook events are actually sent from Stripe
 # In development, this can be obtained from the Stripe CLI
 # In production, this should be set from your webhook endpoint configuration
+
+# Leave these empty - they will be populated from environment variables (.env file)
+stripe_secret_key: ""
 webhook_secret: ""
+stripe_redirect_url: ""

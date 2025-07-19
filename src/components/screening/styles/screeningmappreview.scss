@@ -1,0 +1,48 @@
+@use '@/app/theme.scss' as cui;
+@import '../../../app/scss_lib/breakpoints.scss';
+
+.screening-map-preview {
+  max-width: 772px;
+  max-height: 641px;
+  border-radius: 6px;
+  background: cui.$gray-950;
+  border: 1px solid cui.$gray-900;
+  box-shadow: cui.$light-shadow;
+
+  // Responsive adjustments for larger screens
+  @include media(">=laptop") {
+    width: 850px;
+    height: 700px;
+    border-radius: 8px;
+  }
+
+  @include media(">=LGlaptop") {
+    width: 950px;
+    height: 780px;
+  }
+
+  @include media(">=desktop") {
+    width: 1100px;
+    height: 900px;
+    border-radius: 10px;
+  }
+
+  @include media(">=MDdesktop") {
+    width: 1200px;
+    height: 980px;
+  }
+
+  @include media(">=LGdesktop") {
+    width: 1400px;
+    height: 1150px;
+    border-radius: 12px;
+  }
+
+  @include media(">=XLGdesktop") {
+    width: 1600px;
+    height: 1300px;
+    border-radius: 16px;
+  }
+
+  // Ensure it doesn't overflow container on any screen
+}

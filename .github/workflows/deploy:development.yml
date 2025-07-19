@@ -83,6 +83,16 @@ jobs:
             -f Dockerfile .
 
       - name: Build API Docker image
+        env:
+          STRIPE_SECRET_KEY: ${{ secrets.DEV_STRIPE_SECRET_KEY }}
+          STRIPE_WEBHOOK_SECRET: ${{ secrets.DEV_STRIPE_WEBHOOK_SECRET }}
+          STRIPE_REDIRECT_URL: ${{ secrets.DEV_STRIPE_REDIRECT_URL }}
+          SMTP_SERVER: ${{ secrets.DEV_SMTP_SERVER }}
+          SMTP_PORT: ${{ secrets.DEV_SMTP_PORT }}
+          SMTP_USERNAME: ${{ secrets.DEV_SMTP_USERNAME }}
+          SMTP_PASSWORD: ${{ secrets.DEV_SMTP_PASSWORD }}
+          SMTP_FROM_EMAIL: ${{ secrets.DEV_SMTP_FROM_EMAIL }}
+          SMTP_FROM_NAME: ${{ secrets.DEV_SMTP_FROM_NAME }}
         run: |
           docker build -t ${{ env.API_IMAGE }}:${{ env.TAG }} \
             --build-arg BUILD_DATE=${{ env.BUILD_DATE }} \
@@ -90,6 +100,15 @@ jobs:
             --build-arg GIT_COMMIT=${{ env.GIT_COMMIT }} \
             --build-arg GIT_BRANCH=${{ env.GIT_BRANCH }} \
             --build-arg VERSION=${{ env.VERSION }} \
+            --build-arg STRIPE_SECRET_KEY="$STRIPE_SECRET_KEY" \
+            --build-arg STRIPE_WEBHOOK_SECRET="$STRIPE_WEBHOOK_SECRET" \
+            --build-arg STRIPE_REDIRECT_URL="$STRIPE_REDIRECT_URL" \
+            --build-arg SMTP_SERVER="$SMTP_SERVER" \
+            --build-arg SMTP_PORT="$SMTP_PORT" \
+            --build-arg SMTP_USERNAME="$SMTP_USERNAME" \
+            --build-arg SMTP_PASSWORD="$SMTP_PASSWORD" \
+            --build-arg SMTP_FROM_EMAIL="$SMTP_FROM_EMAIL" \
+            --build-arg SMTP_FROM_NAME="$SMTP_FROM_NAME" \
             -f backend/Dockerfile ./backend
 
       - name: Push Frontend Docker image
@@ -123,6 +142,17 @@ jobs:
           export NODE_ENV="development"
           export BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
           export BUILD_ID="$(git rev-parse --short HEAD 2>/dev/null || echo 'unknown')"
+          # Set Stripe environment variables
+          export STRIPE_SECRET_KEY="${{ secrets.STRIPE_SECRET_KEY }}"
+          export STRIPE_WEBHOOK_SECRET="${{ secrets.STRIPE_WEBHOOK_SECRET }}"
+          export STRIPE_REDIRECT_URL="${{ secrets.STRIPE_REDIRECT_URL }}"
+          # Set SMTP environment variables
+          export SMTP_SERVER="${{ secrets.DEV_SMTP_SERVER }}"
+          export SMTP_PORT="${{ secrets.DEV_SMTP_PORT }}"
+          export SMTP_USERNAME="${{ secrets.DEV_SMTP_USERNAME }}"
+          export SMTP_PASSWORD="${{ secrets.DEV_SMTP_PASSWORD }}"
+          export SMTP_FROM_EMAIL="${{ secrets.DEV_SMTP_FROM_EMAIL }}"
+          export SMTP_FROM_NAME="${{ secrets.DEV_SMTP_FROM_NAME }}"
           # Navigate to the homebrew directory
           cd ~/homebrew || exit 1
           # Run the NEW streamlined deployment script
