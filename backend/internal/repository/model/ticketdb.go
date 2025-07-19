@@ -55,7 +55,15 @@ func GetTicketsByStripePaymentId(stripePaymentId string) ([]TicketDB, db.Databas
 
 func CreateTicket(ticket *TicketDB) db.DatabaseError {
 	query := "INSERT INTO tickets (event_id, stripe_payment_id) VALUES ($1, $2) RETURNING ticket_id, created_at, updated_at"
-	rows, err := db.Query[TicketDB](query, ticket.EventId, ticket.StripePaymentId)
+
+	// Helper struct for RETURNING clause
+	type CreateResult struct {
+		TicketId  int64     `json:"ticket_id"`
+		CreatedAt time.Time `json:"created_at"`
+		UpdatedAt time.Time `json:"updated_at"`
+	}
+
+	rows, err := db.Query[CreateResult](query, ticket.EventId, ticket.StripePaymentId)
 	if err != nil {
 		return err
 	}

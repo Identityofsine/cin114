@@ -10,6 +10,12 @@ ARG VERSION=0.0.1
 ARG STRIPE_SECRET_KEY
 ARG STRIPE_WEBHOOK_SECRET
 ARG STRIPE_REDIRECT_URL
+ARG SMTP_SERVER
+ARG SMTP_PORT
+ARG SMTP_USERNAME
+ARG SMTP_PASSWORD
+ARG SMTP_FROM_EMAIL
+ARG SMTP_FROM_NAME
 
 # Set as environment variables (available during build and runtime)
 ENV BUILD_DATE=$BUILD_DATE
@@ -20,6 +26,12 @@ ENV VERSION=$VERSION
 ENV STRIPE_SECRET_KEY=$STRIPE_SECRET_KEY
 ENV STRIPE_WEBHOOK_SECRET=$STRIPE_WEBHOOK_SECRET
 ENV STRIPE_REDIRECT_URL=$STRIPE_REDIRECT_URL
+ENV SMTP_SERVER=$SMTP_SERVER
+ENV SMTP_PORT=$SMTP_PORT
+ENV SMTP_USERNAME=$SMTP_USERNAME
+ENV SMTP_PASSWORD=$SMTP_PASSWORD
+ENV SMTP_FROM_EMAIL=$SMTP_FROM_EMAIL
+ENV SMTP_FROM_NAME=$SMTP_FROM_NAME
 
 # Creates an app directory to hold your app's source code
 WORKDIR /usr/src/app
@@ -61,8 +73,18 @@ RUN rm -f config/stripe.yaml && \
     echo "webhook_secret: \"${STRIPE_WEBHOOK_SECRET:-}\"" >> config/stripe.yaml && \
     echo "stripe_redirect_url: \"${STRIPE_REDIRECT_URL:-}\"" >> config/stripe.yaml
 
+# Generate mail.yaml with build-time SMTP configuration
+RUN rm -f config/mail.yaml && \
+    echo "# Mail Configuration (Generated at build time)" > config/mail.yaml && \
+    echo "smtp_server: \"${SMTP_SERVER:-smtp.gmail.com}\"" >> config/mail.yaml && \
+    echo "smtp_port: ${SMTP_PORT:-587}" >> config/mail.yaml && \
+    echo "smtp_username: \"${SMTP_USERNAME:-}\"" >> config/mail.yaml && \
+    echo "smtp_password: \"${SMTP_PASSWORD:-}\"" >> config/mail.yaml && \
+    echo "from_email: \"${SMTP_FROM_EMAIL:-}\"" >> config/mail.yaml && \
+    echo "from_name: \"${SMTP_FROM_NAME:-Cin114 Tickets}\"" >> config/mail.yaml
+
 # Debug: Show the generated files
-RUN cat config/server.yaml && echo "---" && cat config/stripe.yaml
+RUN cat config/server.yaml && echo "---" && cat config/stripe.yaml && echo "---" && cat config/mail.yaml
 
 # Installs Go dependencies
 RUN go mod download
