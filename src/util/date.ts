@@ -29,9 +29,9 @@ export function displayDate(date: Date): string {
 }
 
 //assume the date is in UTC and convert it to New York timezone
-const mutateDateIntoETC = (date: Date): Date => {
+export const mutateDateIntoETC = (date: Date): Date => {
   // Use proper timezone conversion that handles daylight saving time
-  return new Date(date.toLocaleString("en-US", {timeZone: "America/New_York"}));
+  return new Date(date.toLocaleString("en-US", { timeZone: "America/New_York" }));
 }
 
 
