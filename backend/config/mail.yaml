@@ -14,9 +14,3 @@
 #   4. Use this 16-character password here
 
 # Leave these empty - they will be populated from environment variables (.env file)
-smtp_server: "smtp.gmail.com"
-smtp_port: 587
-smtp_username: "sourly.noreply@gmail.com"
-smtp_password: "yaaq nbgs yytj eods"
-from_email: "sourly.noreply@gmail.com"
-from_name: "CIN114" 
