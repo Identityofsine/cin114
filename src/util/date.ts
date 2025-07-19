@@ -8,7 +8,7 @@ export function toTimeZone(date: Date, timeZone: string): Date {
 
 /** 
  * @function displayDate
- * @description Formats a date object into a human-readable string.
+ * @description Formats a date object into a human-readable string in Eastern Time.
  * @param {Date} date - The date object to format.
  * @return {string} - The formatted date string. in the format of DayName Month Day, Year HH:MM AM/PM 
  */
@@ -22,6 +22,7 @@ export function displayDate(date: Date): string {
     minute: '2-digit',
     second: '2-digit',
     hour12: true,
+    // Remove timeZone - use the date as-is
   };
 
   return date.toLocaleString('en-US', options);
@@ -29,17 +30,14 @@ export function displayDate(date: Date): string {
 
 //assume the date is in UTC and convert it to New York timezone
 const mutateDateIntoETC = (date: Date): Date => {
-  const utcDate = date.toISOString();
-  // minute off 
-  const newYorkOffset = -5 * 60 + 1; // New York is UTC-5
-  const localDate = new Date(new Date(utcDate).getTime() + newYorkOffset * 60 * 1000);
-  return localDate;
+  // Use proper timezone conversion that handles daylight saving time
+  return new Date(date.toLocaleString("en-US", {timeZone: "America/New_York"}));
 }
 
 
 
 export const displayDateForScreening = (date: Date) => {
-  date = mutateDateIntoETC(date);
+  // Don't convert timezone - assume date is already in correct timezone
   // Get ordinal suffix for the day
   const getOrdinalSuffix = (day: number): string => {
     if (day > 3 && day < 21) return 'th';

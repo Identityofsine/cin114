@@ -48,6 +48,15 @@ validate_secrets() {
         if [[ -z "${STRIPE_REDIRECT_URL:-}" ]]; then
             missing_secrets+=("STRIPE_REDIRECT_URL")
         fi
+        if [[ -z "${SMTP_USERNAME:-}" ]]; then
+            missing_secrets+=("SMTP_USERNAME")
+        fi
+        if [[ -z "${SMTP_PASSWORD:-}" ]]; then
+            missing_secrets+=("SMTP_PASSWORD")
+        fi
+        if [[ -z "${SMTP_FROM_EMAIL:-}" ]]; then
+            missing_secrets+=("SMTP_FROM_EMAIL")
+        fi
     fi
     
     if [[ ${#missing_secrets[@]} -gt 0 ]]; then
@@ -203,6 +212,12 @@ build_api() {
     echo "STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-not set}"
     echo "STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-not set}"
     echo "STRIPE_REDIRECT_URL: $STRIPE_REDIRECT_URL"
+    echo "SMTP_SERVER: ${SMTP_SERVER:-smtp.gmail.com}"
+    echo "SMTP_PORT: ${SMTP_PORT:-587}"
+    echo "SMTP_USERNAME: ${SMTP_USERNAME:-not set}"
+    echo "SMTP_PASSWORD: ${SMTP_PASSWORD:-not set}"
+    echo "SMTP_FROM_EMAIL: ${SMTP_FROM_EMAIL:-not set}"
+    echo "SMTP_FROM_NAME: ${SMTP_FROM_NAME:-Cin114 Tickets}"
 
     # Build the API image
     docker build \
@@ -216,6 +231,12 @@ build_api() {
         --build-arg STRIPE_SECRET_KEY="${STRIPE_SECRET_KEY:-}" \
         --build-arg STRIPE_WEBHOOK_SECRET="${STRIPE_WEBHOOK_SECRET:-}" \
         --build-arg STRIPE_REDIRECT_URL="$STRIPE_REDIRECT_URL" \
+        --build-arg SMTP_SERVER="${SMTP_SERVER:-smtp.gmail.com}" \
+        --build-arg SMTP_PORT="${SMTP_PORT:-587}" \
+        --build-arg SMTP_USERNAME="${SMTP_USERNAME:-}" \
+        --build-arg SMTP_PASSWORD="${SMTP_PASSWORD:-}" \
+        --build-arg SMTP_FROM_EMAIL="${SMTP_FROM_EMAIL:-}" \
+        --build-arg SMTP_FROM_NAME="${SMTP_FROM_NAME:-Cin114 Tickets}" \
         -f ../cin114/backend/Dockerfile \
         ../cin114/backend/
     
