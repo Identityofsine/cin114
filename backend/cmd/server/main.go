@@ -9,6 +9,7 @@ import (
 	cronjobs "github.com/identityofsine/fofx-go-gin-api-template/pkg/cron/jobs"
 	cron "github.com/identityofsine/fofx-go-gin-api-template/pkg/cron/services"
 	"github.com/identityofsine/fofx-go-gin-api-template/pkg/db"
+	"github.com/identityofsine/fofx-go-gin-api-template/pkg/notifications"
 	"github.com/identityofsine/fofx-go-gin-api-template/pkg/storedlogs"
 	"github.com/joho/godotenv"
 )
@@ -32,6 +33,14 @@ func main() {
 
 	if _, err := GetBuildInfo(); err != nil {
 		storedlogs.LogFatal("Error getting build info: %v", err)
+	}
+
+	// Initialize the mail client from config
+	mailClient := notifications.InitMailClientFromConfig()
+	if mailClient == nil {
+		storedlogs.LogWarn("Mail client not initialized - email notifications will be disabled")
+	} else {
+		storedlogs.LogInfo("Mail client initialized successfully")
 	}
 
 	storedlogs.LogInfo("Starting application")

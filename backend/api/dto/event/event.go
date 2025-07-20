@@ -11,6 +11,7 @@ type EventLocation struct {
 	EventId             int64     `json:"event_id"`
 	LocationName        string    `json:"location_name"`
 	LocationDescription *string   `json:"location_description"`
+	LocationAddress     *string   `json:"location_address"`
 	Longitude           float64   `json:"longitude"`
 	Latitude            float64   `json:"latitude"`
 	CreatedAt           time.Time `json:"created_at"`
@@ -35,6 +36,7 @@ type EventImageLk struct {
 
 type Event struct {
 	EventId          int64           `json:"event_id"`
+	VideoId          int64           `json:"video_id,omitempty"`
 	Description      string          `json:"description"`
 	ShortDescription *string         `json:"short_description"`
 	ExpirationDate   *time.Time      `json:"expiration_date"`
@@ -97,6 +99,7 @@ type CheckoutResponse struct {
 func Map(object EventDB) Event {
 	return Event{
 		EventId:          object.EventId,
+		VideoId:          object.VideoId,
 		Description:      object.Description,
 		ShortDescription: object.ShortDescription,
 		ExpirationDate:   object.ExpirationDate,
@@ -148,6 +151,7 @@ func MapLocation(object EventLocationDB) EventLocation {
 		EventId:             object.EventId,
 		LocationName:        object.LocationName,
 		LocationDescription: object.LocationDescription,
+		LocationAddress:     object.LocationAddress,
 		Longitude:           object.Longitude,
 		Latitude:            object.Latitude,
 		CreatedAt:           object.CreatedAt,
@@ -169,6 +173,7 @@ func ReverseMapLocation(object EventLocation) EventLocationDB {
 		EventId:             object.EventId,
 		LocationName:        object.LocationName,
 		LocationDescription: object.LocationDescription,
+		LocationAddress:     object.LocationAddress,
 		Longitude:           object.Longitude,
 		Latitude:            object.Latitude,
 		CreatedAt:           object.CreatedAt,

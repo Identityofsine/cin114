@@ -18,6 +18,56 @@ export GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "unknown
 export BUILD_ID="${GIT_BRANCH}-${GIT_COMMIT:-local}"
 export VERSION="0.0.1"
 
+# Load environment variables from .env file if it exists
+if [ -f ".env-$1" ]; then
+    source .env-$1
+    echo "Loaded environment variables from .env-$1 file"
+elif [ -f "backend/.env-$1" ]; then
+    source backend/.env-$1
+    echo "Loaded environment variables from backend/.env-$1 file"
+else
+    echo "No .env-$1 file found, using environment variables or defaults"
+fi
+
+# Set default redirect URL if not set
+export STRIPE_REDIRECT_URL="${STRIPE_REDIRECT_URL:-https://dev.cin114.net/thank-you}"
+
+# Secret validation function
+validate_secrets() {
+    local env=$1
+    local missing_secrets=()
+    
+    # Check for required secrets based on environment
+    if [[ "$env" == "prod" ]]; then
+        if [[ -z "${STRIPE_SECRET_KEY:-}" ]]; then
+            missing_secrets+=("STRIPE_SECRET_KEY")
+        fi
+        if [[ -z "${STRIPE_WEBHOOK_SECRET:-}" ]]; then
+            missing_secrets+=("STRIPE_WEBHOOK_SECRET")
+        fi
+        if [[ -z "${STRIPE_REDIRECT_URL:-}" ]]; then
+            missing_secrets+=("STRIPE_REDIRECT_URL")
+        fi
+        if [[ -z "${SMTP_USERNAME:-}" ]]; then
+            missing_secrets+=("SMTP_USERNAME")
+        fi
+        if [[ -z "${SMTP_PASSWORD:-}" ]]; then
+            missing_secrets+=("SMTP_PASSWORD")
+        fi
+        if [[ -z "${SMTP_FROM_EMAIL:-}" ]]; then
+            missing_secrets+=("SMTP_FROM_EMAIL")
+        fi
+    fi
+    
+    if [[ ${#missing_secrets[@]} -gt 0 ]]; then
+        log_warning "Missing required secrets for $env environment: ${missing_secrets[*]}"
+        log_warning "These secrets should be set as environment variables before building"
+        return 1
+    fi
+    
+    return 0
+}
+
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -77,10 +127,10 @@ check_prerequisites() {
         exit 1
     fi
     
-    # Check if source code directory exists
-    if [ ! -d "../cin114" ]; then
-        log_error "Source code directory ../cin114 not found."
-        log_error "Make sure you're running this script from the homebrew directory."
+    # Check if we're in the right directory (should have backend/ and src/ directories)
+    if [ ! -d "backend" ] || [ ! -d "src" ]; then
+        log_error "This script should be run from the cin114 root directory."
+        log_error "Expected to find backend/ and src/ directories here."
         exit 1
     fi
     
@@ -129,7 +179,7 @@ build_frontend() {
     echo "GIT_BRANCH: $GIT_BRANCH"
     echo "VERSION: $VERSION"
     echo "NEXT_PUBLIC_BRANCH: $env"
-    
+
     # Build the frontend image
     docker build \
         $cache_option \
@@ -159,7 +209,16 @@ build_api() {
     echo "GIT_COMMIT: $GIT_COMMIT"
     echo "GIT_BRANCH: $GIT_BRANCH"
     echo "VERSION: $VERSION"
-    
+    echo "STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-not set}"
+    echo "STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-not set}"
+    echo "STRIPE_REDIRECT_URL: $STRIPE_REDIRECT_URL"
+    echo "SMTP_SERVER: ${SMTP_SERVER:-smtp.gmail.com}"
+    echo "SMTP_PORT: ${SMTP_PORT:-587}"
+    echo "SMTP_USERNAME: ${SMTP_USERNAME:-not set}"
+    echo "SMTP_PASSWORD: ${SMTP_PASSWORD:-not set}"
+    echo "SMTP_FROM_EMAIL: ${SMTP_FROM_EMAIL:-not set}"
+    echo "SMTP_FROM_NAME: ${SMTP_FROM_NAME:-Cin114 Tickets}"
+
     # Build the API image
     docker build \
         $cache_option \
@@ -169,6 +228,15 @@ build_api() {
         --build-arg GIT_COMMIT="$GIT_COMMIT" \
         --build-arg GIT_BRANCH="$GIT_BRANCH" \
         --build-arg VERSION="$VERSION" \
+        --build-arg STRIPE_SECRET_KEY="${STRIPE_SECRET_KEY:-}" \
+        --build-arg STRIPE_WEBHOOK_SECRET="${STRIPE_WEBHOOK_SECRET:-}" \
+        --build-arg STRIPE_REDIRECT_URL="$STRIPE_REDIRECT_URL" \
+        --build-arg SMTP_SERVER="${SMTP_SERVER:-smtp.gmail.com}" \
+        --build-arg SMTP_PORT="${SMTP_PORT:-587}" \
+        --build-arg SMTP_USERNAME="${SMTP_USERNAME:-}" \
+        --build-arg SMTP_PASSWORD="${SMTP_PASSWORD:-}" \
+        --build-arg SMTP_FROM_EMAIL="${SMTP_FROM_EMAIL:-}" \
+        --build-arg SMTP_FROM_NAME="${SMTP_FROM_NAME:-Cin114 Tickets}" \
         -f ../cin114/backend/Dockerfile \
         ../cin114/backend/
     
@@ -244,6 +312,13 @@ main() {
     
     # Check prerequisites
     check_prerequisites
+    
+    # Validate secrets for production builds
+    if [[ "$environment" == "prod" ]]; then
+        if ! validate_secrets "$environment"; then
+            log_warning "Continuing with build, but secrets should be configured for production"
+        fi
+    fi
     
     # Authenticate if we're going to push
     if [ "$push_images" = true ]; then

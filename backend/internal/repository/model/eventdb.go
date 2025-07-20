@@ -13,6 +13,7 @@ type EventDB struct {
 	ExpirationDate   *time.Time `json:"expiration_date"`
 	CreatedAt        time.Time  `json:"created_at"`
 	UpdatedAt        time.Time  `json:"updated_at"`
+	VideoId          int64      `json:"video_id"`
 }
 
 func GetAllEvents() ([]EventDB, db.DatabaseError) {

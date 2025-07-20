@@ -1,0 +1,43 @@
+@use '@/app/theme.scss' as cui;
+
+.screening-map-button {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  max-width: 475px;
+  min-width: 310px;
+  padding: 24px 21px;
+  box-sizing: border-box;
+  font-weight: 600;
+
+  width: 100%;
+
+  background: cui.$gray-925;
+  border: 1px solid cui.$gray-900;
+  border-radius: 12px;
+
+  box-shadow: cui.$medium-shadow;
+
+  will-change: box-shadow, transform;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+  &__icon {
+    padding-left: 8px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  span {
+    padding-left: 24px;
+    box-sizing: border-box;
+    display: inline-block;
+    width: 100%;
+  }
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: cui.$medium-high-shadow;
+    transform: translateY(-2px) scale(1.02);
+  }
+}

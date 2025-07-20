@@ -13,3 +13,4 @@ data
 prod-data/
 dev-data/
 auth.yaml
+mail.yaml
