@@ -12,7 +12,7 @@ ENV NEXT_PUBLIC_BRANCH=$NEXT_PUBLIC_BRANCH
 
 WORKDIR /usr/src/app
 
-RUN apt update 
+RUN apt update --allow-insecure-repositories 
 
 COPY package*.json ./
 
