@@ -293,6 +293,13 @@ main() {
                 ;;
         esac
     done
+
+    log_info "Cleaning up dev-data directory..."
+
+    log_warning "This will remove all data in the dev-data directory!"
+    sudo rm -rf /home/kevin/software/cin114/backend/dev-data/
+
+
     
     # Validate environment
     if [[ "$environment" != "dev" && "$environment" != "prod" ]]; then

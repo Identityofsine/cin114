@@ -2,6 +2,7 @@ package notifications
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/identityofsine/fofx-go-gin-api-template/pkg/config"
 	"github.com/identityofsine/fofx-go-gin-api-template/pkg/storedlogs"
@@ -124,6 +125,8 @@ func InitMailClientFromConfig() *MailClient {
 		FromEmail:  mailConfig.FromEmail,
 		FromName:   mailConfig.FromName,
 	}
+
+	fmt.Println("Initializing Mail Client with config:", props)
 
 	return InitMailClient(props)
 }
