@@ -43,6 +43,8 @@ export default async function Page({
     video: video.url || '',
   }
 
+  const location = event.locations?.[0];
+
 
   return (
     <section className="screening">
@@ -67,7 +69,7 @@ export default async function Page({
         </FilmBackground>
       </div>
       <div className="screening-content">
-        <ScreeningMapPreview />
+        <ScreeningMapPreview location={location} />
         <ScreeningDetails event={event} />
       </div>
     </section>
