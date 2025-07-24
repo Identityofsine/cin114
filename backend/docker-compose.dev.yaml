@@ -34,7 +34,6 @@ services:
   db:
     container_name: cin114-backend-dev-db
     image: postgres:latest 
-    restart: always
     tty: true
     ports:
       - "5555:5432"

@@ -9,6 +9,8 @@
 
 .screening-map-preview {
   position: relative;
+  display: grid;
+  place-items: center;
   max-width: 772px;
   max-height: 641px;
   border-radius: 6px;
@@ -17,7 +19,9 @@
   box-shadow: cui.$light-shadow;
 
   &__map {
-    height: 641px;
+    height: 95%;
+    width: 95%;
+    border-radius: 6px;
   }
 
   &__error {
