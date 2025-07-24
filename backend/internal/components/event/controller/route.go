@@ -15,6 +15,7 @@ func (_ *route) UseRouter(router *gin.RouterGroup) *gin.RouterGroup {
 	router.GET("/events", GetAllEvents)
 	router.GET("/events/active", GetActiveEvents)
 	router.GET("/events/:id", GetEventById)
+	router.GET("/events/:id/ics", GetEventICS)
 	router.GET("/events/:id/exists", CheckEventExists)
 	router.POST("/events/:id/checkout", CreateEventCheckout)
 

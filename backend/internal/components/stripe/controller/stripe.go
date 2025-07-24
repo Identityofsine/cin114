@@ -476,6 +476,8 @@ func sendTicketConfirmationEmail(checkoutSession stripe.CheckoutSession, eventId
 
 	purchaseDate := time.Unix(stripeCharge.Created, 0).Format("January 2, 2006 3:04 PM MST")
 
+	icsUrl := fmt.Sprintf("%sapi/v1/events/%d/ics", config.GetServerDetails().WebServerConfig.URI, eventId)
+
 	// Create email data
 	emailData := notifications.TicketConfirmationData{
 		EventTitle:    eventTitle,
@@ -491,6 +493,7 @@ func sendTicketConfirmationEmail(checkoutSession stripe.CheckoutSession, eventId
 		PaymentMethod: paymentMethod,
 		TransactionID: stripeCharge.ID,
 		PurchaseDate:  purchaseDate,
+		CalendarURL:   icsUrl,
 	}
 
 	// Send the email

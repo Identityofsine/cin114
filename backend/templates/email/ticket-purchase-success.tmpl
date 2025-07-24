@@ -221,6 +221,48 @@
             font-size: 14px;
         }
         
+        .calendar-section {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #3f3f3f;
+        }
+        
+        .calendar-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+        
+        .calendar-btn {
+            background-color: #2c2c2c;
+            border: 1px solid #4f4f4f;
+            border-radius: 6px;
+            padding: 12px 24px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .calendar-btn:hover {
+            background-color: #404040;
+            border-color: #666;
+            color: #fff;
+        }
+        
+        .calendar-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .calendar-btn::before {
+            content: "📅 ";
+            margin-right: 8px;
+        }
+        
         .footer {
             background-color: #000;
             padding: 30px;
@@ -280,6 +322,11 @@
                 align-items: flex-start;
                 gap: 10px;
             }
+            
+            .calendar-btn {
+                width: 100%;
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -309,6 +356,13 @@
                         <strong>Venue:</strong> {{.EventVenue}}<br>
                         <strong>Address:</strong> {{.EventAddress}}
                     </div>
+                </div>
+                
+                <!-- Add to Calendar Section -->
+                <div class="calendar-section">
+                    <h3 class="calendar-title">Add to Your Calendar</h3>
+                    <p style="font-size: 14px; color: #a6a6a6; margin-bottom: 15px;">Download the event details to your calendar app</p>
+                    <a href="{{.CalendarURL}}" download="cin114-event.ics" class="calendar-btn">Add to Calendar</a>
                 </div>
             </div>
             

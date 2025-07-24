@@ -1,5 +1,5 @@
 version: "0.0.1"
 server_name: "cin114-backend"
 iteration: 1
-commit: "6878aca"
+commit: "01f7619"
 branch: "feat/11-mobile-landing-page"

@@ -6,7 +6,9 @@ import (
 	dto "github.com/identityofsine/fofx-go-gin-api-template/api/dto/event"
 	"github.com/identityofsine/fofx-go-gin-api-template/internal/repository/model"
 	"github.com/identityofsine/fofx-go-gin-api-template/pkg/db"
+	"github.com/identityofsine/fofx-go-gin-api-template/pkg/ics"
 	"github.com/identityofsine/fofx-go-gin-api-template/pkg/payment"
+	"github.com/identityofsine/fofx-go-gin-api-template/pkg/storedlogs"
 )
 
 // GetAllEventsService returns all events with their locations and images
@@ -40,6 +42,28 @@ func GetEventByIdService(id string) (*dto.Event, db.DatabaseError) {
 
 	result := dto.MapWithChildren(*event, locations, images)
 	return &result, nil
+}
+
+func GetEventICS(id string) ([]byte, db.DatabaseError) {
+
+	evnt, err := GetEventByIdService(id)
+	if err != nil {
+		return nil, err
+	}
+
+	if evnt == nil {
+		return nil, db.NewDatabaseError("GetEventICS", "Event not found", "event-not-found", 404)
+	}
+
+	icsData, rerr := ics.GenerateICSForEvent(*evnt)
+
+	if rerr != nil {
+		storedlogs.LogError("Failed to generate ICS for event", rerr)
+		return nil, db.NewDatabaseError("GetEventICS", "Failed to generate ICS", "ics-generation-failed", 500)
+	}
+
+	return icsData, nil
+
 }
 
 // GetActiveEventsService returns all active events (not expired) with their locations and images

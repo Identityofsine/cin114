@@ -51,9 +51,13 @@ jobs:
 
       - name: Build API Docker image
         env:
-          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
-          STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
-          STRIPE_REDIRECT_URL: ${{ secrets.STRIPE_REDIRECT_URL }}
+          STRIPE_SECRET_KEY: ${{ secrets.PROD_STRIPE_SECRET_KEY }}
+          STRIPE_WEBHOOK_SECRET: ${{ secrets.PROD_STRIPE_WEBHOOK_SECRET }}
+          STRIPE_REDIRECT_URL: ${{ secrets.PROD_STRIPE_REDIRECT_URL }}
+          SMTP_USERNAME: ${{ secrets.DEVMTP_USERNAME }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          SMTP_FROM_EMAIL: ${{ secrets.SMTP_FROM_EMAIL }}
+          SMTP_FROM_NAME: ${{ secrets.SMTP_FROM_NAME }}
         run: |
           docker build -t ${{ env.API_IMAGE }}:${{ env.TAG }} \
             --build-arg BUILD_DATE=${{ env.BUILD_DATE }} \
@@ -64,6 +68,12 @@ jobs:
             --build-arg STRIPE_SECRET_KEY="$STRIPE_SECRET_KEY" \
             --build-arg STRIPE_WEBHOOK_SECRET="$STRIPE_WEBHOOK_SECRET" \
             --build-arg STRIPE_REDIRECT_URL="$STRIPE_REDIRECT_URL" \
+            --build-arg SMTP_SERVER="$SMTP_SERVER" \
+            --build-arg SMTP_PORT="$SMTP_PORT" \
+            --build-arg SMTP_USERNAME="$SMTP_USERNAME" \
+            --build-arg SMTP_PASSWORD="$SMTP_PASSWORD" \
+            --build-arg SMTP_FROM_EMAIL="$SMTP_FROM_EMAIL" \
+            --build-arg SMTP_FROM_NAME="$SMTP_FROM_NAME" \
             -f backend/Dockerfile ./backend
 
       - name: Push Frontend Docker image

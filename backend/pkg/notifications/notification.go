@@ -70,6 +70,7 @@ type TicketConfirmationData struct {
 	PaymentMethod string   `json:"payment_method"`
 	TransactionID string   `json:"transaction_id"`
 	PurchaseDate  string   `json:"purchase_date"`
+	CalendarURL   string   `json:"calendar_url"`
 }
 
 // InitMailClient - this will initialize the mail client - also will act as a constructor
@@ -204,6 +205,7 @@ func SendTicketConfirmationEmail(to string, data TicketConfirmationData) error {
 		"PaymentMethod": data.PaymentMethod,
 		"TransactionID": data.TransactionID,
 		"PurchaseDate":  data.PurchaseDate,
+		"CalendarURL":   data.CalendarURL,
 	}
 
 	// Parse the template
