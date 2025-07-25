@@ -13,6 +13,8 @@
   place-items: center;
   max-width: 772px;
   max-height: 641px;
+  width: 85vw;
+  height: 85vh;
   border-radius: 6px;
   background: cui.$gray-950;
   border: 1px solid cui.$gray-900;
@@ -32,6 +34,11 @@
     color: cui.$gray-300;
     font-size: 1.2rem;
     text-align: center;
+  }
+
+  @include media(">=LGtablet") {
+    height: 500px;
+    width: 500px;
   }
 
   // Responsive adjustments for larger screens
