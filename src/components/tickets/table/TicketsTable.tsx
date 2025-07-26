@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useMemo } from 'react';
 import { Ticket } from '@/types/ticket';
-import { formatTicketId, parseTicketId } from '@/api/services/tickets';
+import { formatTicketId } from '@/api/services/tickets';
 import '../styles/table/tickets-table.scss';
 
 type TicketsTableProps = {
