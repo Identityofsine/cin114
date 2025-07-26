@@ -7,8 +7,8 @@ import { VideoMetadata } from '@/types/video';
 import { Films, MusicVideos, Videos } from '@/film.settings';
 
 
-function repeat(n: number) {
-  const arr = [];
+function repeat(n: number): VideoMetadata[] {
+  const arr: VideoMetadata[] = [];
   let z = 0;
   const DUMMY_VIDEOS = Object.values(Films) as VideoMetadata[];
   for (let i = 0; i < n; i++) {
