@@ -43,6 +43,13 @@ export default async function Page({
     video: video.url || '',
   }
 
+  const mobileBoxart: VideoMetadata['mobileBoxart'] = {
+    title: event.shortDescription || event.description || video.title || '',
+    caption: event.shortDescription || event.description || video.description || '',
+    img: headerImages?.find(image => image.imageType === 'poster-mobile')?.imageUrl || '',
+    video: video.url || '',
+  }
+
   const location = event.locations?.[0];
 
 
@@ -63,7 +70,8 @@ export default async function Page({
         <FilmBackground
           metadata={{
             ...video,
-            boxart
+            boxart,
+            mobileBoxart
           }}
         >
         </FilmBackground>
