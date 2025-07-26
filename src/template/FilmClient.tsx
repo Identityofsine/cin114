@@ -62,8 +62,12 @@ export function FilmBackground({ metadata }: FilmClientProps) {
       if (metadata.mobileBoxart?.img) {
         setCurrentArt(metadata.mobileBoxart.img);
       }
+    } else {
+      if (metadata.boxart?.img) {
+        setCurrentArt(metadata.boxart.img);
+      }
     }
-  }, [width, metadata.mobileBoxart?.img]);
+  }, [width, metadata.mobileBoxart?.img, metadata.boxart?.img]);
 
   function start(e: AnimationEvent) {
     if (e.animationName !== 'waiting') return;
