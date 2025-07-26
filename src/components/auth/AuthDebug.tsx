@@ -12,6 +12,22 @@ export default function AuthDebug() {
   const [rawToken, setRawToken] = useState<string | null>(null);
   const [localStorageTest, setLocalStorageTest] = useState<string>('');
 
+
+  useEffect(() => {
+
+    if (process.env.NODE_ENV === 'production') {
+      return;
+    }
+    
+    // Check token on mount
+    refreshTokenDisplay();
+    testLocalStorage();
+    
+    // Check token every 2 seconds to see if it changes
+    const interval = setInterval(refreshTokenDisplay, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
   // Only show in development environment
   if (process.env.NODE_ENV === 'production') {
     return null;
@@ -74,15 +90,6 @@ export default function AuthDebug() {
     }
       };
 
-  useEffect(() => {
-    // Check token on mount
-    refreshTokenDisplay();
-    testLocalStorage();
-    
-    // Check token every 2 seconds to see if it changes
-    const interval = setInterval(refreshTokenDisplay, 2000);
-    return () => clearInterval(interval);
-  }, []);
 
   const handleLogout = async () => {
     await logout();
