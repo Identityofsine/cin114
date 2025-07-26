@@ -1,7 +1,9 @@
 'use client';
+import { MOBILE_BREAKPOINT } from '@/constants';
 import './styles/film.scss';
 
 import { VideoMetadata } from "@/types/video";
+import useViewport from '@/util/hook/useViewport';
 import React, { CSSProperties } from "react";
 
 //@FILEDESC FilmClient is a client-side file that contains various Components strictly used in the `Film.tsx` file. These shouldn't be used outside of the `Film.tsx` file.
@@ -18,6 +20,8 @@ export function FilmBackground({ metadata }: FilmClientProps) {
   const [loaded, setLoaded] = React.useState(false);
   const [playing, setPlaying] = React.useState(false);
   const [progress, setProgress] = React.useState(0);
+  const [currentArt, setCurrentArt] = React.useState<string | undefined>(metadata.boxart.img);
+  const { width, height } = useViewport();
   const ref = React.useRef<HTMLVideoElement>(null);
 
   React.useEffect(() => {
@@ -53,6 +57,14 @@ export function FilmBackground({ metadata }: FilmClientProps) {
     }
   }, [ref.current, loaded, playing])
 
+  React.useEffect(() => {
+    if (width <= MOBILE_BREAKPOINT) {
+      if (metadata.mobileBoxart?.img) {
+        setCurrentArt(metadata.mobileBoxart.img);
+      }
+    }
+  }, [width, metadata.mobileBoxart?.img]);
+
   function start(e: AnimationEvent) {
     if (e.animationName !== 'waiting') return;
     if (playing) return;
@@ -78,7 +90,7 @@ export function FilmBackground({ metadata }: FilmClientProps) {
           </div>
         )
       }
-      <div className="film__bg" style={{ backgroundImage: `url("${metadata.boxart.img}")` }} />
+      <div className="film__bg" style={{ backgroundImage: `url("${currentArt}")` }} />
       <div className={`film__bg_video ${!loaded && 'unloaded' || ''} ${playing && 'playing' || ''}`}>
         <video muted loop ref={ref} className={playing && 'playing' || ''}>
         </video>

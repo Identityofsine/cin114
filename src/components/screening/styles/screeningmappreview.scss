@@ -1,13 +1,45 @@
 @use '@/app/theme.scss' as cui;
 @import '../../../app/scss_lib/breakpoints.scss';
 
+.leaflet-control-attribution {
+  svg {
+    display: none !important;
+  }
+}
+
 .screening-map-preview {
+  position: relative;
+  display: grid;
+  place-items: center;
   max-width: 772px;
   max-height: 641px;
+  width: 85vw;
+  height: 85vh;
   border-radius: 6px;
   background: cui.$gray-950;
   border: 1px solid cui.$gray-900;
   box-shadow: cui.$light-shadow;
+
+  &__map {
+    height: 95%;
+    width: 95%;
+    border-radius: 6px;
+  }
+
+  &__error {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: cui.$gray-300;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  @include media(">=LGtablet") {
+    height: 500px;
+    width: 500px;
+  }
 
   // Responsive adjustments for larger screens
   @include media(">=laptop") {

@@ -2,10 +2,14 @@
 @import '../../../app/scss_lib/breakpoints.scss';
 
 .screening-details {
-  padding: 36px 48px;
+  padding: 12px 4px;
   display: flex;
   flex-direction: column;
   gap: 36px;
+
+  @include media(">=laptop") {
+    padding: 36px 48px;
+  }
 
   &>* {
     text-align: center;

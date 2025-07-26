@@ -16,6 +16,12 @@ export type VideoMetadata = {
     img: string;
     video?: string;
   };
+  mobileBoxart?: {
+    title: string;
+    caption: string;
+    img: string;
+    video?: string;
+  };
   links?: {
     youtube?: string;
     vimeo?: string;

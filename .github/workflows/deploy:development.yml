@@ -87,12 +87,12 @@ jobs:
           STRIPE_SECRET_KEY: ${{ secrets.DEV_STRIPE_SECRET_KEY }}
           STRIPE_WEBHOOK_SECRET: ${{ secrets.DEV_STRIPE_WEBHOOK_SECRET }}
           STRIPE_REDIRECT_URL: ${{ secrets.DEV_STRIPE_REDIRECT_URL }}
-          SMTP_SERVER: ${{ secrets.DEV_SMTP_SERVER }}
-          SMTP_PORT: ${{ secrets.DEV_SMTP_PORT }}
-          SMTP_USERNAME: ${{ secrets.DEV_SMTP_USERNAME }}
-          SMTP_PASSWORD: ${{ secrets.DEV_SMTP_PASSWORD }}
-          SMTP_FROM_EMAIL: ${{ secrets.DEV_SMTP_FROM_EMAIL }}
-          SMTP_FROM_NAME: ${{ secrets.DEV_SMTP_FROM_NAME }}
+          SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USERNAME: ${{ secrets.DEVMTP_USERNAME }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          SMTP_FROM_EMAIL: ${{ secrets.SMTP_FROM_EMAIL }}
+          SMTP_FROM_NAME: ${{ secrets.SMTP_FROM_NAME }}
         run: |
           docker build -t ${{ env.API_IMAGE }}:${{ env.TAG }} \
             --build-arg BUILD_DATE=${{ env.BUILD_DATE }} \

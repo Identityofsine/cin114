@@ -22,6 +22,10 @@ footer {
     margin-left: 1rem;
     gap: .7rem;
 
+    @include media('<=tablet') {
+      display: none;
+    }
+
     @include media('<=LGtablet') {
       font-size: 1.0rem;
       gap: 1.2rem;
