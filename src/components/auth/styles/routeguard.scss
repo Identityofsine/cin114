@@ -1,0 +1,15 @@
+@use '@/app/theme.scss' as cui;
+
+.route-guard {
+  &__loading,
+  &__fallback {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+    color: var(--primary);
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    text-align: center;
+  }
+} 

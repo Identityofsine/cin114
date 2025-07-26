@@ -1,11 +1,18 @@
 package model
 
-import "github.com/identityofsine/fofx-go-gin-api-template/pkg/db"
+import (
+	"time"
+
+	"github.com/identityofsine/fofx-go-gin-api-template/pkg/db"
+)
 
 type OwnedTicketsDB struct {
-	TicketId           int64   `json:"ticket_id"`
-	EventDescription   string  `json:"event_description"`
-	StripeReceiptEmail *string `json:"stripe_receipt_email"`
+	TicketId           int64     `json:"ticket_id"`
+	EventId            int64     `json:"event_id"`
+	EventDescription   string    `json:"event_description"`
+	StripeReceiptEmail *string   `json:"stripe_receipt_email"`
+	CreatedAt          time.Time `json:"created_at"`
+	UpdatedAt          time.Time `json:"updated_at"`
 }
 
 func GetAllOwnedTickets() ([]OwnedTicketsDB, db.DatabaseError) {
@@ -59,6 +66,15 @@ func GetPaidOwnedTickets() ([]OwnedTicketsDB, db.DatabaseError) {
 func GetFreeOwnedTickets() ([]OwnedTicketsDB, db.DatabaseError) {
 	query := "SELECT * FROM owned_tickets WHERE stripe_receipt_email IS NULL ORDER BY ticket_id DESC"
 	rows, err := db.Query[OwnedTicketsDB](query)
+	if err != nil {
+		return nil, err
+	}
+	return *rows, nil
+}
+
+func GetOwnedTicketsByEventId(eventId int64) ([]OwnedTicketsDB, db.DatabaseError) {
+	query := "SELECT * FROM owned_tickets WHERE event_id = $1 ORDER BY ticket_id DESC"
+	rows, err := db.Query[OwnedTicketsDB](query, eventId)
 	if err != nil {
 		return nil, err
 	}

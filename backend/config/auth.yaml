@@ -1,4 +1,4 @@
-accessTokenExpiration: 900 # 15 minutes 
+accessTokenExpiration: 1800 # 15 minutes 
 refreshTokenExpiration: 604800 # 7 days
 # The secret key used to sign the JWT is stored in
 # the environment variable JWT_SECRET_KEY
