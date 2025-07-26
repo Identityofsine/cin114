@@ -5,7 +5,6 @@ import ScreeningHeader from '@/components/screening/ScreeningHeader';
 import ScreeningMapPreview from '@/components/screening/ScreeningMapPreview';
 import '@/components/screening/styles/screening.scss';
 import { FilmBackground } from '@/template/FilmClient';
-import { Event } from '@/types/event';
 import { VideoMetadata } from '@/types/video';
 import { getEvent, getVideo } from '@/api';
 
@@ -15,7 +14,7 @@ export default async function Page({
   params: Promise<{ id: string }>
 }) {
   const id = (await params).id;
-  
+
   // Validate the ID is a number
   const eventId = Number(id);
   if (isNaN(eventId)) {

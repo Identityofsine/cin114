@@ -21,7 +21,7 @@ export function FilmBackground({ metadata }: FilmClientProps) {
   const [playing, setPlaying] = React.useState(false);
   const [progress, setProgress] = React.useState(0);
   const [currentArt, setCurrentArt] = React.useState<string | undefined>(metadata.boxart.img);
-  const { width, height } = useViewport();
+  const { width } = useViewport();
   const ref = React.useRef<HTMLVideoElement>(null);
 
   React.useEffect(() => {

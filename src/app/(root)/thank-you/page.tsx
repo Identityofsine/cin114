@@ -44,7 +44,7 @@ export default function ThankYou() {
           <div className="thank-you__info-grid">
             <div className="thank-you__info-item">
               <h3>Email Confirmation</h3>
-              <p>We've sent your ticket confirmation to your email address. Please check your inbox and spam folder.</p>
+              <p>We&apos;ve sent your ticket confirmation to your email address. Please check your inbox and spam folder.</p>
             </div>
             <div className="thank-you__info-item">
               <h3>Event Details</h3>
@@ -57,7 +57,7 @@ export default function ThankYou() {
 
         {/* Next Steps Section */}
         <div className="thank-you__section">
-          <h2 className="thank-you__section-title">What's Next?</h2>
+          <h2 className="thank-you__section-title">What&apos;s Next?</h2>
           <div className="thank-you__steps">
             <div className="thank-you__step">
               <div className="thank-you__step-number">1</div>
@@ -70,7 +70,7 @@ export default function ThankYou() {
               <div className="thank-you__step-number">2</div>
               <div className="thank-you__step-content">
                 <h3>Save the Date</h3>
-                <p>Add the screening to your calendar so you don't miss it</p>
+                <p>Add the screening to your calendar so you don&apos;t miss it</p>
               </div>
             </div>
             <div className="thank-you__step">
@@ -91,7 +91,7 @@ export default function ThankYou() {
             <img src="/home/logo.svg" alt="CIN114" className="thank-you__logo" />
           </div>
           <p className="thank-you__closing">
-            We can't wait to share this cinematic experience with you. 
+            We can&apos;t wait to share this cinematic experience with you.
             See you at the screening!
           </p>
           <div className="thank-you__contact">
