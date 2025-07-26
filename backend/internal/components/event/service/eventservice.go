@@ -90,6 +90,17 @@ func CreateEventCheckoutService(eventId string, request dto.CreateCheckoutReques
 		return nil, db.NewDatabaseError("CreateEventCheckout", "Invalid event ID format", "invalid-event-id", 400)
 	}
 
+	// Check if the cap for the event has been exceeded
+	overCap, err := EventCapExceededService(eventId)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if overCap {
+		return nil, db.NewDatabaseError("CreateEventCheckout", "Event capacity exceeded", "event-cap-exceeded", 400)
+	}
+
 	// Create the checkout form for the payment service
 	checkoutForm := payment.CheckoutSessionForm{
 		EventId:    eventIdInt,
@@ -111,6 +122,34 @@ func CreateEventCheckoutService(eventId string, request dto.CreateCheckoutReques
 	}
 
 	return response, nil
+}
+
+func EventCapExceededService(id string) (bool, db.DatabaseError) {
+	idInt, parseErr := strconv.ParseInt(id, 10, 64)
+	if parseErr != nil {
+		return false, db.NewDatabaseError("EventCapExceeded", "Invalid ID format", "invalid-id", 400)
+	}
+
+	event, err := model.GetEventById(idInt)
+	if err != nil {
+		return false, err
+	}
+
+	if event == nil {
+		return false, db.NewDatabaseError("EventCapExceeded", "Event not found", "event-not-found", 404)
+	}
+
+	tickets, err := model.GetTicketsByEventId(idInt)
+	if err != nil {
+		return false, err
+	}
+
+	if int64(len(tickets)) >= event.Cap {
+		return true, nil
+	}
+
+	return false, nil
+
 }
 
 // EventExistsService checks if an event exists
