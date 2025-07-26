@@ -14,6 +14,7 @@ type EventDB struct {
 	CreatedAt        time.Time  `json:"created_at"`
 	UpdatedAt        time.Time  `json:"updated_at"`
 	VideoId          int64      `json:"video_id"`
+	Cap              int64      `json:"capacity,omitempty"` // Optional field for event capacity
 }
 
 func GetAllEvents() ([]EventDB, db.DatabaseError) {

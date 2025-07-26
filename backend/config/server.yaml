@@ -1,5 +1,5 @@
 version: "0.0.1"
 server_name: "cin114-backend"
 iteration: 1
-commit: "01f7619"
-branch: "feat/11-mobile-landing-page"
+commit: "4e2db76"
+branch: "feat/29-cap-to-buy-tickets"

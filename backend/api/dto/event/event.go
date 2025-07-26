@@ -44,6 +44,7 @@ type Event struct {
 	UpdatedAt        time.Time       `json:"updated_at"`
 	Locations        []EventLocation `json:"locations,omitempty"`
 	Images           []EventImage    `json:"images,omitempty"`
+	Cap              int64           `json:"capacity,omitempty"` // Optional field for event capacity
 }
 
 type CreateEventRequest struct {
@@ -107,6 +108,7 @@ func Map(object EventDB) Event {
 		UpdatedAt:        object.UpdatedAt,
 		Locations:        []EventLocation{},
 		Images:           []EventImage{},
+		Cap:              object.Cap,
 	}
 }
 
@@ -125,6 +127,7 @@ func ReverseMap(object Event) EventDB {
 		ExpirationDate:   object.ExpirationDate,
 		CreatedAt:        object.CreatedAt,
 		UpdatedAt:        object.UpdatedAt,
+		Cap:              object.Cap,
 	}
 }
 
