@@ -1,9 +1,10 @@
+"use client";
 import { useEffect, useState } from "react";
 
 export default function useViewport() {
   const [viewport, setViewport] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: 1920, // Default fallback width
+    height: 1080, // Default fallback height
   });
 
   useEffect(() => {
@@ -14,10 +15,10 @@ export default function useViewport() {
       });
     };
 
-    window.addEventListener('resize', handleResize);
-
-    // Initial size
+    // Initial size - only run on client
     handleResize();
+
+    window.addEventListener('resize', handleResize);
 
     return () => {
       window.removeEventListener('resize', handleResize);
