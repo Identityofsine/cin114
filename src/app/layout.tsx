@@ -4,6 +4,8 @@ import { Navbar } from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { TemplateMetadata } from "./template_metadata";
 import { getBuildInfo } from "@/services/build";
+import { getActiveEvents } from "@/api";
+import EventCallToActionWrapper from "@/components/home/EventCallToActionWrapper";
 
 export const metadata: Metadata = {
   ...TemplateMetadata
@@ -17,6 +19,8 @@ export default async function RootLayout({
 }>) {
 
   const build = getBuildInfo();
+  const activeEvents = await getActiveEvents();
+  const event = activeEvents.length > 0 ? activeEvents[0] : null;
 
   return (
     <html lang="en">
@@ -27,6 +31,7 @@ export default async function RootLayout({
           crossOrigin="" />
       </head>
       <body>
+        <EventCallToActionWrapper event={event} />
         <Navbar
           buildInfo={build}
         />

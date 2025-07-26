@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation';
 import ScreeningCallToAction from '@/components/screening/ScreeningCallToAction';
 import ScreeningDetails from '@/components/screening/ScreeningDetails';
 import ScreeningHeader from '@/components/screening/ScreeningHeader';
@@ -6,6 +7,7 @@ import '@/components/screening/styles/screening.scss';
 import { FilmBackground } from '@/template/FilmClient';
 import { Event } from '@/types/event';
 import { VideoMetadata } from '@/types/video';
+import { getEvent, getVideo } from '@/api';
 
 export default async function Page({
   params,
@@ -13,25 +15,28 @@ export default async function Page({
   params: Promise<{ id: string }>
 }) {
   const id = (await params).id;
-
-  const { event, video } = await new Promise<{ event: Event | undefined, video: VideoMetadata | undefined }>(async (resolve) => {
-    const event = await import('@/api').then(mod => mod.getEvent(Number(id)));
-    if (!event) {
-      throw new Error(`Event with ID ${id} not found`);
-    }
-    if (event?.videoId) {
-      const video = await import('@/api').then(mod => mod.getVideo(event.videoId));
-      resolve({ event, video: video });
-    }
-    resolve({ event, video: undefined });
-  });
-
-  if (!event) {
-    return <div className="error">Event not found</div>;
+  
+  // Validate the ID is a number
+  const eventId = Number(id);
+  if (isNaN(eventId)) {
+    notFound();
   }
 
-  if (!video) {
-    return <div className="error">Video not found</div>;
+  // Fetch the event
+  const event = await getEvent(eventId);
+  if (!event) {
+    notFound();
+  }
+
+  // Fetch the video if event has a videoId
+  let video: VideoMetadata | undefined = undefined;
+  if (event.videoId) {
+    video = await getVideo(event.videoId);
+    if (!video) {
+      notFound();
+    }
+  } else {
+    notFound(); // If no video associated with the event
   }
 
   const headerImages = event.images?.filter(image => image.imageType === 'poster' || image.imageType === 'poster-mobile');
@@ -51,7 +56,6 @@ export default async function Page({
   }
 
   const location = event.locations?.[0];
-
 
   return (
     <section className="screening">

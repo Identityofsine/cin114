@@ -2,6 +2,23 @@ import { authAxios } from "@/api/instance/instance";
 import { Checkout, CheckoutApi } from "@/types/checkout";
 import { Event, EventApi } from "@/types/event";
 
+export async function getActiveEvents(): Promise<Event[]> {
+  try {
+    // Use a much shorter timeout for SSR to avoid long waits
+    const response = await authAxios.get<EventApi[]>('/api/v1/events/active', {
+      timeout: 2000, // 2 seconds instead of 10
+    });
+    // Convert API response to the desired format
+    const events = response.data.map(populateEventFromBackend);
+
+    return events;
+  } catch (error) {
+    // During SSR or when backend is unavailable, return an empty array instead of throwing
+    console.warn('Health check failed:', error instanceof Error ? error.message : 'Unknown error');
+    return [];
+  }
+}
+
 export async function getEvent(eventId: number): Promise<Event | null> {
   try {
     // Use a much shorter timeout for SSR to avoid long waits
@@ -10,6 +27,10 @@ export async function getEvent(eventId: number): Promise<Event | null> {
     });
     // Convert API response to the desired format if necessary
     const event = populateEventFromBackend(response.data);
+
+    if (event.expirationDate && event.expirationDate < new Date()) {
+      return null;
+    }
 
     return event;
   } catch (error) {
@@ -49,7 +70,7 @@ function populateEventFromBackend(event: EventApi): Event {
     const [datePart, timePart] = cleanDateString.split(' ');
     const [year, month, day] = datePart.split('-').map(Number);
     const [hour, minute, second] = (timePart || '00:00:00').split(':').map(Number);
-    
+
     // Create date using local timezone (not UTC)
     return new Date(year, month - 1, day, hour, minute, second || 0);
   };

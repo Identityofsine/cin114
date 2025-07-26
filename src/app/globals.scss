@@ -123,3 +123,46 @@ a {
 .inter {
   font-family: 'Inter', sans-serif;
 }
+
+// Global spacing adjustments when event banner is present
+body.has-event-banner {
+  
+  // Adjust the home page spacing specifically
+  .home .home__cin {
+    margin-top: calc(6rem + 3.5rem) !important; // Original margin + banner height
+    
+    @include media('<=LGtablet') {
+      margin-top: calc(0rem + 3.2rem) !important; // Banner height only on mobile
+    }
+    
+    @include media('<=phone') {
+      margin-top: calc(0rem + 3.8rem) !important; // Slightly more space for mobile banner
+    }
+  }
+  
+  // Adjust navigation positioning if needed
+  .nav {
+    top: calc(1.3889rem + 3.5rem);
+    
+    @include media('<=LGtablet') {
+      top: calc(1.45rem + 3.2rem) !important;
+    }
+    
+    @include media('<=phone') {
+      top: calc(1.45rem + 3.8rem) !important;
+    }
+  }
+  
+  // Push down the navbar menu when opened
+  #navmenu {
+    top: 3.5rem; // Banner height on desktop
+    
+    @include media('<=LGtablet') {
+      top: 3.2rem; // Banner height on tablet
+    }
+    
+    @include media('<=phone') {
+      top: 3.8rem; // Banner height on mobile
+    }
+  }
+}

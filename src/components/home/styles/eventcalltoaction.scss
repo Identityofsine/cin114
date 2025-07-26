@@ -1,0 +1,141 @@
+@import '../../../app/scss_lib/breakpoints.scss';
+@import '../../../app/theme.scss';
+
+.event_cta_banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  background: linear-gradient(135deg, rgba(12, 12, 12, 0.95) 0%, rgba(22, 22, 22, 0.95) 100%);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  
+  .event_cta_link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background: linear-gradient(135deg, rgba(22, 22, 22, 0.95) 0%, rgba(44, 44, 44, 0.95) 100%);
+      
+      .event_cta_content {
+        .event_cta_arrow {
+          transform: translateX(4px);
+        }
+        
+        .pulse_dot {
+          animation-duration: 1s;
+        }
+      }
+    }
+  }
+  
+  .event_cta_content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 1.6667rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    
+    @include media('<=LGtablet') {
+      padding: 0.7rem 1.2rem;
+    }
+    
+    @include media('<=phone') {
+      padding: 0.6rem 1rem;
+      justify-content: center;
+      text-align: center;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+  }
+  
+  .event_cta_indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    
+    .pulse_dot {
+      width: 8px;
+      height: 8px;
+      background: #fff;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+    }
+    
+    span {
+      font-family: 'Rubik', 'Arial', sans-serif;
+      font-weight: 600;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      color: $gray-300;
+      text-transform: uppercase;
+      
+      @include media('<=phone') {
+        font-size: 0.7rem;
+      }
+    }
+    
+    @include media('<=phone') {
+      order: 2;
+    }
+  }
+  
+  .event_cta_text {
+    flex: 1;
+    text-align: center;
+    font-family: 'Rubik', 'Arial', sans-serif;
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: $white;
+    margin: 0 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+    @include media('<=LGtablet') {
+      font-size: 0.85rem;
+      margin: 0 0.8rem;
+    }
+    
+    @include media('<=phone') {
+      font-size: 0.8rem;
+      margin: 0;
+      white-space: normal;
+      order: 1;
+      max-width: 250px;
+    }
+  }
+  
+  .event_cta_arrow {
+    font-size: 1.2rem;
+    color: $gray-300;
+    transition: transform 0.3s ease;
+    font-weight: 300;
+    
+    @include media('<=phone') {
+      display: none;
+    }
+  }
+  
+  @keyframes pulse {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.6;
+      transform: scale(1.1);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+} 
