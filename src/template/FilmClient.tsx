@@ -62,6 +62,10 @@ export function FilmBackground({ metadata }: FilmClientProps) {
       if (metadata.mobileBoxart?.img) {
         setCurrentArt(metadata.mobileBoxart.img);
       }
+    } else {
+      if (metadata.boxart?.img) {
+        setCurrentArt(metadata.boxart.img);
+      }
     }
   }, [width, metadata.mobileBoxart?.img]);
 
