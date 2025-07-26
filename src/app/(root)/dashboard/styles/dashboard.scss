@@ -1,0 +1,48 @@
+@use '@/app/theme.scss' as cui;
+@import '../../../scss_lib/breakpoints.scss';
+
+.dashboard {
+  padding: 2rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  font-family: 'Inter', sans-serif;
+  
+  @include media(">=tablet") {
+    padding: 3rem;
+  }
+  
+  &__content {
+    text-align: center;
+    max-width: 600px;
+    
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: cui.$white;
+      
+      @include media(">=tablet") {
+        font-size: 3rem;
+      }
+    }
+    
+    p {
+      font-size: 1.125rem;
+      color: cui.$gray-300;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+      
+      @include media(">=tablet") {
+        font-size: 1.25rem;
+      }
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+} 

@@ -1,0 +1,97 @@
+@use '@/app/theme.scss' as cui;
+@import '../../../app/scss_lib/breakpoints.scss';
+
+.input-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: cui.$gray-300;
+  margin-bottom: 0.25rem;
+  
+  @include media(">=tablet") {
+    font-size: 1rem;
+  }
+}
+
+.input {
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid cui.$gray-700;
+  border-radius: 8px;
+  background-color: cui.$gray-900;
+  color: cui.$white;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  
+  &::placeholder {
+    color: cui.$gray-500;
+  }
+  
+  &:focus {
+    outline: none;
+    border-color: cui.$white;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+  
+  &:hover:not(:focus) {
+    border-color: cui.$gray-600;
+  }
+  
+  &--outlined {
+    background-color: transparent;
+    border-color: cui.$gray-600;
+    
+    &:focus {
+      border-color: cui.$white;
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+  }
+  
+  &--error {
+    border-color: #ef4444;
+    
+    &:focus {
+      border-color: #ef4444;
+      box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.2);
+    }
+  }
+  
+  @include media(">=tablet") {
+    padding: 1rem 1.25rem;
+    font-size: 1.125rem;
+  }
+  
+  @include media(">=laptop") {
+    padding: 1.125rem 1.5rem;
+  }
+}
+
+.input-error {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  color: #ef4444;
+  font-weight: 400;
+  
+  @include media(">=tablet") {
+    font-size: 1rem;
+  }
+}
+
+.input-helper {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  color: cui.$gray-500;
+  font-weight: 400;
+  
+  @include media(">=tablet") {
+    font-size: 1rem;
+  }
+} 

@@ -1,0 +1,1 @@
+export { default as TicketsTable } from './table/TicketsTable'; 

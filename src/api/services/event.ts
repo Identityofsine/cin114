@@ -19,6 +19,23 @@ export async function getActiveEvents(): Promise<Event[]> {
   }
 }
 
+export async function getEvents(): Promise<Event[]> {
+  try {
+    // Use a much shorter timeout for SSR to avoid long waits
+    const response = await authAxios.get<EventApi[]>('/api/v1/events', {
+      timeout: 2000, // 2 seconds instead of 10
+    });
+    // Convert API response to the desired format
+    const events = response.data.map(populateEventFromBackend);
+
+    return events;
+  } catch (error) {
+    // During SSR or when backend is unavailable, return an empty array instead of throwing
+    console.warn('Health check failed:', error instanceof Error ? error.message : 'Unknown error');
+    return [];
+  }
+}
+
 export async function getEvent(eventId: number): Promise<Event | null> {
   try {
     // Use a much shorter timeout for SSR to avoid long waits
