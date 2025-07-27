@@ -30,6 +30,7 @@
         width: fit-content;
         margin-top: 0;
         padding: 80px 40px;
+        gap: 0;
       }
 
       @include media(">=laptop") {
@@ -60,13 +61,14 @@
     flex-wrap: wrap;
     margin: 2rem 0;
     margin-bottom: 3rem;
-    gap: 20px;
+    gap: 350px;
     width: 100%;
     padding: 0 16px;
     box-sizing: border-box;
 
     @include media(">=tablet") {
       padding: 0 20px;
+      gap: 20px;
     }
 
     @include media(">=laptop") {
@@ -101,7 +103,7 @@
       &-content {
         padding: 40px 16px;
         justify-content: flex-start;
-        gap: 40px;
+        gap: 350px;
       }
     }
 
