@@ -1,6 +1,10 @@
 # Specifies a parent image
 FROM golang:1.23.1-bookworm
 
+# Set timezone to Eastern Time
+ENV TZ=America/New_York
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 # Build arguments for dynamic configuration
 ARG BUILD_DATE
 ARG BUILD_ID

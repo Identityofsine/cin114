@@ -1,5 +1,9 @@
 FROM node:20
 
+# Set timezone to Eastern Time
+ENV TZ=America/New_York
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 # Set build-time arguments
 ARG BUILD_DATE
 ARG BUILD_ID

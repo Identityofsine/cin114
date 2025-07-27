@@ -16,6 +16,7 @@ services:
       - NEXT_PUBLIC_BRANCH=${NEXT_PUBLIC_BRANCH:-dev}
       - BUILD_DATE=${BUILD_DATE:-}
       - BUILD_ID=${BUILD_ID:-}
+      - TZ=America/New_York
     ports:
       - "3000:3000"
     hostname: nextjs

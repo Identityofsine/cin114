@@ -12,6 +12,7 @@ services:
       - DB_USER=postgres
       - DB_PASSWORD=docker
       - DB_NAME=app
+      - TZ=America/New_York
     command: go run cmd/server/main.go
     build: 
       context: .
