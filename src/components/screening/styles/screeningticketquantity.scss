@@ -1,0 +1,356 @@
+@import '../../../app/scss_lib/breakpoints.scss';
+
+.ticket_quantity {
+  font-family: 'Rubik', 'Arial', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  
+  .quantity_label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    
+    @include media(">=tablet") {
+      font-size: 1rem;
+      letter-spacing: 0.8px;
+    }
+    
+    @include media(">=laptop") {
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+    }
+  }
+  
+  .quantity_controls {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 3px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+    }
+    
+    @include media(">=tablet") {
+      gap: 3px;
+      padding: 4px;
+      border-radius: 14px;
+    }
+    
+    @include media(">=laptop") {
+      gap: 4px;
+      padding: 5px;
+      border-radius: 16px;
+    }
+  }
+  
+  .quantity_btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-family: 'Rubik', 'Arial', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    position: relative;
+    overflow: hidden;
+    
+    // Touch targets for mobile
+    @include media("<=tablet") {
+      width: 44px;
+      height: 44px;
+      font-size: 1.4rem;
+    }
+    
+    @include media(">=tablet") {
+      width: 40px;
+      height: 40px;
+      font-size: 1.3rem;
+      border-radius: 10px;
+    }
+    
+    @include media(">=laptop") {
+      width: 42px;
+      height: 42px;
+      font-size: 1.4rem;
+      border-radius: 12px;
+    }
+    
+    span {
+      position: relative;
+      z-index: 2;
+      line-height: 1;
+      transition: transform 0.2s ease;
+    }
+    
+    // Ripple effect background
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.3s ease, height 0.3s ease;
+      z-index: 1;
+    }
+    
+    &:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+      
+      span {
+        transform: scale(1.1);
+      }
+      
+      &::before {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    
+    &:active:not(:disabled) {
+      transform: translateY(0);
+      
+      span {
+        transform: scale(0.95);
+      }
+    }
+    
+    &:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      
+      &:hover {
+        transform: none;
+        box-shadow: none;
+        background: rgba(255, 255, 255, 0.1);
+        
+        span {
+          transform: none;
+        }
+      }
+    }
+    
+    // Specific styles for minus button
+    &--minus {
+      span {
+        font-size: 1.4rem;
+        margin-top: -2px;
+        
+        @include media("<=tablet") {
+          font-size: 1.6rem;
+        }
+        
+        @include media(">=laptop") {
+          font-size: 1.5rem;
+        }
+      }
+    }
+    
+    // Specific styles for plus button
+    &--plus {
+      span {
+        font-size: 1.2rem;
+        
+        @include media("<=tablet") {
+          font-size: 1.4rem;
+        }
+        
+        @include media(">=laptop") {
+          font-size: 1.3rem;
+        }
+      }
+    }
+  }
+  
+  .quantity_input_container {
+    position: relative;
+    
+    &.focused {
+      .quantity_input {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: rgba(255, 255, 255, 0.4);
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+  
+  .quantity_input {
+    width: 50px;
+    height: 36px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    font-family: 'Rubik', 'Arial', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    outline: none;
+    transition: all 0.3s ease;
+    appearance: none;
+    
+    // Mobile optimizations
+    @include media("<=tablet") {
+      width: 56px;
+      height: 44px;
+      font-size: 1.1rem;
+    }
+    
+    @include media(">=tablet") {
+      width: 52px;
+      height: 40px;
+      font-size: 1rem;
+      border-radius: 10px;
+    }
+    
+    @include media(">=laptop") {
+      width: 54px;
+      height: 42px;
+      font-size: 1.1rem;
+      border-radius: 12px;
+    }
+    
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.12);
+    }
+    
+    &:focus {
+      border-color: rgba(255, 255, 255, 0.4);
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+    }
+    
+    // Remove number input spinners
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    
+    &[type=number] {
+      -moz-appearance: textfield;
+    }
+    
+    // Placeholder styling
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+  }
+}
+
+// Animation for loading state integration
+.screening_call_to_action.loading .ticket_quantity {
+  .quantity_btn, .quantity_input {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  
+  .quantity_label {
+    opacity: 0.6;
+  }
+}
+
+// Enhanced mobile touch experience
+@include media("<=phone") {
+  .ticket_quantity {
+    gap: 16px;
+    margin-top: 20px;
+    
+    .quantity_controls {
+      padding: 6px;
+      gap: 4px;
+    }
+    
+    .quantity_btn {
+      width: 48px;
+      height: 48px;
+      font-size: 1.5rem;
+      
+      &--minus span {
+        font-size: 1.8rem;
+      }
+      
+      &--plus span {
+        font-size: 1.5rem;
+      }
+    }
+    
+    .quantity_input {
+      width: 60px;
+      height: 48px;
+      font-size: 1.2rem;
+    }
+  }
+}
+
+// Very small screens optimization
+@include media("<=360px") {
+  .ticket_quantity {
+    .quantity_btn {
+      width: 42px;
+      height: 42px;
+      font-size: 1.3rem;
+    }
+    
+    .quantity_input {
+      width: 54px;
+      height: 42px;
+      font-size: 1.1rem;
+    }
+  }
+}
+
+// High contrast accessibility
+@media (prefers-contrast: high) {
+  .ticket_quantity {
+    .quantity_controls {
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .quantity_btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .quantity_input {
+      border-color: rgba(255, 255, 255, 0.4);
+      background: rgba(255, 255, 255, 0.15);
+    }
+  }
+}
+
+// Reduced motion accessibility
+@media (prefers-reduced-motion: reduce) {
+  .ticket_quantity * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
