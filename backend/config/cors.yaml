@@ -1,5 +1,6 @@
 allow_origins:
   - "https://cin114.net"
+  - "https://www.cin114.net"
   - "https://cin114films.com"
   - "https://www.cin114films.com"
   - "https://api.cin114.net"
