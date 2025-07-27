@@ -37,6 +37,7 @@ jobs:
           echo "GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)" >> $GITHUB_ENV
           echo "VERSION=0.0.1" >> $GITHUB_ENV
           echo "NEXT_PUBLIC_BRANCH=prod" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_API_BASE_URL=https://api.cin114.net" >> $GITHUB_ENV
 
       - name: Log in to GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
@@ -47,6 +48,7 @@ jobs:
             --build-arg BUILD_DATE=${{ env.BUILD_DATE }} \
             --build-arg BUILD_ID=${{ env.BUILD_ID }} \
             --build-arg NEXT_PUBLIC_BRANCH=${{ env.NEXT_PUBLIC_BRANCH }} \
+            --build-arg NEXT_PUBLIC_API_BASE_URL=https://api.cin114.net \
             -f Dockerfile .
 
       - name: Build API Docker image
