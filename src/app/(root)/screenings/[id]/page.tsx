@@ -39,20 +39,23 @@ export default async function Page({
   }
 
   const headerImages = event.images?.filter(image => image.imageType === 'poster' || image.imageType === 'poster-mobile');
+  const boxartVideo = event.images?.filter(image => image.imageType === 'video')?.[0]?.imageUrl ?? '';
 
   const boxart: VideoMetadata['boxart'] = {
     title: event.shortDescription || event.description || video.title || '',
     caption: event.shortDescription || event.description || video.description || '',
     img: headerImages?.find(image => image.imageType === 'poster')?.imageUrl || '',
-    video: video.url || '',
+    video: boxartVideo || '',
   }
 
   const mobileBoxart: VideoMetadata['mobileBoxart'] = {
     title: event.shortDescription || event.description || video.title || '',
     caption: event.shortDescription || event.description || video.description || '',
     img: headerImages?.find(image => image.imageType === 'poster-mobile')?.imageUrl || '',
-    video: video.url || '',
+    video: boxartVideo || '',
   }
+
+  console.log(boxart, mobileBoxart);
 
   const location = event.locations?.[0];
 
