@@ -18,6 +18,7 @@ function EventTable({ events = [] }: EventTableProps) {
   const formatDate = (date: Date | string | undefined) => {
     if (!date) return 'TBD';
     const eventDate = new Date(date);
+    // Display the date as-is without timezone conversions
     return eventDate.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
