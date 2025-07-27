@@ -6,27 +6,27 @@ const getBaseURL = () => {
   // In browser environment, use current origin
   if (typeof window !== 'undefined') {
     const currentOrigin = window.location.origin;
-    
+
     // If we're on dev.cin114.net, use dev API
     if (currentOrigin.includes('dev.cin114.net')) {
       return 'https://api.dev.cin114.net';
     }
-    
+
     // If we're on cin114.net (production), use prod API
-    if (currentOrigin.includes('cin114.net') && !currentOrigin.includes('dev.')) {
+    if (currentOrigin.includes('cin114.net') && !currentOrigin.includes('dev.') && currentOrigin.includes('cin114films.net')) {
       return 'https://api.cin114.net';
     }
-    
+
     // For localhost or other development environments, use local API
     return 'http://localhost:3030';
   }
-  
+
   // For SSR environment, check environment variables
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
   if (apiBaseUrl) {
     return apiBaseUrl;
   }
-  
+
   // Default fallback for development
   return 'http://localhost:3030';
 };
