@@ -70,7 +70,7 @@ jobs:
           echo "GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)" >> $GITHUB_ENV
           echo "VERSION=0.0.1" >> $GITHUB_ENV
           echo "NEXT_PUBLIC_BRANCH=dev" >> $GITHUB_ENV
-          echo "NEXT_PUBLIC_API_BASE_URL=https://dev.api.cin114.net" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_API_BASE_URL=https://api.dev.cin114.net" >> $GITHUB_ENV
 
       - name: Log in to GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin

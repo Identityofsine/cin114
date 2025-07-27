@@ -1,7 +1,9 @@
 allow_origins:
   - "https://cin114.net"
+  - "https://api.cin114.net"
   - "https://dev.cin114.net"
   - "https://dev.api.cin114.net"
+  - "https://api.dev.cin114.net"
   - "http://localhost:3000"
   - "http://localhost:3030"
 allow_methods:
