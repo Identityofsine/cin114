@@ -1,0 +1,3 @@
+-- +goose Up
+
+ALTER TABLE events ADD COLUMN IF NOT EXISTS cap INT DEFAULT 200;

@@ -1,0 +1,163 @@
+package service
+
+import (
+	"strconv"
+
+	dto "github.com/identityofsine/fofx-go-gin-api-template/api/dto/event"
+	"github.com/identityofsine/fofx-go-gin-api-template/internal/repository/model"
+	"github.com/identityofsine/fofx-go-gin-api-template/pkg/db"
+	"github.com/identityofsine/fofx-go-gin-api-template/pkg/ics"
+	"github.com/identityofsine/fofx-go-gin-api-template/pkg/payment"
+	"github.com/identityofsine/fofx-go-gin-api-template/pkg/storedlogs"
+)
+
+// GetAllEventsService returns all events with their locations and images
+func GetAllEventsService() ([]dto.Event, db.DatabaseError) {
+	events, locationsMap, imagesMap, err := model.GetAllEventsWithChildren()
+	if err != nil {
+		return nil, err
+	}
+
+	result := make([]dto.Event, len(events))
+	for i, event := range events {
+		locations := locationsMap[event.EventId]
+		images := imagesMap[event.EventId]
+		result[i] = dto.MapWithChildren(event, locations, images)
+	}
+
+	return result, nil
+}
+
+// GetEventByIdService returns a specific event by ID with its locations and images
+func GetEventByIdService(id string) (*dto.Event, db.DatabaseError) {
+	idInt, parseErr := strconv.ParseInt(id, 10, 64)
+	if parseErr != nil {
+		return nil, db.NewDatabaseError("GetEventById", "Invalid ID format", "invalid-id", 400)
+	}
+
+	event, locations, images, err := model.GetEventByIdWithChildren(idInt)
+	if err != nil {
+		return nil, err
+	}
+
+	result := dto.MapWithChildren(*event, locations, images)
+	return &result, nil
+}
+
+func GetEventICS(id string) ([]byte, db.DatabaseError) {
+
+	evnt, err := GetEventByIdService(id)
+	if err != nil {
+		return nil, err
+	}
+
+	if evnt == nil {
+		return nil, db.NewDatabaseError("GetEventICS", "Event not found", "event-not-found", 404)
+	}
+
+	icsData, rerr := ics.GenerateICSForEvent(*evnt)
+
+	if rerr != nil {
+		storedlogs.LogError("Failed to generate ICS for event", rerr)
+		return nil, db.NewDatabaseError("GetEventICS", "Failed to generate ICS", "ics-generation-failed", 500)
+	}
+
+	return icsData, nil
+
+}
+
+// GetActiveEventsService returns all active events (not expired) with their locations and images
+func GetActiveEventsService() ([]dto.Event, db.DatabaseError) {
+	events, locationsMap, imagesMap, err := model.GetActiveEventsWithChildren()
+	if err != nil {
+		return nil, err
+	}
+
+	result := make([]dto.Event, len(events))
+	for i, event := range events {
+		locations := locationsMap[event.EventId]
+		images := imagesMap[event.EventId]
+		result[i] = dto.MapWithChildren(event, locations, images)
+	}
+
+	return result, nil
+}
+
+// CreateEventCheckoutService creates a checkout session for an event
+func CreateEventCheckoutService(eventId string, request dto.CreateCheckoutRequest) (*dto.CheckoutResponse, db.DatabaseError) {
+	eventIdInt, parseErr := strconv.ParseInt(eventId, 10, 64)
+	if parseErr != nil {
+		return nil, db.NewDatabaseError("CreateEventCheckout", "Invalid event ID format", "invalid-event-id", 400)
+	}
+
+	// Check if the cap for the event has been exceeded
+	overCap, err := EventCapExceededService(eventId)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if overCap {
+		return nil, db.NewDatabaseError("CreateEventCheckout", "Event capacity exceeded", "event-cap-exceeded", 400)
+	}
+
+	// Create the checkout form for the payment service
+	checkoutForm := payment.CheckoutSessionForm{
+		EventId:    eventIdInt,
+		Quantity:   request.Quantity,
+		SuccessURL: request.SuccessURL,
+		CancelURL:  request.CancelURL,
+	}
+
+	// Create the checkout session using the payment service
+	session, err := payment.CreateCheckoutSessionForEvent(checkoutForm)
+	if err != nil {
+		return nil, err
+	}
+
+	// Return the response with checkout URL and session ID
+	response := &dto.CheckoutResponse{
+		CheckoutURL: session.URL,
+		SessionId:   session.ID,
+	}
+
+	return response, nil
+}
+
+func EventCapExceededService(id string) (bool, db.DatabaseError) {
+	idInt, parseErr := strconv.ParseInt(id, 10, 64)
+	if parseErr != nil {
+		return false, db.NewDatabaseError("EventCapExceeded", "Invalid ID format", "invalid-id", 400)
+	}
+
+	event, err := model.GetEventById(idInt)
+	if err != nil {
+		return false, err
+	}
+
+	if event == nil {
+		return false, db.NewDatabaseError("EventCapExceeded", "Event not found", "event-not-found", 404)
+	}
+
+	tickets, err := model.GetTicketsByEventId(idInt)
+	if err != nil {
+		return false, err
+	}
+
+	if int64(len(tickets)) >= event.Cap {
+		return true, nil
+	}
+
+	return false, nil
+
+}
+
+// EventExistsService checks if an event exists
+func EventExistsService(id string) (bool, db.DatabaseError) {
+	idInt, parseErr := strconv.ParseInt(id, 10, 64)
+	if parseErr != nil {
+		return false, db.NewDatabaseError("EventExists", "Invalid ID format", "invalid-id", 400)
+	}
+
+	return model.EventExists(idInt)
+}

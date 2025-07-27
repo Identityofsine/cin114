@@ -1,0 +1,2 @@
+export const MOBILE_BREAKPOINT = 768;
+export const MOBILE_BREAKPOINT_PX = `${MOBILE_BREAKPOINT}px`;

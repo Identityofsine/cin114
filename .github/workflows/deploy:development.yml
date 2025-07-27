@@ -6,20 +6,54 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE_NAME: ghcr.io/identityofsine/cin114
-  TAG: dev  # change to 'prod' for production branch
+  FRONTEND_IMAGE: ghcr.io/identityofsine/cin114
+  API_IMAGE: ghcr.io/identityofsine/cin114-api
+  TAG: dev
 
 permissions:
   packages: write
 
 jobs:
 
+  test-secrets:
+    name: Debug - Check Secrets and SSH Connection
+    runs-on: ubuntu-latest
+    steps:
+    - name: Debug - Check if secrets are accessible
+      run: |
+        echo "Testing secret access..."
+        echo "SERVER_IP is set: ${{ secrets.SERVER_IP != '' }}"
+        echo "SERVER_USER is set: ${{ secrets.SERVER_USER != '' }}"
+        echo "SSH_PRIVATE_KEY is set: ${{ secrets.SSH_PRIVATE_KEY != '' }}"
+        echo "SERVER_USER value: ${{ secrets.SERVER_USER }}"
+        echo "SERVER_IP length: ${#SERVER_IP}"
+        echo "SSH_PRIVATE_KEY length: ${#SSH_PRIVATE_KEY}"
+      env:
+        SERVER_IP: ${{ secrets.SERVER_IP }}
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Test SSH Connection
+      uses: appleboy/ssh-action@v1.1.0
+      with:
+        host: ${{ secrets.SERVER_IP }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        timeout: 30s
+        debug: true
+        script: |
+          echo "✅ SSH connection successful!"
+          echo "Current user: $(whoami)"
+          echo "Current directory: $(pwd)"
+          echo "Server hostname: $(hostname)"
+          echo "Date: $(date)"
+
   test:
     name: Test
+    needs: test-secrets
     uses: ./.github/workflows/test:frontend.yml
 
   build-and-push:
-    name: Build and Push Docker Image
+    name: Build and Push Docker Images
     permissions:
       packages: write
     runs-on: ubuntu-latest
@@ -32,39 +66,97 @@ jobs:
         run: |
           echo "BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_ENV
           echo "BUILD_ID=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+          echo "GIT_COMMIT=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+          echo "GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)" >> $GITHUB_ENV
+          echo "VERSION=0.0.1" >> $GITHUB_ENV
           echo "NEXT_PUBLIC_BRANCH=dev" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_API_BASE_URL=https://api.dev.cin114.net" >> $GITHUB_ENV
 
       - name: Log in to GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      - name: Build Docker image
+      - name: Build Frontend Docker image
         run: |
-          docker compose -f docker-compose.yaml -f docker-compose.dev.yaml build \
+          docker build -t ${{ env.FRONTEND_IMAGE }}:${{ env.TAG }} \
             --build-arg BUILD_DATE=${{ env.BUILD_DATE }} \
             --build-arg BUILD_ID=${{ env.BUILD_ID }} \
-            --build-arg NEXT_PUBLIC_BRANCH=${{ env.NEXT_PUBLIC_BRANCH }}
+            --build-arg NEXT_PUBLIC_BRANCH=${{ env.NEXT_PUBLIC_BRANCH }} \
+            --build-arg NEXT_PUBLIC_API_BASE_URL=${{ env.NEXT_PUBLIC_API_BASE_URL }} \
+            -f Dockerfile .
 
-      - name: Push Docker image
-        run: docker compose -f docker-compose.yaml -f docker-compose.dev.yaml push
+      - name: Build API Docker image
+        env:
+          STRIPE_SECRET_KEY: ${{ secrets.DEV_STRIPE_SECRET_KEY }}
+          STRIPE_WEBHOOK_SECRET: ${{ secrets.DEV_STRIPE_WEBHOOK_SECRET }}
+          STRIPE_REDIRECT_URL: ${{ secrets.DEV_STRIPE_REDIRECT_URL }}
+          SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          SMTP_FROM_EMAIL: ${{ secrets.SMTP_FROM_EMAIL }}
+          SMTP_FROM_NAME: ${{ secrets.SMTP_FROM_NAME }}
+        run: |
+          docker build -t ${{ env.API_IMAGE }}:${{ env.TAG }} \
+            --build-arg BUILD_DATE=${{ env.BUILD_DATE }} \
+            --build-arg BUILD_ID=${{ env.BUILD_ID }} \
+            --build-arg GIT_COMMIT=${{ env.GIT_COMMIT }} \
+            --build-arg GIT_BRANCH=${{ env.GIT_BRANCH }} \
+            --build-arg VERSION=${{ env.VERSION }} \
+            --build-arg STRIPE_SECRET_KEY="$STRIPE_SECRET_KEY" \
+            --build-arg STRIPE_WEBHOOK_SECRET="$STRIPE_WEBHOOK_SECRET" \
+            --build-arg STRIPE_REDIRECT_URL="$STRIPE_REDIRECT_URL" \
+            --build-arg SMTP_SERVER="$SMTP_SERVER" \
+            --build-arg SMTP_PORT="$SMTP_PORT" \
+            --build-arg SMTP_USERNAME="$SMTP_USERNAME" \
+            --build-arg SMTP_PASSWORD="$SMTP_PASSWORD" \
+            --build-arg SMTP_FROM_EMAIL="$SMTP_FROM_EMAIL" \
+            --build-arg SMTP_FROM_NAME="$SMTP_FROM_NAME" \
+            -f backend/Dockerfile ./backend
+
+      - name: Push Frontend Docker image
+        run: docker push ${{ env.FRONTEND_IMAGE }}:${{ env.TAG }}
+
+      - name: Push API Docker image
+        run: docker push ${{ env.API_IMAGE }}:${{ env.TAG }}
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build-and-push 
+    needs: build-and-push
+    permissions:
+      contents: read 
     steps:
     - name: Checkout
       uses: actions/checkout@v4.2.2
 
-    - name: Execute deployment script 
-      uses: appleboy/ssh-action@master
+    - name: Deploy to Development
+      uses: appleboy/ssh-action@v1.1.0
       with:
         host: ${{ secrets.SERVER_IP }}
         username: ${{ secrets.SERVER_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
+        timeout: 60s
         script: |
           #!/bin/bash
           set -e  # Exit immediately if a command exits with a non-zero status
           set -x  # Print each command before executing it
+          # Set environment variables for deployment
+          export NEXT_PUBLIC_BRANCH="dev"
+          export NODE_ENV="development"
+          export BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          export BUILD_ID="$(git rev-parse --short HEAD 2>/dev/null || echo 'unknown')"
+          # Set Stripe environment variables
+          export STRIPE_SECRET_KEY="${{ secrets.STRIPE_SECRET_KEY }}"
+          export STRIPE_WEBHOOK_SECRET="${{ secrets.STRIPE_WEBHOOK_SECRET }}"
+          export STRIPE_REDIRECT_URL="${{ secrets.STRIPE_REDIRECT_URL }}"
+          # Set SMTP environment variables
+          export SMTP_SERVER="${{ secrets.SMTP_SERVER }}"
+          export SMTP_PORT="${{ secrets.SMTP_PORT }}"
+          export SMTP_USERNAME="${{ secrets.SMTP_USERNAME }}"
+          export SMTP_PASSWORD="${{ secrets.SMTP_PASSWORD }}"
+          export SMTP_FROM_EMAIL="${{ secrets.SMTP_FROM_EMAIL }}"
+          export SMTP_FROM_NAME="${{ secrets.SMTP_FROM_NAME }}"
           # Navigate to the homebrew directory
           cd ~/homebrew || exit 1
-          # Run the deployment script with the 'dev' argument
+          # Run the NEW streamlined deployment script
           ./deploy.sh dev
+

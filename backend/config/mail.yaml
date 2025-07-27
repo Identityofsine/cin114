@@ -1,0 +1,16 @@
+# Mail Configuration
+# This file is used for local development only
+# In production/Docker builds, this file is regenerated with build-time secrets
+# 
+# For Gmail SMTP:
+# - Use smtp.gmail.com as the server
+# - Use port 587 for TLS
+# - Use your Gmail address as username
+# - Use an App Password (not your regular password) for password
+#   To generate an App Password:
+#   1. Enable 2-factor authentication on your Google account
+#   2. Go to https://myaccount.google.com/apppasswords
+#   3. Generate a new app password for "Mail"
+#   4. Use this 16-character password here
+
+# Leave these empty - they will be populated from environment variables (.env file)

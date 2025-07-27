@@ -1,0 +1,69 @@
+@import '../../../app/scss_lib/breakpoints.scss';
+
+.screening-header {
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+  margin-bottom: 2rem;
+  user-select: none;
+}
+
+.screening-header__main {
+  font-family: 'Playfair', serif;
+  font-size: 190px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
+
+
+  @include media("<=laptop") {
+    font-size: 150px;
+  }
+
+}
+
+.screening-header__side {
+  height: 100%;
+  width: auto;
+  align-self: center;
+  display: block;
+  object-fit: contain;
+
+  @include media("<=tablet") {
+    display: none;
+  }
+}
+
+.screening-header__top {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  width: 116px;
+  transform: translateX(-50%);
+
+  @include media(">tablet") {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .screening-header__main {
+    font-size: 100px;
+  }
+}
+
+@media (max-width: 500px) {
+  .screening-header__main {
+    font-size: 80px;
+  }
+}
+
+@media (max-width: 400px) {
+  .screening-header__main {
+    font-size: 60px;
+  }
+
+  .screening-header__top {
+    top: -20px;
+  }
+}
