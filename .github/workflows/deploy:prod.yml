@@ -116,4 +116,4 @@ jobs:
           # Navigate to the homebrew directory
           cd ~/homebrew || exit 1
           # Run the NEW streamlined deployment script
-          ./deploy-new.sh prod
+          ./deploy.sh prod

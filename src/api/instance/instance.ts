@@ -13,7 +13,7 @@ const getBaseURL = () => {
     }
 
     // If we're on cin114.net (production), use prod API
-    if (currentOrigin.includes('cin114.net') && !currentOrigin.includes('dev.') && currentOrigin.includes('cin114films.net')) {
+    if (currentOrigin.includes('cin114.net') || currentOrigin.includes('cin114films.net')) {
       return 'https://api.cin114.net';
     }
 
