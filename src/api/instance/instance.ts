@@ -18,7 +18,7 @@ const getBaseURL = () => {
     }
 
     // For localhost or other development environments, use local API
-    return 'http://localhost:3030';
+    return 'https://api.dev.cin114.net';
   }
 
   // For SSR environment, check environment variables
@@ -28,7 +28,7 @@ const getBaseURL = () => {
   }
 
   // Default fallback for development
-  return 'http://localhost:3030';
+  return 'https://api.dev.cin114.net';
 };
 
 // Create axios instance with base URL from environment
