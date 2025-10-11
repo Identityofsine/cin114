@@ -17,7 +17,7 @@ function Footer() {
 				</div>
 				<div className="flex owners row">
 					<div className="flex column ">
-						<span className="">Kai Luckey</span>
+						<span className="">Kai Helenius</span>
 						<span>Erin Hennig</span>
 					</div>
 					<div className="flex column">
