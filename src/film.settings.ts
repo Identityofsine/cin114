@@ -19,15 +19,15 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 		credits: [
 			{
 				role: "Starring",
-				name: ['Kai Luckey', 'Antonio Venticinque']
+				name: ['Kai Helenius', 'Antonio Venticinque']
 			},
 			{
 				role: 'Director',
-				name: 'Kai Luckey',
+				name: 'Kai Helenius',
 			},
 			{
 				role: 'Writers',
-				name: 'Kai Luckey'
+				name: 'Kai Helenius'
 			},
 			{
 				role: 'Cinemotographer',
@@ -35,7 +35,7 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 			},
 			{
 				role: 'Producers',
-				name: ['Erin Hennig', 'Kai Luckey', 'Noah Fields']
+				name: ['Erin Hennig', 'Kai Helenius', 'Noah Fields']
 			}
 		],
 		url: '/catalog/john-ford',
@@ -57,7 +57,7 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 		credits: [
 			{
 				role: "Starring",
-				name: ['Kai Luckey', 'Shane Keeley', 'Noah Fields'],
+				name: ['Kai Helenius', 'Shane Keeley', 'Noah Fields'],
 			},
 			{
 				role: 'Director',
@@ -69,11 +69,11 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 			},
 			{
 				role: 'Cinematographer',
-				name: 'Kai Luckey'
+				name: 'Kai Helenius'
 			},
 			{
 				role: 'Producer',
-				name: ['Kristopher King', 'Kai Luckey']
+				name: ['Kristopher King', 'Kai Helenius']
 			},
 
 		],
@@ -95,7 +95,7 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 		credits: [
 			{
 				role: "Starring",
-				name: ['Kristopher King', 'Kai Luckey'],
+				name: ['Kristopher King', 'Kai Helenius'],
 			},
 			{
 				role: 'Director',
@@ -107,11 +107,11 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 			},
 			{
 				role: 'Cinemotographer',
-				name: 'Kai Luckey'
+				name: 'Kai Helenius'
 			},
 			{
 				role: 'Producers',
-				name: ['Shane Keeley', 'Kai Luckey']
+				name: ['Shane Keeley', 'Kai Helenius']
 			},
 		],
 		date: '2024',
@@ -146,11 +146,11 @@ export const Films: Record<FilmIndex, VideoMetadata> = {
 			},
 			{
 				role: 'Cinemotographer',
-				name: 'Kai Luckey'
+				name: 'Kai Helenius'
 			},
 			{
 				role: 'Producer',
-				name: ['Sebastian Caldwell', 'Kai Luckey']
+				name: ['Sebastian Caldwell', 'Kai Helenius']
 			},
 		],
 		date: '2024',
